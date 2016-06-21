@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - '6.1'
+  - '6.0'
+  - '4.4'
+script:
+  - npm run lint
+  - NODE_ENV=integration node server/server.js & npm test
