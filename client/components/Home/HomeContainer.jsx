@@ -7,7 +7,6 @@ const HomeContainer = (props) => (
 );
 
 const mapStateToProps = (state) => ({
-  data: state.data,
 });
 
 export default connect(mapStateToProps)(HomeContainer);

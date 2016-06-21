@@ -14,6 +14,7 @@ module.exports = (app, express) => {
   app.use(webpackHotMiddleware(compiler));
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
   app.use(session({ secret: 'fred', resave: false, saveUninitialized: false }));
   app.use(express.static(path.join(`${__dirname}./../../dist`)));
 };

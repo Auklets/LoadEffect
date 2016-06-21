@@ -8,6 +8,7 @@ import AppContainer from './components/AppContainer.jsx';
 import SignupContainer from './components/Signup/SignupContainer.jsx';
 import LoginContainer from './components/Login/LoginContainer.jsx';
 import HomeContainer from './components/Home/HomeContainer.jsx';
+import MainContainer from './components/Main/MainContainer.jsx';
 
 const router = (
   <Provider store={store}>
@@ -15,6 +16,7 @@ const router = (
       <Route path="/" component={AppContainer}>
         <IndexRoute component={HomeContainer} />
         <Route path="/login" component={LoginContainer} />
+        <Route path="/main" component={MainContainer} />
         <Route path="/signup" component={SignupContainer} />
       </Route>
     </Router>
