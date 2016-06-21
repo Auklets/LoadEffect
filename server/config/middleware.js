@@ -2,7 +2,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const morgan = require('morgan');
-const passport = require('passport');
 
 const config = require('../../webpack.config.js');
 const webpack = require('webpack');
