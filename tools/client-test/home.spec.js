@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import Home from './Home.jsx';
+import Home from '../../client/components/Home/Home.jsx';
 
 const setup = () => {
   const props = {
@@ -15,7 +15,7 @@ const setup = () => {
 
 describe('<Home />', () => {
   it('Should pass', () => {
-    expect(true).to.equal(false);
+    expect(true).to.equal(true);
   });
 
   it('It should render', () => {

@@ -3,7 +3,7 @@ import { Jumbotron, Button } from 'react-bootstrap';
 
 const Home = () => (
   <Jumbotron>
-    <h1>Load Testing Info2</h1>
+    <h1>Load Testing Info</h1>
     <p>
     This is going to be our main info Jumbotron. All visitors will hit this page first.
     We can figure out the exact design later if we want.
