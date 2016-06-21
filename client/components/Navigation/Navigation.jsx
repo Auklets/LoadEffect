@@ -1,22 +1,54 @@
-import React from 'react';
+
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
+import { logoutUser } from '../../redux/actionCreators/logout-actions';
 
-const Navigation = () => (
-  <Navbar inverse>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/">Load Tester</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      <Nav pullRight>
-        <NavItem eventKey={1}><Link to="/login">Login</Link></NavItem>
-        <NavItem eventKey={2}><Link to="/signup">Signup</Link></NavItem>
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
-);
+const NavigationContainer = (props) => {
+  const handleClick = function handleClick() {
+    props.dispatch(logoutUser());
+  };
 
-export default Navigation;
+  const LoggedIn = (
+    <Nav pullRight>
+      <li>
+        <Link to="/main">Main</Link>
+      </li>
+      <li>
+        <Link onClick={handleClick} to="/">Logout</Link>
+      </li>
+    </Nav>
+  );
+
+  const NotLoggedIn = (
+    <Nav pullRight>
+      <li>
+        <Link to="/login">Login</Link>
+      </li>
+      <li>
+        <Link to="/signup">Signup</Link>
+      </li>
+    </Nav>
+  );
+
+  return (
+    <Navbar inverse>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <Link to="/">Load Tester</Link>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        {props.isAuthenticated ? LoggedIn : NotLoggedIn}
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
+
+NavigationContainer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+export default NavigationContainer;

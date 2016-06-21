@@ -1,13 +1,39 @@
-import React from 'react';
-import App from './App.jsx';
+import React, { PropTypes } from 'react';
+import Navigation from './Navigation/Navigation.jsx';
 import { connect } from 'react-redux';
 
-const AppContainer = (props) => (
-  <App {...props} />
-);
+const App = (props) => {
+  const { dispatch, isAuthenticated, errorMessage } = props;
+  return (
+    <div>
+      <Navigation
+        isAuthenticated={isAuthenticated}
+        errorMessage={errorMessage}
+        dispatch={dispatch}
+      />
+      <main>
+        {props.children}
+      </main>
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  data: state.data,
-});
+App.propTypes = {
+  children: PropTypes.object,
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
+};
 
-export default connect(mapStateToProps)(AppContainer);
+const mapStateToProps = (state) => {
+  const { auth } = state;
+  const { isAuthenticated, errorMessage } = auth;
+
+  return {
+    data: state.data,
+    isAuthenticated,
+    errorMessage,
+  };
+};
+
+export default connect(mapStateToProps)(App);
