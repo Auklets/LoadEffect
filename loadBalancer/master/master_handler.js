@@ -9,16 +9,20 @@ CURRENT MVP IMPLEMENTATION SPECIFICATIONS
 --NOT DESIGNED FOR SCALE
 */
 
+// ASSUMPTIONS
+const denominator = 100; // Arbitrary number of actions per job
+
 // Dependencies
 
 
 // Modules
-import { Queue } from '../queue';
-import { checkCapacity } from '../capacity';
+const Queue = require('../queue');
+const checkCapacity = require('../capacity');
+const splitJobs = require('../divide');
+const helpers = require('../helpers');
 
 // Global Variables
 const jobQueue = new Queue();
-const slaveQueue = new Queue();
 
 const masterHandler = {
   // Handle incoming requests from Web Server
@@ -41,6 +45,24 @@ const masterHandler = {
 
     // Respond to server that the job is complete
   },
+
+  tempHandler: (jobs) => {
+    const jobCount = splitJobs(jobs, denominator);
+    for (let toAdd = 0; toAdd < jobCount; toAdd++) {
+      jobQueue.addToQueue(jobCount);
+    }
+  },
+
+  requestJob: (req, res) => {
+    // Check if jobs are available
+    if (jobQueue.checkLength() > 0) {
+      const jobCount = jobQueue.takeNext();
+      res.json(helpers.createPrimeJobs(jobCount));
+    }
+    // If no jobs available send 0
+    res.send(0);
+  },
+
 };
 
 module.exports = masterHandler;
