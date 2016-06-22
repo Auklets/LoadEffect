@@ -10,7 +10,7 @@ CURRENT MVP IMPLEMENTATION SPECIFICATIONS
 */
 
 // ASSUMPTIONS
-const denominator = 2; // Arbitrary number of actions per job
+const denominator = 50; // Arbitrary number of actions per job
 
 // Dependencies
 
@@ -18,12 +18,12 @@ const denominator = 2; // Arbitrary number of actions per job
 // Modules
 const Queue = require('../queue');
 const checkCapacity = require('../capacity');
-const splitJobs = require('../divide');
+const divide = require('../divide');
 const helpers = require('../helpers');
 
 // Global Variables
 const jobQueue = new Queue();
-const results = [];
+let results = [];
 let totalJobs = 0;
 
 const masterHandler = {
@@ -51,20 +51,28 @@ const masterHandler = {
   complete: (req, res) => {
     console.log('Received POST complete request!', req.body);
     // Add to completed jobs list
-
+    console.log('This is results before the concat', results);
+    results = results.concat(req.body);
+    console.log('These are our results length', results.length);
+    console.log('Total jobs', totalJobs);
+    if (results.length == totalJobs) {
+      console.log('We are done!');
+    }
     // If items in results matches total Jobs, then we are done
   },
 
   tempHandler: (jobs) => {
-    const jobCount = splitJobs(jobs, denominator);
-    totalJobs = jobCount;
+    totalJobs = jobs;
+    const jobCount = divide(jobs, denominator);
     for (let toAdd = 0; toAdd < jobCount; toAdd++) {
-      jobQueue.addToQueue(jobCount);
+      jobQueue.addToQueue(denominator);
     }
+    console.log('queue is', jobQueue.items);
+    console.log('total jobs', totalJobs);
   },
 
   requestJob: (req, res) => {
-    console.log('Got a post request on master server!');
+    console.log('Got a post request on master server! Queue is', jobQueue.items);
     // Check if jobs are available
     if (jobQueue.checkLength() > 0) {
       const jobCount = jobQueue.takeNext();
