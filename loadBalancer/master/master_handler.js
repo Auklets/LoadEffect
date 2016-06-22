@@ -49,7 +49,7 @@ const masterHandler = {
   },
 
   complete: (req, res) => {
-    console.log('Received POST complete request!');
+    console.log('Received POST complete request!', req.body);
     // Add to completed jobs list
 
     // If items in results matches total Jobs, then we are done
@@ -71,7 +71,7 @@ const masterHandler = {
       res.json({ job: helpers.createPrimeJobs(jobCount) });
     } else {
       // If no jobs available send 0
-      res.send(null);
+      res.send('done');
     }
   },
 
