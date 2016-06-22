@@ -3,37 +3,36 @@ const User = require('../models/UsersModel');
 
 const fields = { usernameField: 'email', passwordField: 'password' };
 
-const verifyCredentials = function verifyCredentials(username, password, done) {
-  User.findOne({ email: username }, function(err, user) {
-    if (err) {
-      return done(err);
-    }
-
-    if (!user || !user.validPassword(password)) {
-      return done(null, false, {
-        message: 'Invalid credentials',
-      });
-    }
-
-    return done(null, user);
-  });
+const verifyCredentials = (email, password, done) => {
+  User.where('email', email).fetch()
+    .then(user => {
+      if (!user || !user.validPassword(password)) {
+        return done(null, false, {
+          message: 'Invalid credentials',
+        });
+      }
+      return done(null, user);
+    })
+    .catch(err => {
+      done(err);
+    });
 };
 
-module.exports = function(app, passport) {
+module.exports = (app, passport) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
   passport.use(new LocalStrategy(fields, verifyCredentials));
 
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function(id, done) {
-    User.where('id', id).fetch().then(function(user) {
+  passport.deserializeUser((id, done) => {
+    User.where('id', id).fetch().then(user => {
       done(null, user);
     })
-    .catch(function(err) {
+    .catch(err => {
       console.error(err);
     });
   });
