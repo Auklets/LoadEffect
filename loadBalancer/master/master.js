@@ -29,7 +29,7 @@ app.post('/api/requestJob', masterHandler.requestJob);
 // app.post('/api/heartbeat', masterHandler.heartbeat);
 
 // Handle completion POST request from the slave
-// app.post('/api/complete', masterHandler.complete);
+app.post('/api/complete', masterHandler.complete);
 
 // Server listens at specified port
 app.listen(app.get('port'), () => {

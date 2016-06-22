@@ -10,7 +10,7 @@ CURRENT MVP IMPLEMENTATION SPECIFICATIONS
 */
 
 // ASSUMPTIONS
-const denominator = 100; // Arbitrary number of actions per job
+const denominator = 2; // Arbitrary number of actions per job
 
 // Dependencies
 
@@ -23,6 +23,8 @@ const helpers = require('../helpers');
 
 // Global Variables
 const jobQueue = new Queue();
+const results = [];
+let totalJobs = 0;
 
 const masterHandler = {
   // Handle incoming requests from Web Server
@@ -46,8 +48,16 @@ const masterHandler = {
     // Respond to server that the job is complete
   },
 
+  complete: (req, res) => {
+    console.log('Received POST complete request!');
+    // Add to completed jobs list
+
+    // If items in results matches total Jobs, then we are done
+  },
+
   tempHandler: (jobs) => {
     const jobCount = splitJobs(jobs, denominator);
+    totalJobs = jobCount;
     for (let toAdd = 0; toAdd < jobCount; toAdd++) {
       jobQueue.addToQueue(jobCount);
     }
@@ -58,10 +68,11 @@ const masterHandler = {
     // Check if jobs are available
     if (jobQueue.checkLength() > 0) {
       const jobCount = jobQueue.takeNext();
-      res.json(helpers.createPrimeJobs(jobCount));
+      res.json({ job: helpers.createPrimeJobs(jobCount) });
+    } else {
+      // If no jobs available send 0
+      res.send(null);
     }
-    // If no jobs available send 0
-    res.send(null);
   },
 
 };

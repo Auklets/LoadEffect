@@ -40,7 +40,7 @@ app.listen(app.get('port'), () => {
         console.log(error);
       }
       console.log('Received response from POST Request from Master Server');
-      slaveHandler.handleJob(body);
+      slaveHandler.handleJob(JSON.parse(body).job);
     });
   });
 });

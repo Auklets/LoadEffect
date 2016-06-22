@@ -10,7 +10,7 @@ exports.createPrimeJobs = (jobCount) => {
   const result = [];
   for (let i = 0; i < jobCount; i++) {
     // Create arbitrary prime numbers
-    result.push(Math.floor(Math.random() * 100000));
+    result.push(Math.floor(Math.random() * 1000));
   }
   return result;
 };

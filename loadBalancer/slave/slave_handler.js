@@ -16,9 +16,14 @@ const slaveHandler = {
     console.log('We are in the slavehandler!', jobs);
     while (jobs !== null) {
       _.each(jobs, (job) => {
+        // console.log('Completed a job!', job);
         results.push({ job: script(job) });
       });
-      request.post(resultAddress, JSON.stringify(results));
+      // TODO: Create options for result address post
+      request.post({
+        url: resultAddress,
+        json: results,
+      });
       request.post(requestJob, (error, response, body) => {
         if (error) {
           console.log(error);
