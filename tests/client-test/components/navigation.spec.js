@@ -6,8 +6,6 @@ import Navigation from '../../../client/components/Navigation/Navigation.jsx';
 import { Link } from 'react-router';
 
 describe('<Navigation />', () => {
-  const handleClick = sinon.spy();
-
   const linkNodes = [
     <Link to="/">Load Tester</Link>
   ];

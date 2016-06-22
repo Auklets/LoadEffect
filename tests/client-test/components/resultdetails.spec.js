@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import Results from '../../../client/components/Results/Results.jsx';
-import ResultsContainer from '../../../client/components/Results/ResultsContainer.jsx';
+import ResultDetails from '../../../client/components/ResultDetails/ResultDetails.jsx';
+import ResultDetailContainer from '../../../client/components/ResultDetails/ResultDetailsContainer.jsx';
 
 const setup = () => {
   const props = {
@@ -11,16 +11,16 @@ const setup = () => {
       numOfSlaves: 1000,
     },
   };
-  return shallow(<Results {...props} />);
+  return shallow(<ResultDetails {...props} />);
 };
 
-describe('<Results />', () => {
+xdescribe('<ResultDetails />', () => {
   xit('Should pass', () => {
     expect(true).to.equal(true);
   });
 
   xit('It should render', () => {
-    const wrapper = setup(<Results />);
+    const wrapper = setup(<ResultDetails />);
     expect(wrapper.find('Jumbotron')).to.have.length(1);
     expect(wrapper.find('h1').text()).to.equal('Load Testing Info');
   });

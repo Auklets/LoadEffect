@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import LoginContainer from '../../../client/components/Login/LoginContainer.jsx';
+import Home from '../../../client/components/Home/Home.jsx';
+import HomeContainer from '../../../client/components/Home/HomeContainer.jsx';
 
 const setup = () => {
   const props = {
@@ -10,16 +11,16 @@ const setup = () => {
       numOfSlaves: 1000,
     },
   };
-  return shallow(<LoginContainer {...props} />);
+  return shallow(<Home {...props} />);
 };
 
-describe('<LoginContainer />', () => {
+xdescribe('<Home />', () => {
   xit('Should pass', () => {
     expect(true).to.equal(true);
   });
 
   xit('It should render', () => {
-    const wrapper = setup(<LoginContainer />);
+    const wrapper = setup(<Home />);
     expect(wrapper.find('Jumbotron')).to.have.length(1);
     expect(wrapper.find('h1').text()).to.equal('Load Testing Info');
   });

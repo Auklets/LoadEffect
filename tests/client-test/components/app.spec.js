@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 import { shallow } from 'enzyme';
 import AppContainer from '../../../client/components/AppContainer.jsx';
 
-describe('<AppContainer />', () => {
+xdescribe('<AppContainer />', () => {
   xit('Should pass', () => {
     expect(true).to.equal(true);
   });

@@ -1,9 +1,6 @@
 language: node_js
 node_js:
-  - '6.1'
-  - '6.0'
-  - '4.4'
+  - '0.8'
+  - '0.10'
 script:
-  - NODE_ENV=integration npm test
-before_script:
-  - npm install
+  - NODE_ENV=integration node server/server.js & npm test

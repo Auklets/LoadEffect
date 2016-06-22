@@ -17,7 +17,13 @@
  2. Tests will not display detailed error messages
  when running against production version code
  */
-process.env.NODE_ENV = 'test';
+// process.env.NODE_ENV = 'test';
+
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config({ path: './env/development.env' });
+} else if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config({ path: './env/production.env' });
+}
 
 // Register babel so that it will transpile ES6 to ES5
 // before our tests run.
