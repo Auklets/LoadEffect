@@ -4,7 +4,7 @@
  * a prime number, false if it's not.
  */
 
-var primeTester = function(n) {
+const primeTester = function(n) {
   if(typeof n !== 'number' || n < 1 || n % 1 !== 0){
     // n isn't a number or n is less than 1 or n is not an integer
     return false;
@@ -26,7 +26,7 @@ var primeTester = function(n) {
  * saucy, check out the Sieve of Atkin.)
  */
 
-var primeSieve = function (start, end) {
+const primeSieve = function (start, end) {
   var result = [];
   var counter = start
   while (counter <= end) {
@@ -39,5 +39,5 @@ var primeSieve = function (start, end) {
   // Return a list of prime numbers in a user-specified range
 };
 
-
+module.exports = primeTester;
 

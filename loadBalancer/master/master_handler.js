@@ -54,13 +54,14 @@ const masterHandler = {
   },
 
   requestJob: (req, res) => {
+    console.log('Got a post request on master server!');
     // Check if jobs are available
     if (jobQueue.checkLength() > 0) {
       const jobCount = jobQueue.takeNext();
       res.json(helpers.createPrimeJobs(jobCount));
     }
     // If no jobs available send 0
-    res.send(0);
+    res.send(null);
   },
 
 };
