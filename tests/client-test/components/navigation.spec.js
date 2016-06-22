@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import Navigation from '../../../client/components/Navigation/Navigation.jsx';
 import { Link } from 'react-router';
 
-describe('<Navigation />', () => {
+xdescribe('<Navigation />', () => {
   const linkNodes = [
     <Link to="/">Load Tester</Link>
   ];

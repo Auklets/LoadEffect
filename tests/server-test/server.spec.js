@@ -1,30 +1,18 @@
+/* eslint-disable */
 const expect = require('chai').expect;
-const app = require('../../server/server.js');
+const app = 'http://localhost:8000'//require('../../server/server');
 const request = require('supertest');
 const User = require('../../server/models/UsersModel.js');
 
-console.log('me me m', app);
-xdescribe('Server-side Test', function() {
+describe('Express Server', function() {
+  describe('Basic HTTP Request:', function() {
 
-  xdescribe('Account Login:', function() {
-    let token;
-
-    beforeEach(function(done) {
-      const user = new User();
-
-      user.name = 'Anhtai Huynh';
-      user.email = 'Anhtaih@hackreactor.com';
-      user.password = user.setPassword('password-to-be-salted-and-hashed');
-
-      user.save(function(err) {
-        if (err) {
-          // do nothing for now
-        } else {
-          token = user.generateJwt();
-        }
-      });
-
-      done();
+    it('Returns a 302 status code on GET requests /', function(done) {
+      request(app).get('/')
+        .expect(200)
+        .end(function(err) {
+          done();
+        })
     });
 
     it('Logs in existing users', function(done) {
@@ -40,7 +28,7 @@ xdescribe('Server-side Test', function() {
         .end(done());
     });
 
-    it('Users that do not exist are kept on login page', function(done) {
+    xit('Users that do not exist are kept on login page', function(done) {
       request(app)
         .post('/api/login')
         .send({
@@ -103,11 +91,4 @@ xdescribe('Server-side Test', function() {
         .end(done());
     });
   }); // 'Account Creation'
-
-  afterEach(function(done) {
-    const user = new User();
-
-    User.remove({});
-    done();
-  });
 });
