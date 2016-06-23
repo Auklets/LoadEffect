@@ -3,5 +3,3 @@ node_js:
   - '6.1'
   - '6.0'
   - '4.4'
-script:
-  - NODE_ENV=integration node server/server.js & npm test
