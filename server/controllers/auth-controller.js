@@ -4,7 +4,8 @@ const utils = require('../lib/utils');
 
 const sendJSON = utils.sendJSON;
 
-module.exports.signup = (req, res) => {
+
+const signup = (req, res) => {
   let token;
 
   const userObj = {
@@ -39,7 +40,7 @@ module.exports.signup = (req, res) => {
     });
 };
 
-module.exports.login = (req, res, next) => {
+const login = (req, res, next) => {
   if (!req.body.email || !req.body.password) {
     sendJSON(res, 400, {
       message: 'All fields required',
@@ -64,3 +65,5 @@ module.exports.login = (req, res, next) => {
     }
   })(req, res, next);
 };
+
+module.exports = { signup, login };

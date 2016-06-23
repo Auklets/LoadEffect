@@ -3,7 +3,7 @@ const utils = require('../lib/utils');
 
 const sendJSON = utils.sendJSON;
 
-module.exports.createScenario = (req, res) => {
+const createScenario = (req, res) => {
   const scenarioObj = {
     scenarioName: req.body.scenarioName,
     spawnsCount: req.body.spawnCount,
@@ -35,7 +35,7 @@ module.exports.createScenario = (req, res) => {
   // Do some kind of post request here to worker?
 };
 
-module.exports.getAvgResponseTime = (req, res) => {
+const getAvgResponseTime = (req, res) => {
   Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user.id })
     .fetch()
     .then(scenario => {
@@ -48,7 +48,7 @@ module.exports.getAvgResponseTime = (req, res) => {
     });
 };
 
-module.exports.getAvgActionTime = (req, res) => {
+const getAvgActionTime = (req, res) => {
   Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user.id })
     .fetch()
     .then(scenario => {
@@ -61,7 +61,7 @@ module.exports.getAvgActionTime = (req, res) => {
     });
 };
 
-module.exports.deleteScenario = (req, res) => {
+const deleteScenario = (req, res) => {
   Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user.id })
     .destroy()
     .then(() => {
@@ -70,3 +70,5 @@ module.exports.deleteScenario = (req, res) => {
       });
     });
 };
+
+module.exports = { createScenario, getAvgResponseTime, getAvgActionTime, deleteScenario };
