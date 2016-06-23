@@ -6,4 +6,4 @@ node_js:
 services:
   -mysql
 before_install:
-  - mysql -e "CREATE DATABASE IF NOT EXISTS LTE;" -uroot
+  - mysql -e "CREATE DATABASE LTA;"
