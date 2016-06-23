@@ -1,11 +1,8 @@
 const passport = require('passport');
 const User = require('../models/UsersModel');
+const utils = require('../lib/utils');
 
-// Helper function to send JSON response
-const sendJSON = (res, status, content) => {
-  res.status(status);
-  res.json(content);
-};
+const sendJSON = utils.sendJSON;
 
 module.exports.signup = (req, res) => {
   let token;
