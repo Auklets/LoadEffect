@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - '6.1'
+  - '6.0'
+services:
+  -mysql
+before_script:
+  - mysql -e "create database IF NOT EXISTS lta;" -uroot
+
+

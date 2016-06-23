@@ -27,7 +27,7 @@ export const signupUser = creds => {
   const config = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `email=${creds.email}&password=${creds.password}&name=${creds.first} ${creds.last}`,
+    body: `email=${creds.email}&password=${creds.password}&name=${creds.name}`,
   };
 
   return dispatch => {

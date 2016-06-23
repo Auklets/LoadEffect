@@ -5,13 +5,10 @@ module.exports = (app) => {
     res.sendFile(path.resolve('client/index.html'));
   });
 
-  app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-  });
-
    // Catch all;
   app.get('/*', (req, res) => {
     res.redirect('/');
+    // res.status(404);
+    // res.send('Page does not exist. <p><a href="/">Click here</a> to go back</p>');
   });
 };

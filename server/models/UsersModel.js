@@ -1,41 +1,49 @@
-const mongoose = require('mongoose');
+const db = require('../config/db');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  hash: String,
-  salt: String,
+db.knex.schema.hasTable('users').then(exists => {
+  if (!exists) {
+    db.knex.schema.createTable('users', user => {
+      user.increments('id').primary();
+      user.string('email', 255).unique();
+      user.string('name', 255);
+      user.string('hash', 255);
+      user.string('salt', 255);
+      user.timestamps();
+    }).then(table => {
+      console.log('Table has been created.', table);
+    });
+  }
 });
 
-userSchema.methods.setPassword = function setPassword(password) {
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-};
+const User = db.Model.extend({
+  tableName: 'users',
+  hasTimestamps: true,
 
-userSchema.methods.validPassword = function validPassword(password) {
-  const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  return this.hash === hash;
-};
+  setPassword(password) {
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64).toString('hex');
+    this.set('hash', hash);
+    this.set('salt', salt);
+  },
 
-userSchema.methods.generateJwt = function generateJwt() {
-  const expiry = new Date();
-  expiry.setDate(expiry.getDate() + 14);
+  validPassword(password) {
+    const hash = crypto.pbkdf2Sync(password, this.get('salt'), 1000, 64).toString('hex');
+    return this.get('hash') === hash;
+  },
 
-  return jwt.sign({
-    _id: this._id,
-    email: this.email,
-    name: this.name,
-    exp: parseInt(expiry.getTime() / 1000, 7),
-  }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
-};
+  generateJwt() {
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 14);
 
-module.exports = mongoose.model('User', userSchema);
+    return jwt.sign({
+      _id: this.get('id'),
+      email: this.get('email'),
+      name: this.get('name'),
+      exp: parseInt(expiry.getTime() / 1000, 7),
+    }, process.env.JWT_SECRET);
+  },
+});
+
+module.exports = User;
