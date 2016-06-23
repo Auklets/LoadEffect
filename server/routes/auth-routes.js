@@ -8,9 +8,4 @@ module.exports = (app) => {
     req.session.destroy();
     res.redirect('/');
   });
-
-   // Catch all;
-  app.get('/*', (req, res) => {
-    res.redirect('/');
-  });
 };
