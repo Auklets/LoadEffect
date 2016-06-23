@@ -6,7 +6,8 @@ const sendJSON = utils.sendJSON;
 module.exports.createScenario = (req, res) => {
   const scenarioObj = {
     scenarioName: req.body.scenarioName,
-    spawnsCount: req.body.runsCount,
+    spawnsCount: req.body.spawnCount,
+    spawnRate: req.body.spawnRate,
     targetURL: req.body.targetURL,
     script: req.body.script,
     averageResponseTime: 0,
