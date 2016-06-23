@@ -12,7 +12,7 @@ db.knex.schema.hasTable('scenarios').then(exists => {
       scenario.integer('averageResponseTime', 255);
       scenario.integer('averageActionTime', 255);
       scenario.string('targetURL', 255);
-      scenario.text('script', 255);
+      scenario.text('script');
       scenario.integer('id_user', 255);
       scenario.timestamps();
     }).then(table => {
