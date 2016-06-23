@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-env mocha */
+
 const expect = require('chai').expect;
 const User = require('../../server/models/UsersModel.js');
 let user1;

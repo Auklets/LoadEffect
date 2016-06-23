@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const Scenario = require('./ScenariosModel');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
@@ -12,7 +13,7 @@ db.knex.schema.hasTable('users').then(exists => {
       user.string('salt', 255);
       user.timestamps();
     }).then(table => {
-      console.log('Table has been created.', table);
+      console.log('Users has been created.', table);
     });
   }
 });
@@ -20,6 +21,10 @@ db.knex.schema.hasTable('users').then(exists => {
 const User = db.Model.extend({
   tableName: 'users',
   hasTimestamps: true,
+
+  scenario() {
+    return this.hasMany(Scenario);
+  },
 
   setPassword(password) {
     const salt = crypto.randomBytes(16).toString('hex');

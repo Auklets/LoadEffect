@@ -6,5 +6,7 @@ services:
   -mysql
 before_script:
   - mysql -e "create database IF NOT EXISTS lta;" -uroot
+script:
+  - npm run test:integration
 
 
