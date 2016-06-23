@@ -2,8 +2,11 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
+const supertest = require('supertest');
 
 // MASTER
+  // When sending jobs, should return job results;
+
   // Temp Handler
     // Jobs are divided based on jobs and denominator
     // Total number of jobs queued is equal to original job Count

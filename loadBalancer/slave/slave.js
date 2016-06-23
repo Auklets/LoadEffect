@@ -8,6 +8,7 @@ const fs = require('fs');
 
 // Modules
 const slaveHandler = require('./slave_handler.js');
+const script = require('../script/primeTester');
 
 // DEPENDENCY: Need to update with correct port number
 const port = process.env.port || 8001;
@@ -39,7 +40,7 @@ app.listen(app.get('port'), () => {
       if (error) {
         console.log(error);
       }
-      slaveHandler.handleJob(JSON.parse(body).job);
+      slaveHandler.handleJob(JSON.parse(body).job, script);
     });
   });
 });

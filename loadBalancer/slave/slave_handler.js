@@ -3,7 +3,7 @@ const _ = require('underscore');
 const request = require('request');
 
 // Modules
-const script = require('../script/primeTester');
+
 
 // Global Variable
 let counter = 0;
@@ -13,7 +13,7 @@ const resultAddress = 'http://localhost:8000/api/complete';
 const requestJob = 'http://localhost:8000/api/requestJob';
 
 const slaveHandler = {
-  handleJob: (jobs) => {
+  handleJob: (jobs, script, preComplete = _.identity) => {
     console.log('Got some work from the server', jobs);
     const results = [];
     _.each(jobs, (job) => {
@@ -33,9 +33,10 @@ const slaveHandler = {
         console.error(error);
       } else if (body === 'done') {
         console.log('Jobs completed is ', counter);
+        preComplete();
         process.exit();
       } else {
-        slaveHandler.handleJob(JSON.parse(body).job);
+        slaveHandler.handleJob(JSON.parse(body).job, script);
       }
     });
   },
