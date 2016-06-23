@@ -5,5 +5,7 @@ node_js:
   - '4.4'
 services:
   -mysql
-before_script:
-  - mysql -e "CREATE DATABASE LTA;"
+before_install:
+  - mysql -e "create database IF NOT EXISTS LTA;" -uroot
+
+
