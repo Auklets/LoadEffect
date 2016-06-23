@@ -6,8 +6,9 @@ const sendJSON = utils.sendJSON;
 module.exports.createScenario = (req, res) => {
   const scenarioObj = {
     scenarioName: req.body.scenarioName,
-    runsCount: req.body.runsCount,
+    spawnsCount: req.body.runsCount,
     targetURL: req.body.targetURL,
+    script: req.body.script,
     averageResponseTime: 0,
     averageActionTime: 0,
     id_user: 1, // Fake user ID, how do you attach user id here?
