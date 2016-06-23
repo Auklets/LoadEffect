@@ -6,6 +6,6 @@ node_js:
 services:
   -mysql
 before_install:
-  - mysql -e "create database IF NOT EXISTS LTA;" -uroot
+  - mysql -e "create database IF NOT EXISTS lta;" -uroot
 
 
