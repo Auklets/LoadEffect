@@ -1,3 +1,8 @@
+/* eslint-disable */
+
+const expect = require('chai').expect;
+const sinon = require('sinon');
+
 // MASTER
   // Temp Handler
     // Jobs are divided based on jobs and denominator
