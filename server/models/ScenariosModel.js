@@ -7,7 +7,7 @@ db.knex.schema.hasTable('scenarios').then(exists => {
   if (!exists) {
     db.knex.schema.createTable('scenarios', scenario => {
       scenario.increments('id').primary();
-      scenario.string('scenarioName', 255);
+      scenario.string('scenarioName', 255).unique();
       scenario.integer('runsCount', 255);
       scenario.integer('averageResponseTime', 255);
       scenario.integer('averageActionTime', 255);
