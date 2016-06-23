@@ -12,8 +12,7 @@ describe('DockerController tests: ', function() {
         request(url)
           .post('/api/docker')
           .expect(201)
-          .expect('container successfully created and running')
-          .end(done);
+          .expect('container successfully created and running', done());
       });
     });
 
@@ -22,8 +21,7 @@ describe('DockerController tests: ', function() {
         request(url)
           .get('/api/docker')
           .expect(200)
-          .expect('container checked')
-          .end(done);
+          .expect('container checked', done());
       });
     });
   })
