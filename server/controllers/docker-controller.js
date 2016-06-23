@@ -1,13 +1,16 @@
-module.exports = {
-  createContainer: (req, res) => {
-    console.log('createContainer');
 
-    res.status(201).send('container successfully created and running');
-  },
+const createContainer = (req, res) => {
+  console.log('createContainer');
+  // implement docker instance creation
 
-  checkContainer: (req, res) => {
-    console.log('checkContainer');
-
-    res.status(200).send('container checked');
-  },
+  res.status(201).send('container successfully created and running');
 };
+
+const checkContainer = (req, res) => {
+  console.log('checkContainer');
+  // implement docker container check
+
+  res.status(200).send('container checked');
+};
+
+module.exports = { createContainer, checkContainer };
