@@ -9,9 +9,9 @@ const workerHandler = require('../worker/worker_controller.js');
 const script = require('../script/primeTester');
 
 // SLAVE: Job Execution
-describe('Slave', () => {
+describe('Worker', () => {
   describe('handleJob function', () => {
-    // Slave executes job with the provided "script"
+    // Worker executes job with the provided "script"
     it('should execute job with provided script', sinon.test((done) => {
       const testScript = this.spy(script);
       workerhandler.handleJob(100, testScript);
@@ -19,7 +19,7 @@ describe('Slave', () => {
       testScript.called();
 
     }));
-    // Slave executes all the jobs it was provided
+    // Worker executes all the jobs it was provided
     it('should execute all jobs it was provided', sinon.test((done) => {
       // const checkCompletion = this.spy(workerHandler, 'handleJob');
       // const testJob = [ 1, 2, 3 ];
@@ -34,7 +34,7 @@ describe('Slave', () => {
     it('should POST results to the provided IP address', () => {
 
     });
-    // Slave POSTs for more work after completion
+    // Worker POSTs for more work after completion
     it('should ask for more work after completion', () => {
 
     });

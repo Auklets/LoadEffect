@@ -1,4 +1,4 @@
-// Logic to split jobs into divisible chunks for slaves / slave-children
+// Logic to split jobs into divisible chunks for worker / worker-children
 
 const splitJobs = (jobCount, denominator) => {
   return jobCount / denominator;

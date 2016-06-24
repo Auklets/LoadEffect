@@ -1,4 +1,4 @@
-// All master logic incl. Communication between web server and slave, slave spin up and wind down
+// All master logic incl. Communication between web server and worker, worker spin up and wind down
 
 // Dependencies
 const express = require('express');
@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.listen(app.get('port'), () => {
   console.log(`Slave server listening to port ${app.get('port')}`);
   // On Fireup of server, read file and do a post request to the server.
-  fs.readFile(`${process.cwd()}/testData/slaveContext.json`, 'utf-8', (err, data) => {
+  fs.readFile(`${process.cwd()}/testData/workerContext.json`, 'utf-8', (err, data) => {
     const ipAddress = JSON.parse(data).getRequest;
     console.log('This is the IP Address I will post to', ipAddress);
     request.post(ipAddress, (error, response, body) => {
