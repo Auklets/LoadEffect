@@ -7,7 +7,7 @@ const request = require('request');
 const fs = require('fs');
 
 // Modules
-const slaveHandler = require('./slave_handler.js');
+const workerController = require('./worker_controller.js');
 
 // DEPENDENCY: Need to update with correct port number
 const port = process.env.port || 8001;
@@ -20,13 +20,13 @@ app.set('port', port);
 app.use(bodyParser.json());
 
 // Respond to POST request from Master
-// app.post('/api/slave', slaveHandler);
+// app.post('/api/worker', workerController);
 
 // Respond to cancellation POST request from Master
-// app.post('/api/cancel', slaveHandler.cancel);
+// app.post('/api/cancel', workerController.cancel);
 
 // Respond to wind down POST request from Master
-// app.post('/api/shutDown', slaveHandler.shutDown);
+// app.post('/api/shutDown', workerController.shutDown);
 
 // TODO: Need to update this to access the desired server
 // Server listens at specified port
@@ -40,7 +40,7 @@ app.listen(app.get('port'), () => {
       if (error) {
         console.log(error);
       }
-      slaveHandler.handleJob(JSON.parse(body).job);
+      workerController.handleJob(JSON.parse(body).job);
     });
   });
 });

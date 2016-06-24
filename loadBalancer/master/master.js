@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Modules
-const masterHandler = require('./master_handler.js');
+const masterController = require('./master_controller.js');
 
 // DEPENDENCY: [TODO] Need to update with correct port number
 const port = process.env.port || 8000;
@@ -20,16 +20,16 @@ app.set('port', port);
 app.use(bodyParser.json());
 
 // Handle POST request from the web server
-app.post('/api/master', masterHandler.webServer);
+app.post('/api/master', masterController.webServer);
 
 // Handle POST request for jobs from the slave
-app.post('/api/requestJob', masterHandler.requestJob);
+app.post('/api/requestJob', masterController.requestJob);
 
 // Handle heartbeat POST request from the slave
-// app.post('/api/heartbeat', masterHandler.heartbeat);
+// app.post('/api/heartbeat', masterController.heartbeat);
 
 // Handle completion POST request from the slave
-app.post('/api/complete', masterHandler.complete);
+app.post('/api/complete', masterController.complete);
 
 // Server listens at specified port
 app.listen(app.get('port'), () => {
@@ -39,6 +39,6 @@ app.listen(app.get('port'), () => {
   //   if (err) {
   //     return console.log(err);
   //   }
-  //   return masterHandler.tempHandler(data);
+  //   return masterController.tempHandler(data);
   // });
 });

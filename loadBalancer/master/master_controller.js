@@ -85,8 +85,8 @@ const tempHandler = (jobs) => {
   // console.log('queue is', jobQueue.items);
   // console.log('total jobs', totalJobs);
 
-//   // TODO: Capacity Check - check to see how many slaves required
-//   // TODO: Create ability to create slaves
+//   // TODO: Capacity Check - check to see how many workers required
+//   // TODO: Create ability to create workers
 };
 
 const requestJob = (req, res) => {
