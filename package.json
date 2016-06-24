@@ -41,7 +41,8 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",
     "require": "^2.4.20",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "pegjs": "^0.9.0",
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
