@@ -9,6 +9,7 @@ import SignupContainer from './components/Signup/SignupContainer.jsx';
 import LoginContainer from './components/Login/LoginContainer.jsx';
 import HomeContainer from './components/Home/HomeContainer.jsx';
 import MainContainer from './components/Main/MainContainer.jsx';
+import NewScenarioContainer from './components/NewScenario/NewScenarioContainer.jsx';
 
 const router = (
   <Provider store={store}>
@@ -17,6 +18,7 @@ const router = (
         <IndexRoute component={HomeContainer} />
         <Route path="/login" component={LoginContainer} />
         <Route path="/main" component={MainContainer} />
+        <Route path="/new-scenario" component={NewScenarioContainer} />
         <Route path="/signup" component={SignupContainer} />
       </Route>
     </Router>

@@ -16,7 +16,6 @@
     "url": "https://github.com/Auklets/LoadTestingApp"
   },
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.1",
     "bookshelf": "^0.9.5",

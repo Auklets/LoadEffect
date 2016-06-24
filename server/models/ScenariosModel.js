@@ -9,7 +9,7 @@ db.knex.schema.hasTable('scenarios').then(exists => {
       scenario.increments('id').primary();
       scenario.string('scenarioName', 255).unique();
       scenario.integer('spawnsCount', 255);
-      scenario.integer('spawnRate', 255);
+      scenario.integer('workers', 255);
       scenario.integer('averageResponseTime', 255);
       scenario.integer('averageActionTime', 255);
       scenario.string('targetURL', 255);

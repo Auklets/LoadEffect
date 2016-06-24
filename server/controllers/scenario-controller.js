@@ -1,28 +1,34 @@
 const Scenario = require('../models/ScenariosModel');
 const utils = require('../lib/utils');
+const request = require('request');
 
 const sendJSON = utils.sendJSON;
 
 const createScenario = (req, res) => {
-  const scenarioObj = {
+  const data = {
     scenarioName: req.body.scenarioName,
-    spawnsCount: req.body.spawnCount,
-    spawnRate: req.body.spawnRate,
+    spawnsCount: req.body.spawnsCount,
+    workers: req.body.workers,
     targetURL: req.body.targetURL,
     script: req.body.script,
-    averageResponseTime: 0,
-    averageActionTime: 0,
     id_user: 1, // Fake user ID, how do you attach user id here?
   };
 
-  if (!scenarioObj.scenarioName || !scenarioObj.runsCount || !scenarioObj.targetURL) {
+  if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
     sendJSON(res, 400, {
       message: 'All fields required',
     });
     return;
   }
 
-  const newScenario = new Scenario(scenarioObj);
+  request.post({
+    url: 'http://localhost:3000/go', // Change this endpoint to master server api
+    method: 'POST',
+    json: true,
+    body: data,
+  });
+
+  const newScenario = new Scenario(data);
   newScenario.save()
     .then(() => {
       sendJSON(res, 201, {
