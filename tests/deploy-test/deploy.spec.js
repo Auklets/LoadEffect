@@ -55,6 +55,8 @@ describe('DockerController tests: ', function() {
 
   // test creation of docker container & run
 
+  // check if number of containers increased by one
+
   // test docker inspect command
 
   // test docker compose command
