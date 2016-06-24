@@ -34,11 +34,11 @@ app.post('/api/complete', masterHandler.complete);
 // Server listens at specified port
 app.listen(app.get('port'), () => {
   console.log(`Master server listening to port ${app.get('port')}`);
-  // Read job from file and call webServer dummy handler with jobs
-  fs.readFile(process.cwd() + '/testData/jobCount.txt', 'utf8', (err, data) => {
-    if (err) {
-      return console.log(err);
-    }
-    return masterHandler.tempHandler(data);
-  });
+  // [FOR DEMO PURPOSES] Read job from file and call webServer dummy handler with jobs
+  // fs.readFile(process.cwd() + '/testData/jobCount.txt', 'utf8', (err, data) => {
+  //   if (err) {
+  //     return console.log(err);
+  //   }
+  //   return masterHandler.tempHandler(data);
+  // });
 });

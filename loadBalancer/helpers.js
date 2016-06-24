@@ -2,11 +2,15 @@
 
 
 // HELPER FUNCTION TO MATCH SLAVES WITH JOBS and CALLS CALLBACK ON EACH JOB
-exports.matchMaker = (jobsQueue, slaveQueue, callback) => {
-
+const bundleTasks = (tasks, jobsPerBundle) => {
+  const bundle = [];
+  for (let task = 0; task < jobsPerBundle; task++) {
+    bundle.push(tasks);
+  }
+  return bundle;
 };
 
-exports.createPrimeJobs = (jobCount) => {
+const createPrimeJobs = (jobCount) => {
   const result = [];
   for (let i = 0; i < jobCount; i++) {
     // Create arbitrary prime numbers
@@ -14,3 +18,5 @@ exports.createPrimeJobs = (jobCount) => {
   }
   return result;
 };
+
+module.exports = { bundleTasks, createPrimeJobs };
