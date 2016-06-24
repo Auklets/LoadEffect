@@ -7,7 +7,7 @@ const request = require('supertest');
 
 // MODULES
 const app = `${process.env.PROTOCOL}${process.env.HOST}:${process.env.PORT2}`;
-const masterHandler = require('../master/master_handler.js');
+const masterHandler = require('../master/master_controller.js');
 
 // MASTER
 describe('Master Server', () => {
