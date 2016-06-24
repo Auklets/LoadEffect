@@ -20,7 +20,7 @@ app.set('port', port);
 app.use(bodyParser.json());
 
 // Respond to POST request from Master
-app.post('/api/slave', slaveHandler);
+// app.post('/api/slave', slaveHandler);
 
 // Respond to cancellation POST request from Master
 // app.post('/api/cancel', slaveHandler.cancel);
@@ -28,6 +28,7 @@ app.post('/api/slave', slaveHandler);
 // Respond to wind down POST request from Master
 // app.post('/api/shutDown', slaveHandler.shutDown);
 
+// TODO: Need to update this to access the desired server
 // Server listens at specified port
 app.listen(app.get('port'), () => {
   console.log(`Slave server listening to port ${app.get('port')}`);

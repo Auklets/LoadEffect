@@ -1,6 +1,5 @@
 // Matching algorithm to distribute work, write to database
 
-
 // HELPER FUNCTION TO MATCH SLAVES WITH JOBS and CALLS CALLBACK ON EACH JOB
 const bundleTasks = (tasks, jobsPerBundle) => {
   const bundle = [];

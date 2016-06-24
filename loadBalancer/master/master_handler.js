@@ -37,13 +37,16 @@ const webServer = (req, res) => {
   };
 
   // Split up jobs into chunks and place into job queue
-  const spawnCount = req.body.spawnCount;
+  const spawnCount = +req.body.spawnCount;
   totalJobs = spawnCount;
+
   const jobsToAdd = divide(spawnCount, tasksPerJob);
   const jobBundle = helpers.bundleTasks(task, tasksPerJob);
-  for (let toAdd = 0; toAdd < jobsToAdd; toAdd++) {
+
+  for (let i = 0; i < jobsToAdd; i++) {
     jobQueue.addToQueue(jobBundle);
   }
+
   console.log('queue is', jobQueue.items);
   console.log('total jobs', totalJobs);
 
@@ -59,14 +62,16 @@ const complete = (req, res) => {
   // Add to completed jobs list
   console.log('This is results before the concat', results);
   results = results.concat(req.body);
+
+  // TODO - Write results to database
+
   console.log('These are our results length', results.length);
   console.log('Total jobs', totalJobs);
-  if (results.length == totalJobs) {
+  if (results.length === totalJobs) {
     console.log('We are done!');
     // TODO do post request with results to the web server
   }
   res.status(200).send();
-  // If items in results matches total Jobs, then we are done
 };
 
 // [FOR DEMO PURPOSES]
