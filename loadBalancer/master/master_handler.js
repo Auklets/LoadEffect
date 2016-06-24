@@ -76,13 +76,14 @@ const complete = (req, res) => {
 
 // [FOR DEMO PURPOSES]
 const tempHandler = (jobs) => {
-//   totalJobs = jobs;
-//   const jobCount = divide(jobs, denominator);
-//   for (let toAdd = 0; toAdd < jobCount; toAdd++) {
-//     jobQueue.addToQueue(denominator);
-//   }
-//   console.log('queue is', jobQueue.items);
-//   console.log('total jobs', totalJobs);
+  // totalJobs = jobs;
+  // const denominator = 10;
+  // const jobCount = divide(jobs, denominator);
+  // for (let toAdd = 0; toAdd < jobCount; toAdd++) {
+  //   jobQueue.addToQueue(denominator);
+  // }
+  // console.log('queue is', jobQueue.items);
+  // console.log('total jobs', totalJobs);
 
 //   // TODO: Capacity Check - check to see how many slaves required
 //   // TODO: Create ability to create slaves
