@@ -22,7 +22,9 @@
     "bookshelf": "^0.9.5",
     "chai": "^3.5.0",
     "cluster": "^0.7.7",
+    "dockerode": "^2.2.10",
     "dotenv": "^2.0.0",
+    "fs": "0.0.2",
     "jsonwebtoken": "^7.0.1",
     "knex": "^0.11.7",
     "mongoose": "^4.4.20",
@@ -41,7 +43,8 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",
     "require": "^2.4.20",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "sinon": "^1.17.4"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
