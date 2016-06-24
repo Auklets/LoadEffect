@@ -19,7 +19,7 @@ describe('User Profile', () => {
     done();
   });
 
-  it('can log in using JWT', (done) => {
+  xit('can log in using JWT', (done) => {
     const script = `login(\'/login\', {"username":"bill", "password":"password"}).get(\'/links\');`;
     scenario.run(site, script).then((results) => {
       (results.scenarioTime).should.be.above(0);
