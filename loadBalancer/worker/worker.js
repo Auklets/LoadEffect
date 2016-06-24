@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 // TODO: Need to update this to access the desired server
 // Server listens at specified port
 app.listen(app.get('port'), () => {
-  console.log(`Slave server listening to port ${app.get('port')}`);
+  console.log(`Worker server listening to port ${app.get('port')}`);
   // On Fireup of server, read file and do a post request to the server.
   fs.readFile(`${process.cwd()}/testData/workerContext.json`, 'utf-8', (err, data) => {
     const ipAddress = JSON.parse(data).getRequest;

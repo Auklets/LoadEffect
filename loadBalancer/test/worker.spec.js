@@ -8,7 +8,7 @@ const sinon = require('sinon');
 const workerHandler = require('../worker/worker_controller.js');
 const script = require('../script/primeTester');
 
-// SLAVE: Job Execution
+// WORKER: Job Execution
 describe('Worker', () => {
   describe('handleJob function', () => {
     // Worker executes job with the provided "script"
