@@ -57,13 +57,14 @@ const webServer = (req, res) => {
   // Wind up number of requested workers
   const workers = req.body.workers;
   // TODO: CHRIS TO PROVIDE CODE TO WIND UP WORKERS
-  for (let i = 1; i <= workers; i++){
+  for (let i = 1; i <= workers; i++) {
     status.workerCount = i;
     const workerName = 'worker'.concat(status.workerCount);
+    console.log('creating ' + workerName);
     util.createContainer(dockerConnection, 'node-sender', workerName);
   }
 
-  res.status(200).send();
+  res.status(201).send('webserver post request received for ' + workers + ' workers');
 };
 
 const complete = (req, res) => {
