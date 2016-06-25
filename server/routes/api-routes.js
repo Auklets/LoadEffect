@@ -6,9 +6,9 @@ module.exports = (app) => {
     res.sendFile(path.resolve('client/index.html'));
   });
 
-  app.post('/api/docker', dockerController.createContainer);
+  app.post('/api/docker', dockerController.createWorker);
 
-  app.get('/api/docker', dockerController.checkContainer);
+  app.get('/api/docker', dockerController.checkWorker);
 
    // Catch all;
   app.get('/*', (req, res) => {
