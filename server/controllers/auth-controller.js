@@ -21,21 +21,24 @@ const signup = (req, res) => {
   }
 
   User.where('email', userObj.email).fetch()
-    .then(user => {
-      if (!user) {
+    .then(existingUser => {
+      if (!existingUser) {
         const newUser = new User(userObj);
         newUser.setPassword(req.body.password);
         newUser.save();
         token = newUser.generateJwt();
-        userId = newUser.get('id');
         return newUser;
       }
     })
     .then(() => {
-      sendJSON(res, 200, {
-        id_token: token,
-        id_user: userId,
-      });
+      User.where('email', userObj.email).fetch()
+        .then(user => {
+          userId = user.get('id');
+          sendJSON(res, 200, {
+            id_token: token,
+            id_user: userId,
+          });
+        });
     })
     .catch(err => {
       sendJSON(res, 404, err);
@@ -59,6 +62,7 @@ const login = (req, res, next) => {
     }
     if (user) {
       token = user.generateJwt();
+      console.log(user);
       userId = user.get('id');
       sendJSON(res, 200, {
         id_token: token,

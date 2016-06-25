@@ -11,7 +11,7 @@ const createScenario = (req, res) => {
     workers: req.body.workers,
     targetURL: req.body.targetURL,
     script: req.body.script,
-    id_user: 1, // Fake user ID, how do you attach user id here?
+    id_user: req.body.id, // Fake user ID, how do you attach user id here?
   };
 
   if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
@@ -21,12 +21,12 @@ const createScenario = (req, res) => {
     return;
   }
 
-  request.post({
-    url: 'http://localhost:3000/go', // Change this endpoint to master server api
-    method: 'POST',
-    json: true,
-    body: data,
-  });
+  // request.post({
+  //   url: 'http://localhost:3000/go', // Change this endpoint to master server api
+  //   method: 'POST',
+  //   json: true,
+  //   body: data,
+  // });
 
   const newScenario = new Scenario(data);
   newScenario.save()
@@ -77,4 +77,12 @@ const deleteScenario = (req, res) => {
     });
 };
 
-module.exports = { createScenario, getAvgResponseTime, getAvgActionTime, deleteScenario };
+const sendScenario = (req, res) => {
+  Scenario.where({ id_user: req.body.id_user })
+    .fetchAll()
+    .then((data) => {
+      sendJSON(res, 200, JSON.stringify(data.models));
+    });
+};
+
+module.exports = { sendScenario, createScenario, getAvgResponseTime, getAvgActionTime, deleteScenario };

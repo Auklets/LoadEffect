@@ -1,9 +1,17 @@
 import React, { PropTypes } from 'react';
+import { getData } from '../redux/actionCreators/scenario-actions';
 import Navigation from './Navigation/Navigation.jsx';
 import { connect } from 'react-redux';
 
 const App = (props) => {
   const { dispatch, isAuthenticated, errorMessage } = props;
+
+  // Makes a get request to retrieve scenarios data only if user is authenticated
+  // This way, the MAIN page will already have the data to render
+  if (isAuthenticated) {
+    dispatch(getData());
+  }
+
   return (
     <div>
       <Navigation

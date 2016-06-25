@@ -7,7 +7,7 @@ module.exports = (app) => {
     res.sendFile(path.resolve('client/index.html'));
   });
 
-  app.post('/api/new-scenario', scenarioController.createScenario);
+  app.post('/api/get-scenarios', scenarioController.sendScenario);
 
    // Catch all;
   app.get('/*', (req, res) => {
