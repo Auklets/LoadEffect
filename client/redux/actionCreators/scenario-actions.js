@@ -8,7 +8,7 @@ export const getData = () => {
   };
 
   return dispatch =>
-    fetch('/api/get-scenarios', config)
+    fetch('/api/scenarios', config)
       .then(response => response.json()
         .then((res) => {
           dispatch({
