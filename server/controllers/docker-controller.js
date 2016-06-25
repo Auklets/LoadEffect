@@ -1,6 +1,7 @@
 
 const fs = require('fs');
 const Docker = require('dockerode');
+const util = require('../lib/utils');
 
 const dockerConfig = new Docker({ socketPath: '/var/run/docker.sock' });
 const dockerConnection = new Docker({
@@ -16,38 +17,16 @@ const status = {
   workerCount: 0,
 };
 
-const createContainer = (imageName, containerName) => {
-  dockerConnection.createContainer(
-    { Image: imageName, name: containerName },
-    (connectErr, container) => {
-      if (connectErr) {
-        console.log('error while creating new container', connectErr);
-        res.status(500).send('error while creating new container', err);
-      } else {
-        container.start((startErr) => {
-          if (startErr) {
-            console.log('error while starting new container', startErr);
-            res.status(500).send('error while starting new container', err);
-          } else {
-            console.log(containerName, 'started with the following container id: ', container.id);
-            res.status(201).send('container successfully created and running');
-          }
-        });
-      }
-    }
-  );
-};
-
 const createMaster = (req, res) => {
   status.masterCount++;
   const masterName = 'master'.concat(status.masterCount);
-  createContainer('node-sender', masterName);
+  util.createContainer(dockerConnection, 'node-sender', masterName, req, res);
 };
 
 const createWorker = (req, res) => {
   status.workerCount++;
   const workerName = 'worker'.concat(status.workerCount);
-  createContainer('node-sender', workerName);
+  util.createContainer(dockerConnection, 'node-sender', workerName, req, res);
 };
 
 const checkWorker = (req, res) => {
