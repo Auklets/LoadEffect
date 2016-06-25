@@ -1,5 +1,9 @@
 /* eslint-disable */
 const request = require('supertest');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const DockerController = require('../../server/controllers/docker-controller');
+
 const url = `${process.env.PROTOCOL}${process.env.HOST}:${process.env.PORT}`;
 
 // specify tests for functionality of spawning docker instances on incoming API requests
@@ -33,22 +37,25 @@ describe('DockerController tests: ', function() {
         .post('/api/docker')
         .send('')
         .end(function(err, res) {
-          expect(createContainerStub.called).to.be.true;
+          sinon.assert.called(createContainer);
           done();
         });
     });
     it('checkContainer function called', function(done) {
+      const checkContainer = sinon.spy(DockerController, 'checkContainer');
       request(url)
         .get('/api/docker')
         .send('')
         .end(function(err, res) {
-          expect(checkContainerStub.called).to.be.true;
+          sinon.assert.called(checkContainer);
           done();
         });
     });
   });
 
   // test creation of docker container & run
+
+  // check if number of containers increased by one
 
   // test docker inspect command
 

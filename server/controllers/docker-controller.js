@@ -1,16 +1,21 @@
+const dockerConnection = require('../config/docker-config');
+const util = require('../lib/utils');
 
-const createContainer = (req, res) => {
-  console.log('createContainer');
-  // implement docker instance creation
-
-  res.status(201).send('container successfully created and running');
+const status = {
+  masterCount: 0,
+  workerCount: 0,
 };
 
-const checkContainer = (req, res) => {
-  console.log('checkContainer');
-  // implement docker container check
-
-  res.status(200).send('container checked');
+const createMaster = (req, res) => {
+  status.masterCount++;
+  const masterName = 'master'.concat(status.masterCount);
+  util.createContainer(dockerConnection, 'node-sender', masterName, req, res);
 };
 
-module.exports = { createContainer, checkContainer };
+const createWorker = (req, res) => {
+  status.workerCount++;
+  const workerName = 'worker'.concat(status.workerCount);
+  util.createContainer(dockerConnection, 'node-sender', workerName, req, res);
+};
+
+module.exports = { createMaster, createWorker };

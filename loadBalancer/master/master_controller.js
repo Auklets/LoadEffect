@@ -14,7 +14,8 @@ CURRENT MVP IMPLEMENTATION SPECIFICATIONS
 const tasksPerJob = 10; // Arbitrary number of actions per job
 
 // Dependencies
-
+const dockerConnection = require('../../server/config/docker-config');
+const util = require('../../server/lib/utils');
 
 // Modules
 const Queue = require('../queue');
@@ -23,6 +24,9 @@ const helpers = require('../helpers');
 
 // Global Variables
 const jobQueue = new Queue();
+const status = {
+  workerCount: 0,
+};
 let results = [];
 let totalJobs = 0;
 
@@ -53,8 +57,14 @@ const webServer = (req, res) => {
   // Wind up number of requested workers
   const workers = req.body.workers;
   // TODO: CHRIS TO PROVIDE CODE TO WIND UP WORKERS
+  for (let i = 1; i <= workers; i++) {
+    status.workerCount = i;
+    const workerName = 'worker'.concat(status.workerCount);
+    console.log('creating ' + workerName);
+    util.createContainer(dockerConnection, 'node-sender', workerName);
+  }
 
-  res.status(200).send();
+  res.status(201).send('webserver post request received for ' + workers + ' workers');
 };
 
 const complete = (req, res) => {
