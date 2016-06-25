@@ -1,8 +1,7 @@
 // Dependencies
 const request = require('request');
+const scenariorunner = require('./scripts/scenario');
 
-// Modules
-const billsModule = () => {};
 // const primeCreator = require('../testData/primeTester.js');
 
 // Global Variable
@@ -17,10 +16,23 @@ const handleJob = jobs => {
   const results = [];
   jobs.forEach(job => {
     const jobResult = {};
-    // TODO: To confirm with bill his desired input for his module function
-    jobResult[job] = billsModule(job);
-    results.push(jobResult);
-    jobsCompleted++;
+
+    scenariorunner.run(job.targetUrl, job.script)
+    .then((runresults) => {
+    /*
+    runresults: {
+      scenarioTime: timeToRunScenarioInMilliseconds,
+      transactionTimes: [
+        [path, statusCode, elapsedTime, dataSizeInBytes, 'GET'],
+      ]
+    }
+    */
+
+
+      jobResult[job] = runresults;
+      results.push(jobResult);
+      jobsCompleted++;
+    });
   });
   request.post({
     url: resultAddress,
