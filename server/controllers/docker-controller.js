@@ -1,4 +1,6 @@
-const dockerConnection = require('../config/docker-config');
+if (process.env.NODE_ENV !== 'integration') {
+  const dockerConnection = require('../config/docker-config');
+}
 const util = require('../lib/utils');
 
 const status = {
