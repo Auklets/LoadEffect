@@ -1,16 +1,5 @@
-
-const fs = require('fs');
-const Docker = require('dockerode');
+const dockerConnection = require('../config/docker-config');
 const util = require('../lib/utils');
-
-const dockerConfig = new Docker({ socketPath: '/var/run/docker.sock' });
-const dockerConnection = new Docker({
-  host: '45.55.183.145',
-  port: 2376,
-  ca: fs.readFileSync('../certificates/do1/ca.pem'),
-  cert: fs.readFileSync('../certificates/do1/cert.pem'),
-  key: fs.readFileSync('../certificates/do1/key.pem'),
-});
 
 const status = {
   masterCount: 0,
