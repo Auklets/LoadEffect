@@ -16,7 +16,7 @@ const createContainer = (dockerConnection, imageName, containerName, req, res) =
         container.start((startErr) => {
           if (startErr) {
             console.log('error while starting new container', startErr);
-            if(res) {
+            if (res) {
               res.status(500).send('error while starting new container', startErr);
             }
           } else {
