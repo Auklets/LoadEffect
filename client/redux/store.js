@@ -3,7 +3,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import api from '../middleware/api';
-
 import reducers from './reducers';
 
 const createStoreWithMiddleWare = applyMiddleware(thunkMiddleware, api)(createStore);

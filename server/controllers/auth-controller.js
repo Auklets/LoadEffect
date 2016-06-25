@@ -4,9 +4,9 @@ const utils = require('../lib/utils');
 
 const sendJSON = utils.sendJSON;
 
-
 const signup = (req, res) => {
   let token;
+  let userId;
 
   const userObj = {
     name: req.body.name,
@@ -21,8 +21,8 @@ const signup = (req, res) => {
   }
 
   User.where('email', userObj.email).fetch()
-    .then(user => {
-      if (!user) {
+    .then(existingUser => {
+      if (!existingUser) {
         const newUser = new User(userObj);
         newUser.setPassword(req.body.password);
         newUser.save();
@@ -31,9 +31,14 @@ const signup = (req, res) => {
       }
     })
     .then(() => {
-      sendJSON(res, 200, {
-        id_token: token,
-      });
+      User.where('email', userObj.email).fetch()
+        .then(user => {
+          userId = user.get('id');
+          sendJSON(res, 200, {
+            id_token: token,
+            id_user: userId,
+          });
+        });
     })
     .catch(err => {
       sendJSON(res, 404, err);
@@ -50,15 +55,18 @@ const login = (req, res, next) => {
 
   passport.authenticate('local', (err, user, info) => {
     let token;
-
+    let userId;
     if (err) {
       sendJSON(res, 404, err);
       return;
     }
     if (user) {
       token = user.generateJwt();
+      console.log(user);
+      userId = user.get('id');
       sendJSON(res, 200, {
         id_token: token,
+        id_user: userId,
       });
     } else {
       sendJSON(res, 401, info);

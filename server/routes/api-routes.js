@@ -1,14 +1,13 @@
 const path = require('path');
 const dockerController = require('../controllers/docker-controller');
+const scenarioController = require('../controllers/scenario-controller');
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
     res.sendFile(path.resolve('client/index.html'));
   });
 
-  app.post('/api/master', dockerController.createMaster);
-
-  app.post('/api/worker', dockerController.createWorker);
+  app.post('/api/scenarios', scenarioController.sendScenario);
 
    // Catch all;
   app.get('/*', (req, res) => {

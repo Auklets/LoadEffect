@@ -12,6 +12,9 @@ const NavigationContainer = (props) => {
   const LoggedIn = (
     <Nav pullRight>
       <li>
+        <Link to="/new-scenario">Create New Scenario</Link>
+      </li>
+      <li>
         <Link to="/main">Main</Link>
       </li>
       <li>

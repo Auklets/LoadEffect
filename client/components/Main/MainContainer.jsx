@@ -7,6 +7,8 @@ const MainContainer = (props) => (
 );
 
 const mapStateToProps = (state) => ({
+  state,
+  scenarios: state.allScenario.allScenarios,
 });
 
 export default connect(mapStateToProps)(MainContainer);

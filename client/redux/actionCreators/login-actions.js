@@ -45,6 +45,7 @@ export const loginUser = creds => {
         } else {
           // Sets the token in local storage on success
           localStorage.setItem('id_token', user.id_token);
+          localStorage.setItem('id', user.id_user);
 
           // Dispatch the success action
           dispatch(receiveLogin(user));

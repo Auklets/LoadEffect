@@ -8,13 +8,13 @@ db.knex.schema.hasTable('scenarios').then(exists => {
     db.knex.schema.createTable('scenarios', scenario => {
       scenario.increments('id').primary();
       scenario.string('scenarioName', 255).unique();
-      scenario.integer('spawnsCount', 255);
-      scenario.integer('spawnRate', 255);
-      scenario.integer('averageResponseTime', 255);
-      scenario.integer('averageActionTime', 255);
+      scenario.integer('spawnsCount');
+      scenario.integer('workers');
+      scenario.integer('averageResponseTime');
+      scenario.integer('averageActionTime');
       scenario.string('targetURL', 255);
       scenario.text('script');
-      scenario.integer('id_user', 255);
+      scenario.integer('id_user');
       scenario.timestamps();
     }).then(table => {
       console.log('Scenarios table has been created.', table);
