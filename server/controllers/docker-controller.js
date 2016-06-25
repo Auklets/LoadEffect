@@ -29,11 +29,4 @@ const createWorker = (req, res) => {
   util.createContainer(dockerConnection, 'node-sender', workerName, req, res);
 };
 
-const checkWorker = (req, res) => {
-  console.log('checkContainer called');
-  // implement docker container check
-
-  res.status(200).send('container checked');
-};
-
-module.exports = { createMaster, createWorker, checkWorker };
+module.exports = { createMaster, createWorker };
