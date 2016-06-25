@@ -1,5 +1,4 @@
 const path = require('path');
-const dockerController = require('../controllers/docker-controller');
 const scenarioController = require('../controllers/scenario-controller');
 
 module.exports = (app) => {

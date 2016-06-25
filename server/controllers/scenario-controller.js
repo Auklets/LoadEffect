@@ -1,4 +1,5 @@
 const Scenario = require('../models/ScenariosModel');
+const dockerController = require('./docker-controller');
 const utils = require('../lib/utils');
 const request = require('request');
 
@@ -20,6 +21,9 @@ const createScenario = (req, res) => {
     });
     return;
   }
+
+  // create Master to execute new scenario
+  dockerController.createMaster(req, res);
 
   // request.post({
   //   url: 'http://localhost:3000/go', // Change this endpoint to master server api
