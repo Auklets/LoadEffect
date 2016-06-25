@@ -2,7 +2,7 @@
 const fs = require('fs');
 const Docker = require('dockerode');
 
-const dockerConfig = new Docker({socketPath: '/var/run/docker.sock'});
+const dockerConfig = new Docker({ socketPath: '/var/run/docker.sock' });
 const dockerConnection = new Docker({
   host: '45.55.183.145',
   port: 2376,
@@ -12,23 +12,42 @@ const dockerConnection = new Docker({
 });
 
 const status = {
-  workerCount: 0
+  masterCount: 0,
+  workerCount: 0,
+};
+
+const createContainer = (imageName, containerName) => {
+  dockerConnection.createContainer(
+    { Image: imageName, name: containerName },
+    (connectErr, container) => {
+      if (connectErr) {
+        console.log('error while creating new container', connectErr);
+        res.status(500).send('error while creating new container', err);
+      } else {
+        container.start((startErr) => {
+          if (startErr) {
+            console.log('error while starting new container', startErr);
+            res.status(500).send('error while starting new container', err);
+          } else {
+            console.log(containerName, 'started with the following container id: ', container.id);
+            res.status(201).send('container successfully created and running');
+          }
+        });
+      }
+    }
+  );
+};
+
+const createMaster = (req, res) => {
+  status.masterCount++;
+  const masterName = 'master'.concat(status.masterCount);
+  createContainer('node-sender', masterName);
 };
 
 const createWorker = (req, res) => {
   status.workerCount++;
   const workerName = 'worker'.concat(status.workerCount);
-  dockerConnection.createContainer({ Image: 'node-sender', name: workerName }, (err, container) => {
-    container.start((startErr, data) => {
-      if (err) {
-        console.log('error while starting new container', startErr);
-        res.status(500).send('error while starting new container', err);
-      } else {
-        console.log('container started with the following id: ', container.id);
-        res.status(201).send('container successfully created and running');
-      }
-    });
-  });
+  createContainer('node-sender', workerName);
 };
 
 const checkWorker = (req, res) => {
@@ -38,4 +57,4 @@ const checkWorker = (req, res) => {
   res.status(200).send('container checked');
 };
 
-module.exports = { createWorker, checkWorker };
+module.exports = { createMaster, createWorker, checkWorker };
