@@ -14,11 +14,12 @@ class Signup extends Component {
     const targetURL = this.refs.targetURL.value.trim();
     const script = this.refs.script.value.trim();
     const workers = this.refs.workers.value.trim();
+    const id = localStorage.get('id');
 
     const config = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: `scenarioName=${scenarioName}&spawnsCount=${spawnsCount}&targetURL=${targetURL}&script=${script}&workers=${workers}`,
+      body: `id=${id}&scenarioName=${scenarioName}&spawnsCount=${spawnsCount}&targetURL=${targetURL}&script=${script}&workers=${workers}`,
     };
 
     fetch('/api/new-scenario', config);
