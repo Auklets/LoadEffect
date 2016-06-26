@@ -6,6 +6,8 @@ const request = require('request');
 const sendJSON = utils.sendJSON;
 
 const createScenario = (req, res) => {
+  console.log('createScenario called');
+
   const data = {
     scenarioName: req.body.scenarioName,
     spawnsCount: req.body.spawnsCount,
@@ -81,12 +83,12 @@ const deleteScenario = (req, res) => {
     });
 };
 
-const sendScenario = (req, res) => {
-  Scenario.where({ id_user: req.body.id_user })
+const getScenarios = (req, res) => {
+  Scenario.where({ id_user: req.headers.id_user })
     .fetchAll()
     .then((data) => {
       sendJSON(res, 200, JSON.stringify(data.models));
     });
 };
 
-module.exports = { sendScenario, createScenario, getAvgResponseTime, getAvgActionTime, deleteScenario };
+module.exports = { getScenarios, createScenario, getAvgResponseTime, getAvgActionTime, deleteScenario };

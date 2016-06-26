@@ -1,6 +1,8 @@
-if (process.env.NODE_ENV !== 'integration') {
+// if (process.env.NODE_ENV !== 'integration') {
+  console.log('create dockerConnection');
   const dockerConnection = require('../config/docker-config');
-}
+// }
+
 const util = require('../lib/utils');
 
 const status = {

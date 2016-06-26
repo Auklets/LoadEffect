@@ -3,28 +3,22 @@ const sendJSON = (res, status, content) => {
   res.json(content);
 };
 
-const createContainer = (dockerConnection, imageName, containerName, req, res) => {
+const createContainer = (dockerConnection, imageName, containerName) => {
   dockerConnection.createContainer(
     { Image: imageName, name: containerName },
     (connectErr, container) => {
       if (connectErr) {
         console.log('error while creating new container', connectErr);
-        if (res) {
-          res.status(500).send('error while creating new container', connectErr);
-        }
+        return 'error while creating new container'.concat(connectErr);
       } else {
         container.start((startErr) => {
           if (startErr) {
             console.log('error while starting new container', startErr);
-            if (res) {
-              res.status(500).send('error while starting new container', startErr);
-            }
+            return 'error while starting new container'.concat(startErr);
           } else {
             let successMessage = containerName.concat(' started with container id: ').concat(container.id);
             console.log(successMessage);
-            if (res) {
-              res.status(201).send(successMessage);
-            }
+            return successMessage;
           }
         });
       }
