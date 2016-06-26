@@ -2,9 +2,9 @@ export const GET_SCENARIOS = 'GET_SCENARIOS';
 
 export const getData = () => {
   const config = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `id_user=${localStorage.getItem('id')}`,
+    method: 'GET',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+               id_user: localStorage.getItem('id') },
   };
 
   return dispatch =>

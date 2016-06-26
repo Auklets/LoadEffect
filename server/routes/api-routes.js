@@ -1,5 +1,4 @@
 const path = require('path');
-const dockerController = require('../controllers/docker-controller');
 const scenarioController = require('../controllers/scenario-controller');
 
 module.exports = (app) => {
@@ -7,7 +6,8 @@ module.exports = (app) => {
     res.sendFile(path.resolve('client/index.html'));
   });
 
-  app.post('/api/scenarios', scenarioController.sendScenario);
+  app.post('/api/scenarios', scenarioController.createScenario);
+  app.get('/api/scenarios', scenarioController.getScenarios);
 
    // Catch all;
   app.get('/*', (req, res) => {

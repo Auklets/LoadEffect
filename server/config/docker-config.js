@@ -2,6 +2,7 @@ const fs = require('fs');
 const Docker = require('dockerode');
 
 const dockerModemConfig = new Docker({ socketPath: '/var/run/docker.sock' });
+
 const dockerConnection = new Docker({
   host: '45.55.183.145',
   port: 2376,

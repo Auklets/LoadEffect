@@ -22,7 +22,7 @@ class Signup extends Component {
       body: `scenarioName=${scenarioName}&spawnsCount=${spawnsCount}&targetURL=${targetURL}&script=${script}&workers=${workers}&id=${id}`,
     };
 
-    fetch('/api/new-scenario', config);
+    fetch('/api/scenarios', config);
   }
 
   render() {
