@@ -14,14 +14,11 @@ const createScenario = (req, res) => {
     workers: req.body.workers,
     targetURL: req.body.targetURL,
     script: req.body.script,
-    id_user: req.body.id, // Fake user ID, how do you attach user id here?
+    id_user: req.user._id,
   };
 
   if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
-    sendJSON(res, 400, {
-      message: 'All fields required',
-    });
-    return;
+    return sendJSON(res, 400, { message: 'All fields required' });
   }
 
   // create Master to execute new scenario
@@ -37,18 +34,13 @@ const createScenario = (req, res) => {
   const newScenario = new Scenario(data);
   newScenario.save()
     .then(() => {
-      sendJSON(res, 201, {
-        message: 'Success! New scenario has been saved',
-      });
+      sendJSON(res, 201, { message: 'New scenario has been saved!' });
     })
-    .catch(err => {
-      sendJSON(res, 400, err);
-    });
-  // Do some kind of post request here to worker?
+    .catch(err => sendJSON(res, 400, err));
 };
 
 const getAvgResponseTime = (req, res) => {
-  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user.id })
+  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user._id })
     .fetch()
     .then(scenario => {
       sendJSON(res, 200, {
@@ -61,32 +53,28 @@ const getAvgResponseTime = (req, res) => {
 };
 
 const getAvgActionTime = (req, res) => {
-  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user.id })
+  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user })
     .fetch()
     .then(scenario => {
       sendJSON(res, 200, {
         averageActionTime: scenario.get('averageActionTime'),
       });
     })
-    .catch(err => {
-      sendJSON(res, 404, err);
-    });
+    .catch(err => sendJSON(res, 404, err));
 };
 
 const deleteScenario = (req, res) => {
-  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user.id })
+  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user._id })
     .destroy()
     .then(() => {
-      sendJSON(res, 200, {
-        message: 'Success! Scenario has been removed',
-      });
+      sendJSON(res, 200, { message: 'Scenario has been removed!' });
     });
 };
 
 const getScenarios = (req, res) => {
-  Scenario.where({ id_user: req.headers.id_user })
+  Scenario.where({ id_user: req.user._id })
     .fetchAll()
-    .then((data) => {
+    .then(data => {
       sendJSON(res, 200, JSON.stringify(data.models));
     });
 };
