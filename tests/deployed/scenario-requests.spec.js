@@ -3,7 +3,7 @@
 const should = require('chai').should();
 const http = require('http');
 const request = require('request');
-const scenario = require('../../loadBalancer/worker/scripts/scenario.js');
+const scenario = require('../../loadserver/worker/scripts/scenario.js');
 
 describe('requests should work', () => {
   xit('should make an http GET with a non-zero response time', (done) => {

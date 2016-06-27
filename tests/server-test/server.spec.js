@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const app = `${process.env.PROTOCOL}${process.env.HOST}:${process.env.PORT}`;
 const request = require('supertest');
-const User = require('../../server/models/UsersModel.js');
+const User = require('../../webserver/models/UsersModel.js');
 
 xdescribe('Express Server', () => {
   describe('Basic HTTP Request:', () => {
