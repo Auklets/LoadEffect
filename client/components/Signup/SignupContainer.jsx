@@ -10,7 +10,8 @@ class Signup extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     const email = this.refs.email;
     const first = this.refs.first;
     const last = this.refs.last;
