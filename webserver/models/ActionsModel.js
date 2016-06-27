@@ -7,7 +7,7 @@ db.knex.schema.hasTable('actions').then(exists => {
       action.increments('id').primary();
       action.string('actionName', 255).unique();
       action.integer('statusCode', 255);
-      action.integer('elapseTime', 255);
+      action.integer('elapsedTime', 255);
       action.integer('id_scenario', 255);
       action.timestamps();
     }).then(table => {
