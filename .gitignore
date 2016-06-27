@@ -4,3 +4,4 @@ bower_components/
 env/development.env
 build/
 dist/
+do1/
