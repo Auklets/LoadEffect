@@ -12,7 +12,8 @@ const status = {
 const createMaster = (req, res) => {
   status.masterCount++;
   const masterName = 'master'.concat(status.masterCount);
-  util.createContainer(dockerConnection, 'master', masterName);
+  const imageName = 'cshg/loadMaster';
+  util.createContainer(dockerConnection, imageName, masterName);
 };
 
 module.exports = { createMaster };
