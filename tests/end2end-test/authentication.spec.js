@@ -19,7 +19,7 @@ describe('End to End Authentication', () => {
       done();
     });
 
-    it('should log in an existing user', done => {
+    it('should respond with a json web token on log in success', done => {
       request(app)
         .post('/api/login')
         .send({ email: 'tai@hackreactor.com', password: 'taiisthebest' })
@@ -61,7 +61,7 @@ describe('End to End Authentication', () => {
       done();
     });
 
-    it('should create a new user', done => {
+    it('should respond with a json web token on signup success', done => {
       request(app)
         .post('/api/signup')
         .send({

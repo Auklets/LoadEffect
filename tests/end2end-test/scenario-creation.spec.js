@@ -94,7 +94,7 @@ describe('End to End New Scenario Creation', () => {
           expect(res.body.message).to.equal('New scenario has been saved!');
           Scenario.where('scenarioName', 'Login Test')
             .fetch()
-            .then((scenario) => {
+            .then(scenario => {
               expect(scenario.get('targetURL')).to.equal('http://www.felixfeng.com');
               expect(scenario.get('script')).to.equal('Another Script that will test login');
               expect(scenario.get('id_user')).to.equal(userId);
