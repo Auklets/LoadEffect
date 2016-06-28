@@ -44,6 +44,7 @@
     "redux-auth": "0.0.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",
+    "request": "^2.72.0",
     "require": "^2.4.20",
     "session": "^0.1.0",
     "sinon": "^1.17.4"
