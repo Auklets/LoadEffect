@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 const request = require('request');
 const sinon = require('sinon');
-const scenario = require('../../loadBalancer/worker/scripts/scenario.js');
+const scenario = require('../../loadserver/worker/scripts/scenario.js');
 const expect = require('chai').expect;
 
 describe('User Profile', () => {

@@ -9,7 +9,8 @@ class Login extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     const email = this.refs.email;
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };

@@ -40,13 +40,13 @@ const User = db.Model.extend({
 
   generateJwt() {
     const expiry = new Date();
-    expiry.setDate(expiry.getDate() + 14);
+    expiry.setDate(expiry.getDate() + 7);
 
     return jwt.sign({
       _id: this.get('id'),
       email: this.get('email'),
       name: this.get('name'),
-      exp: parseInt(expiry.getTime() / 1000, 7),
+      exp: parseInt(expiry.getTime() / 1000),
     }, process.env.JWT_SECRET);
   },
 });

@@ -2,7 +2,7 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const DockerController = require('../../server/controllers/docker-controller');
+const DockerController = require('../../webserver/controllers/docker-controller');
 
 const url = `${process.env.PROTOCOL}${process.env.HOST}:${process.env.PORT}`;
 

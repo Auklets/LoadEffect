@@ -17,6 +17,5 @@ const receiveLogout = () => ({
 export const logoutUser = () => dispatch => {
   dispatch(requestLogout());
   localStorage.removeItem('id_token');
-  localStorage.removeItem('id');
   dispatch(receiveLogout());
 };

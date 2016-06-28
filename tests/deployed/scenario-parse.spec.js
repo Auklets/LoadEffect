@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 // const should = require('chai').should();
-const parser = require('../../loadBalancer/worker/scripts/parselang.js');
+const parser = require('../../loadserver/worker/scripts/parselang.js');
 
 describe('Parse should understand the syntax and fail appropriately', () => {
   it('will fail on mismatched parens', () => {
