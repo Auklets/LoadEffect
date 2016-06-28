@@ -12,7 +12,7 @@ const status = {
 const createMaster = (req, res) => {
   status.masterCount++;
   const masterName = 'master'.concat(status.masterCount);
-  const imageName = 'cshg/loadMaster';
+  const imageName = 'cshg/loadmaster';
   util.createContainer(dockerConnection, imageName, masterName);
 };
 
