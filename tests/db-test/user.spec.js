@@ -24,7 +24,7 @@ describe('User Model Schema', () => {
     done();
   });
 
-  describe('Creating A New User', err => {
+  describe('Creating A New User', () => {
     it('should store new user to database', done => {
       User.where('name', 'Felix Ramsey')
         .fetch()
@@ -65,7 +65,7 @@ describe('User Model Schema', () => {
         .then(user => {
           const token = user.generateJwt();
           expect(token).to.be.a('string');
-          expect(token).to.have.length.above(2);
+          expect(token).to.have.length.above(10);
           done();
         });
     });
