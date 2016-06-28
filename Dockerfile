@@ -19,4 +19,4 @@ COPY . /webserver
 EXPOSE 8000
 
 # default command to execute when starting master container
-CMD ["npm", "start"]
+CMD ["npm", "run", "prodstart"]

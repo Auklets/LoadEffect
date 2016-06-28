@@ -4,6 +4,7 @@
   "description": "App to allow you to load test your web application using multiple containers, which are spin with cloud servers using Amazon EC2, to test multiple facets of the app with high louds (e.g. 1000/5000/10000 users going through certain steps). Our simple scripting language will allow you to definte multiple load scenarios testing sequences like login, data retrieve, other user actions, etc.",
   "scripts": {
     "start": "NODE_ENV=development nodemon webserver/server.js",
+    "prodstart": "NODE_ENV=production nodemon webserver/server.js",
     "test": "NODE_ENV=development mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\"",
     "test:integration": "NODE_ENV=integration mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\""
   },
