@@ -2,8 +2,13 @@ const Scenario = require('../models/ScenariosModel');
 const dockerController = require('./docker-controller');
 const utils = require('../lib/utils');
 const request = require('request');
-
 const sendJSON = utils.sendJSON;
+
+// URL Configuration for Master Server
+const masterPort = 'FILL_ME_IN_CHRIS';
+const masterHost = 'FILL_ME_IN_CHRIS';
+const masterRoute = 'FILL_ME_IN_CHRIS';
+const masterProtocol = 'FILL_ME_IN_CHRIS';
 
 const createScenario = (req, res) => {
   console.log('createScenario called');
@@ -24,12 +29,12 @@ const createScenario = (req, res) => {
   // create Master to execute new scenario
   dockerController.createMaster(req, res);
 
-  // request.post({
-  //   url: 'http://localhost:3000/go', // Change this endpoint to master server api
-  //   method: 'POST',
-  //   json: true,
-  //   body: data,
-  // });
+  request.post({
+    url: `${masterProtocol}${masterHost}:${masterPort}/${masterRoute}`,
+    method: 'POST',
+    json: true,
+    body: data,
+  });
 
   const newScenario = new Scenario(data);
   newScenario.save()
