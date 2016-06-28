@@ -6,7 +6,8 @@
     "start": "NODE_ENV=development nodemon webserver/server.js",
     "prodstart": "NODE_ENV=production nodemon webserver/server.js",
     "test": "NODE_ENV=development mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\"",
-    "test:integration": "NODE_ENV=integration mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\""
+    "test:integration": "NODE_ENV=integration mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\"",
+    "seed": "NODE_ENV=development node webserver/seed.js"
   },
   "private": false,
   "engines": {
@@ -47,7 +48,8 @@
     "request": "^2.72.0",
     "require": "^2.4.20",
     "session": "^0.1.0",
-    "sinon": "^1.17.4"
+    "sinon": "^1.17.4",
+    "superagent": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
