@@ -14,8 +14,8 @@ CURRENT MVP IMPLEMENTATION SPECIFICATIONS
 const tasksPerJob = 10; // Arbitrary number of actions per job
 
 // Dependencies
-const dockerConnection = require('../../server/config/docker-config');
-const util = require('../../server/lib/utils');
+const dockerConnection = require('../../webserver/config/docker-config');
+const util = require('../../webserver/lib/utils');
 
 // Modules
 const Queue = require('../queue');

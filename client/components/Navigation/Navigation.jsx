@@ -38,7 +38,7 @@ const NavigationContainer = (props) => {
     <Navbar inverse>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">Load Tester</Link>
+          <Link to="/">LoadEffect</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
