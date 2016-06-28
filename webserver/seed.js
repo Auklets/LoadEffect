@@ -65,7 +65,7 @@ var createRandomScenario = function() {
     scenarioName: randomizer(word1) + ' ' + randomizer(word2) + ' Test',
     spawnsCount: randomizer(spawnsCounts),
     workers: randomizer(workers),
-    targetURL: randomizer(urls),
+    targetURL: 'http://' + randomizer(urls) + '.com',
     script: randomizer(scripts),
     id_user: randomUser.id,
   };
