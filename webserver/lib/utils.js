@@ -5,7 +5,13 @@ const sendJSON = (res, status, content) => {
 
 const createContainer = (dockerConnection, imageName, containerName) => {
   dockerConnection.createContainer(
-    { Image: imageName, name: containerName },
+    {
+      Image: imageName,
+      name: containerName,
+      HostConfig: {
+        Links: ["mysql:mysql"],
+      },
+    },
     (connectErr, container) => {
       if (connectErr) {
         console.log('error while creating new container', connectErr);
