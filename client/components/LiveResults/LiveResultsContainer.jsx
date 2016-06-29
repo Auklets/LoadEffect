@@ -8,7 +8,8 @@ const LiveResultsContainer = (props) => (
 
 const mapStateToProps = (state) => ({
   state,
-  // Fix this
+  labels: state.charts.labels,
+  series: state.charts.series,
 });
 
 export default connect(mapStateToProps)(LiveResultsContainer);
