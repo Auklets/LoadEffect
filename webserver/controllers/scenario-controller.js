@@ -32,8 +32,10 @@ const createScenario = (req, res) => {
   setTimeout(() => {
     dockerController.getMasterIP(masterName, function(masterIP) {
       console.log('Master IP received:', masterIP);
+      const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
+      console.log('sending data to', masterUrl);
       request.post({
-        url: `${masterProtocol}${masterIP}:${masterPort}/${masterRoute}`,
+        uri: masterUrl,
         method: 'POST',
         json: true,
         body: data,
