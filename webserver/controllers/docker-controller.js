@@ -9,11 +9,19 @@ const status = {
   masterCount: 0,
 };
 
-const createMaster = (req, res) => {
+const createMaster = () => {
   status.masterCount++;
   const masterName = 'master'.concat(status.masterCount);
   const imageName = 'cshg/loadmaster';
   util.createContainer(dockerConnection, imageName, masterName);
+  return masterName;
 };
 
-module.exports = { createMaster };
+const getMasterIP = (masterName, callback) => {
+  const containerName = masterName;
+  util.checkContainer(dockerConnection, containerName, function(data) {
+    callback(data.NetworkSettings.IPAddress);
+  });
+};
+
+module.exports = { createMaster, getMasterIP };
