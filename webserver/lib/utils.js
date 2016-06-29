@@ -9,7 +9,7 @@ const createContainer = (dockerConnection, imageName, containerName) => {
       Image: imageName,
       name: containerName,
       HostConfig: {
-        Links: ["mysql:mysql"],
+        Links: ["mysql:mysql", "web:web"],
         PortBindings: { "2000": [{ "HostPort": "20" }] },
       },
     },
