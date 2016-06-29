@@ -37,6 +37,14 @@ const createScenario = (req, res) => {
         method: 'POST',
         json: true,
         body: data,
+      },
+      (err, response, body) => {
+        if (err) {
+          console.log('Error while sending data to master', err);
+        } else {
+          console.log('response:', response);
+          console.log('body', body);
+        }
       });
     });
   }, 1000);
