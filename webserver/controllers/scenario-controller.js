@@ -35,7 +35,7 @@ const createScenario = (req, res) => {
       const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
       console.log('sending data to', masterUrl);
       request.post({
-        uri: masterUrl,
+        url: masterUrl,
         method: 'POST',
         json: true,
         body: data,
