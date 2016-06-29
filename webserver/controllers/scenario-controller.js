@@ -23,6 +23,14 @@ const createScenario = (req, res) => {
     id_user: req.user._id,
   };
 
+  const newScenario = new Scenario(data);
+  newScenario.save()
+    .then(() => {
+      data.scenarioID = newScenario.get('id');
+      sendJSON(res, 201, { message: 'New scenario has been saved!' });
+    })
+    .catch(err => sendJSON(res, 400, err));
+
   if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
     return sendJSON(res, 400, { message: 'All fields required' });
   }
