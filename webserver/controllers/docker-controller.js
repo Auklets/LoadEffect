@@ -13,13 +13,13 @@ const createMaster = (callback) => {
   status.masterCount++;
   const masterName = 'master'.concat(status.masterCount);
   const imageName = 'cshg/loadmaster';
-  callback(masterName);
   util.createContainer(dockerConnection, imageName, masterName);
+  callback(masterName);
 };
 
 const getMasterIP = (masterName, callback) => {
   const containerName = masterName;
-  util.checkContainer(dockerConnection, containerName, function(data) {
+  util.checkContainer(dockerConnection, containerName, (data) => {
     callback(data.NetworkSettings.IPAddress);
   });
 };
