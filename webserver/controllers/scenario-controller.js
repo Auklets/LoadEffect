@@ -10,7 +10,6 @@ const masterHost = process.env.MASTERHOST_PORT_1000_TCP_ADDR;
 const masterPort = 2000;
 const masterRoute = '/api/master';
 
-
 const createScenario = (req, res) => {
   console.log('createScenario called');
 
@@ -23,6 +22,10 @@ const createScenario = (req, res) => {
     id_user: req.user._id,
   };
 
+  if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
+    return sendJSON(res, 400, { message: 'All fields required' });
+  }
+
   const newScenario = new Scenario(data);
   newScenario.save()
     .then(() => {
@@ -30,10 +33,6 @@ const createScenario = (req, res) => {
       sendJSON(res, 201, { message: 'New scenario has been saved!' });
     })
     .catch(err => sendJSON(res, 400, err));
-
-  if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
-    return sendJSON(res, 400, { message: 'All fields required' });
-  }
 
   // create Master to execute new scenario
   const masterName = dockerController.createMaster();
@@ -59,13 +58,6 @@ const createScenario = (req, res) => {
       });
     });
   }, 1000);
-
-  const newScenario = new Scenario(data);
-  newScenario.save()
-    .then(() => {
-      sendJSON(res, 201, { message: 'New scenario has been saved!' });
-    })
-    .catch(err => sendJSON(res, 400, err));
 };
 
 const getAvgResponseTime = (req, res) => {
