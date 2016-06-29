@@ -9,6 +9,8 @@ db.knex.schema.hasTable('actions').then(exists => {
       action.integer('statusCode', 255);
       action.integer('elapsedTime', 255);
       action.integer('id_scenario', 255);
+      action.integer('dataSizeInBytes', 255);
+      action.string('httpVerb', 255);
       action.timestamps();
     }).then(table => {
       console.log('Actions table has been created.', table);

@@ -26,6 +26,14 @@ const createScenario = (req, res) => {
     return sendJSON(res, 400, { message: 'All fields required' });
   }
 
+  const newScenario = new Scenario(data);
+  newScenario.save()
+    .then(() => {
+      data.scenarioID = newScenario.get('id');
+      sendJSON(res, 201, { message: 'New scenario has been saved!' });
+    })
+    .catch(err => sendJSON(res, 400, err));
+
   // create Master to execute new scenario
   dockerController.createMaster(
     (masterName) => {
@@ -55,13 +63,27 @@ const createScenario = (req, res) => {
     }
   );
 
-
-  const newScenario = new Scenario(data);
-  newScenario.save()
-    .then(() => {
-      sendJSON(res, 201, { message: 'New scenario has been saved!' });
-    })
-    .catch(err => sendJSON(res, 400, err));
+  setTimeout(() => {
+    dockerController.getMasterIP(masterName, function(masterIP) {
+      console.log('Master IP received:', masterIP);
+      const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
+      console.log('sending data to', masterUrl);
+      request.post({
+        uri: masterUrl,
+        method: 'POST',
+        json: true,
+        body: data,
+      },
+      (err, response, body) => {
+        if (err) {
+          console.log('Error while sending data to master', err);
+        } else {
+          console.log('response:', response);
+          console.log('body', body);
+        }
+      });
+    });
+  }, 1000);
 };
 
 const getAvgResponseTime = (req, res) => {
