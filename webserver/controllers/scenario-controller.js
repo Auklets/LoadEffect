@@ -5,10 +5,10 @@ const request = require('request');
 const sendJSON = utils.sendJSON;
 
 // URL Configuration for Master Server
-const masterPort = 'FILL_ME_IN_CHRIS';
-const masterHost = 'FILL_ME_IN_CHRIS';
-const masterRoute = 'FILL_ME_IN_CHRIS';
-const masterProtocol = 'FILL_ME_IN_CHRIS';
+const masterProtocol = 'http://';
+const masterHost = process.env.MASTERHOST_PORT_1000_TCP_ADDR;
+const masterPort = 2000;
+const masterRoute = '/api/master';
 
 const createScenario = (req, res) => {
   console.log('createScenario called');
@@ -27,14 +27,19 @@ const createScenario = (req, res) => {
   }
 
   // create Master to execute new scenario
-  dockerController.createMaster(req, res);
+  const masterName = dockerController.createMaster();
 
-  request.post({
-    url: `${masterProtocol}${masterHost}:${masterPort}/${masterRoute}`,
-    method: 'POST',
-    json: true,
-    body: data,
-  });
+  setTimeout(() => {
+    dockerController.getMasterIP(masterName, function(masterIP) {
+      console.log('Master IP received:', masterIP);
+      request.post({
+        url: `${masterProtocol}${masterIP}:${masterPort}/${masterRoute}`,
+        method: 'POST',
+        json: true,
+        body: data,
+      });
+    });
+  }, 1000);
 
   const newScenario = new Scenario(data);
   newScenario.save()

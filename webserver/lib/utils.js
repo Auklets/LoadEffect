@@ -32,4 +32,12 @@ const createContainer = (dockerConnection, imageName, containerName) => {
   );
 };
 
-module.exports = { sendJSON, createContainer };
+const checkContainer = (dockerConnection, containerName, callback) => {
+  var container = dockerConnection.getContainer(containerName);
+  container.inspect(function (err, data) {
+    callback(data);
+  });
+};
+
+
+module.exports = { sendJSON, createContainer, checkContainer };
