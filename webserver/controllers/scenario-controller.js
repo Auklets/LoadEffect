@@ -59,31 +59,8 @@ const createScenario = (req, res) => {
             }
           });
         });
-      }, 4000);
-    }
-  );
-
-  setTimeout(() => {
-    dockerController.getMasterIP(masterName, function(masterIP) {
-      console.log('Master IP received:', masterIP);
-      const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
-      console.log('sending data to', masterUrl);
-      request.post({
-        uri: masterUrl,
-        method: 'POST',
-        json: true,
-        body: data,
-      },
-      (err, response, body) => {
-        if (err) {
-          console.log('Error while sending data to master', err);
-        } else {
-          console.log('response:', response);
-          console.log('body', body);
-        }
-      });
+      }, 7000);
     });
-  }, 1000);
 };
 
 const getAvgResponseTime = (req, res) => {
