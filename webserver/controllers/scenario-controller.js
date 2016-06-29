@@ -40,7 +40,7 @@ const createScenario = (req, res) => {
       console.log('masterName', masterName);
       // send data to master
       setTimeout(() => {
-        dockerController.getMasterIP(masterName, function(masterIP) {
+        dockerController.getMasterIP(masterName, (masterIP) => {
           console.log('Master IP received:', masterIP);
           const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
           console.log('sending data to', masterUrl);
@@ -54,7 +54,7 @@ const createScenario = (req, res) => {
             if (err) {
               console.log('Error while sending data to master', err);
             } else {
-              console.log("Successfully sent data to master");
+              console.log('Successfully sent data to master');
               console.log('body', body);
             }
           });

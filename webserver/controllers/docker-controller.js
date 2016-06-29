@@ -19,7 +19,7 @@ const createMaster = (callback) => {
 
 const getMasterIP = (masterName, callback) => {
   const containerName = masterName;
-  util.checkContainer(dockerConnection, containerName, (data) =>  {
+  util.checkContainer(dockerConnection, containerName, (data) => {
     callback(data.NetworkSettings.IPAddress);
   });
 };
