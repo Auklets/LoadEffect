@@ -59,7 +59,7 @@ const createScenario = (req, res) => {
             }
           });
         });
-      }, 4000);
+      }, 7000);
     }
   );
 
