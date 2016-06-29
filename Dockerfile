@@ -5,15 +5,15 @@ FROM node
 MAINTAINER Christian Haug
 
 # create src directory
-RUN mkdir -p /webserver
-WORKDIR /webserver
+RUN mkdir -p /loadapp
+WORKDIR /loadapp
 
 # copy dependency files and install them
-COPY package.json /src
+COPY package.json /loadapp
 RUN npm install
 
 # copy master src code
-COPY . /webserver
+COPY . /loadapp
 
 # container port to expose
 EXPOSE 8000
