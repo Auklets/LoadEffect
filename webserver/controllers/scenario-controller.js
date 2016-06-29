@@ -35,7 +35,33 @@ const createScenario = (req, res) => {
     .catch(err => sendJSON(res, 400, err));
 
   // create Master to execute new scenario
-  const masterName = dockerController.createMaster();
+  dockerController.createMaster(
+    (masterName) => {
+      console.log('masterName', masterName);
+      // send data to master
+      setTimeout(() => {
+        dockerController.getMasterIP(masterName, function(masterIP) {
+          console.log('Master IP received:', masterIP);
+          const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
+          console.log('sending data to', masterUrl);
+          data.masterName = masterName;
+          request.post({
+            url: masterUrl,
+            json: true,
+            body: data,
+          },
+          (err, response, body) => {
+            if (err) {
+              console.log('Error while sending data to master', err);
+            } else {
+              console.log("Successfully sent data to master");
+              console.log('body', body);
+            }
+          });
+        });
+      }, 4000);
+    }
+  );
 
   setTimeout(() => {
     dockerController.getMasterIP(masterName, function(masterIP) {
