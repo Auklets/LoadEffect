@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon webserver/server.js",
     "prodstart": "NODE_ENV=production nodemon webserver/server.js",
-    "test": "NODE_ENV=development mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\"",
+    "test": "NODE_ENV=development mocha --reporter spec tests/testSetup.js \"tests/**/**/*.spec.js\"",
     "test:integration": "NODE_ENV=integration mocha --reporter nyan tests/testSetup.js \"tests/**/**/*.spec.js\"",
     "seed": "NODE_ENV=development node webserver/seed.js"
   },
