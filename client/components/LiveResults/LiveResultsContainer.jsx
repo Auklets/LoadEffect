@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { updateFromInput } from '../../redux/actionCreators/liveResults-actions';
 import LiveResults from './LiveResults.jsx';
 
 const LiveResultsContainer = (props) => (
@@ -12,4 +13,10 @@ const mapStateToProps = (state) => ({
   series: state.charts.series,
 });
 
-export default connect(mapStateToProps)(LiveResultsContainer);
+const mapDispatchToProps = dispatch => ({
+  updateData(labelData, seriesData) {
+    dispatch(updateFromInput(labelData, seriesData));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LiveResultsContainer);

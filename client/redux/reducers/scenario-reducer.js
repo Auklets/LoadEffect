@@ -28,7 +28,6 @@ export const scenarioReducer = (state = initialState, action) => {
       });
 
     case CURRENT_SCENARIO_ID:
-      console.log('Current scenario reducer got called', state, action);
       return Object.assign({}, state, {
         currentScenarioID: action.currentScenarioID,
       });

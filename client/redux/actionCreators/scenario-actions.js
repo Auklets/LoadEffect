@@ -27,6 +27,7 @@ const allScenarios = res => ({
   scenario: JSON.parse(res),
 });
 
+// TODO: Add in worker count for base case
 const storeRecentScenarioID = (scenarioID) => ({
   type: CURRENT_SCENARIO_ID,
   currentScenarioID: scenarioID,

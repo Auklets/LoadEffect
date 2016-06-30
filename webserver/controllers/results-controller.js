@@ -13,9 +13,10 @@ const utils = require('../lib/utils');
 
 const getData = (req, res) => {
   // Pull correct data from database
-  const scenarioID = 'TODO_scenarioID';
-  Spawn.where('scenarioID', scenarioID)
+  Spawn.where('scenarioID', req.body.currentScenarioID)
+    .fetch()
     .then(data => {
+      console.log('Spawn Data from database', data);
       res.json(data);
     });
 };

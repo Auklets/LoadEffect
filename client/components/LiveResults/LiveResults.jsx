@@ -1,21 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import ChartistGraph from 'react-chartist';
-import { updateFromInput } from '../../redux/actionCreators/liveResults-actions';
 import { Form, Button, ControlLabel } from 'react-bootstrap';
 
 class LiveResults extends Component {
   constructor(props) {
     super(props);
-    this.dispatch = this.props.dispatch;
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    console.log('current state', props.state);
     console.log('Current Scenario ID', props.state.allScenario.currentScenarioID);
     // Function to make HTTP Request asking for data
       // If data exists
         // Dispatch to update state
         // Do another http request to ask for more data
-      // Base case is when data is the same
+      // Base case is when # of results = number of users requested
     // Downside: Speed constrained to speed of network
   }
 
@@ -23,7 +20,7 @@ class LiveResults extends Component {
     e.preventDefault();
     const labelData = JSON.parse(this.refs.label.value);
     const seriesData = JSON.parse(this.refs.series.value);
-    this.dispatch(updateFromInput(labelData, seriesData));
+    this.props.updateData(labelData, seriesData);
   }
 
   render() {
@@ -73,6 +70,7 @@ LiveResults.propTypes = {
   series: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired,
+  updateData: PropTypes.func.isRequired,
 };
 
 export default LiveResults;
