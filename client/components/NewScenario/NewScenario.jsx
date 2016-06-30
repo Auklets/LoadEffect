@@ -5,6 +5,7 @@ class NewScenario extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.checkScript = this.checkScript.bind(this);
   }
 
   handleClick() {
@@ -17,11 +18,27 @@ class NewScenario extends Component {
     this.props.sendScenario(data);
   }
 
+  checkScript(e) {
+    e.preventDefault();
+    const script = this.refs.script.value.trim();
+    this.props.validateScript(script);
+  }
+
   render() {
-    const { errorMessage } = this.props;
+    const { errorMessage, isValidScript, attemptedCheck, resetValidation } = this.props;
+
+    const ScriptValidationMessage = () => {
+      if (attemptedCheck) {
+        return isValidScript ?
+          (<p style={{ color: 'green' }}>Your script passes! Go ahead and submit.</p>) :
+          (<p style={{ color: 'red' }}>Invalid script. Check your syntax for errors.</p>);
+      }
+      return null;
+    };
+
     return (
       <div>
-        <Form onSubmit={this.handleClick}>
+        <Form onSubmit={isValidScript ? this.handleClick : this.checkScript}>
           <Col sm={6}>
             <FormGroup controlId="formInlineTestName">
               <ControlLabel>Test Name:</ControlLabel>
@@ -89,19 +106,20 @@ class NewScenario extends Component {
               {' '}
               <textarea
                 className="form-control"
+                onChange={resetValidation}
                 ref="script"
                 type="text"
                 rows="10"
                 placeholder="Enter your script"
-                value="get('/');"
                 required
               />
             </FormGroup>
           </Col>
-          <Col smOffset={5}>
-            <Button bStyle="primary" type="submit">
-              Create!
+          <Col className="text-center lead" sm={12}>
+            <Button bsSize="large" bStyle="primary" type="submit">
+              {isValidScript ? 'Submit' : 'Validate Script'}
             </Button>
+            <ScriptValidationMessage />
           </Col>
           {errorMessage &&
             <p style={{ color: 'red' }}>{errorMessage}</p>
@@ -114,9 +132,12 @@ class NewScenario extends Component {
 
 NewScenario.propTypes = {
   sendScenario: PropTypes.func,
+  validateScript: PropTypes.func,
+  resetValidation: PropTypes.func,
   hideScenario: PropTypes.func,
   errorMessage: PropTypes.string,
-  isScenarioOpen: PropTypes.bool,
+  attemptedCheck: PropTypes.bool,
+  isValidScript: PropTypes.bool,
 };
 
 export default NewScenario;
