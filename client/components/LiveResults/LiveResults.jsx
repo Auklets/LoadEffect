@@ -6,16 +6,21 @@ import { Form, Button, ControlLabel } from 'react-bootstrap';
 class LiveResults extends Component {
   constructor(props) {
     super(props);
-    this.labels = this.props.labels;
-    this.series = this.props.series;
+    this.dispatch = this.props.dispatch;
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    // Function to make HTTP Request asking for data
+      // If data exists
+        // Dispatch to update state
+        // Do another http request to ask for more data
+    // Downside: Speed constrained to speed of network
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const labelData = JSON.parse(this.refs.label.value);
     const seriesData = JSON.parse(this.refs.series.value);
-    this.props.dispatch(updateFromInput(labelData, seriesData));
+    this.dispatch(updateFromInput(labelData, seriesData));
   }
 
   render() {

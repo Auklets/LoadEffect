@@ -1,5 +1,6 @@
 const path = require('path');
 const scenarioController = require('../controllers/scenario-controller');
+const resultsController = require('../controllers/results-controller');
 const jwt = require('express-jwt');
 const auth = jwt({ secret: process.env.JWT_SECRET });
 
@@ -10,6 +11,8 @@ module.exports = (app) => {
 
   app.post('/api/scenarios', auth, scenarioController.createScenario);
   app.get('/api/scenarios', auth, scenarioController.getScenarios);
+
+  app.get('/api/resultsdata', auth, resultsController.getData);
 
    // Catch all;
   app.get('/*', (req, res) => {
