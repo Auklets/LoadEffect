@@ -3,6 +3,7 @@ export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
 export const TOGGLE_SCENARIO_MODAL = 'TOGGLE_SCENARIO_MODAL';
 export const CURRENT_SCENARIO_ID = 'CURRENT_SCENARIO_ID';
+export const CURRENT_SPAWNS_COUNT = 'CURRENT_USER_COUNT';
 
 const validScript = () => ({
   type: VALID_SCRIPT,
@@ -27,10 +28,14 @@ const allScenarios = res => ({
   scenario: JSON.parse(res),
 });
 
-// TODO: Add in worker count for base case
 const storeRecentScenarioID = (scenarioID) => ({
   type: CURRENT_SCENARIO_ID,
   currentScenarioID: scenarioID,
+});
+
+const storeRecentUserCount = (spawnsCount) => ({
+  type: CURRENT_SPAWNS_COUNT,
+  currentSpawnsCount: spawnsCount,
 });
 
 // In case user changes script after it was validated, this will reset validation
@@ -86,6 +91,7 @@ export const createScenario = data => {
         .then(res => {
           console.log('Response from the post request', res);
           dispatch(storeRecentScenarioID(res.scenarioID));
+          dispatch(storeRecentUserCount(res.spawnsCount));
         })
       )
       .catch(err => console.log('Error: ', err));
