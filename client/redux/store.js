@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router';
 import { authReducer } from './reducers/auth-reducer';
 import { scenarioReducer } from './reducers/scenario-reducer';
 import { modalReducer } from './reducers/modal-reducer';
+import { chartReducer } from './reducers/chart-reducer';
 
 /* ****************** API's ******************* */
 import api from '../middleware/api';
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   auth: authReducer,
   scenario: scenarioReducer,
   modal: modalReducer,
+  charts: chartReducer,
 });
 
 const createStoreWithMiddleWare = applyMiddleware(thunkMiddleware, api)(createStore);
