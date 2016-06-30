@@ -4,7 +4,6 @@ import { TOGGLE_SIGNUP_MODAL } from '../actionCreators/signup-actions';
 const initialState = {
   isLoginOpen: false,
   isSignupOpen: false,
-  isScenarioOpen: false,
 };
 
 export const modalReducer = (state = initialState, action) => {
