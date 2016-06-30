@@ -12,7 +12,7 @@ module.exports = (app) => {
   app.post('/api/scenarios', auth, scenarioController.createScenario);
   app.get('/api/scenarios', auth, scenarioController.getScenarios);
 
-  app.get('/api/resultsdata', auth, resultsController.getData);
+  app.post('/api/resultsdata', resultsController.getData); // Add auth when done testing
 
    // Catch all;
   app.get('/*', (req, res) => {

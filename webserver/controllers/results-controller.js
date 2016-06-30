@@ -13,11 +13,27 @@ const utils = require('../lib/utils');
 
 const getData = (req, res) => {
   // Pull correct data from database
-  Spawn.where('scenarioID', req.body.currentScenarioID)
-    .fetch()
+  console.log('Received request in results controller get data!', req.body);
+  const testscenarioID = 45;
+  const scenarioID = req.body.currentScenarioID;
+  Spawn.where('id_scenario', testscenarioID)
+    .fetchAll()
     .then(data => {
-      console.log('Spawn Data from database', data);
-      res.json(data);
+      const cleanedData = JSON.parse(JSON.stringify(data));
+      console.log('Spawn Data from database', JSON.parse(JSON.stringify(data)));
+      const dataToSend = { labels: [], series: [] };
+      for (let i = 0; i < cleanedData.length; i++) {
+        dataToSend.labels.push(i);
+        dataToSend.series.push(cleanedData[i].totalTime);
+      }
+      // Send back the following
+        /*
+          {
+            labels: [],
+            series: [],
+          }
+        */
+      res.json(dataToSend);
     });
 };
 

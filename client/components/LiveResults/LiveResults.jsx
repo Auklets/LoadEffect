@@ -7,13 +7,13 @@ class LiveResults extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
 
+    // Variable for total jobs
+    const totalJobs = 0; // TODO
+    const currentScenarioID = props.state.allScenario.currentScenarioID;
+
     console.log('Current Scenario ID', props.state.allScenario.currentScenarioID);
-    // Function to make HTTP Request asking for data
-      // If data exists
-        // Dispatch to update state
-        // Do another http request to ask for more data
-      // Base case is when # of results = number of users requested
-    // Downside: Speed constrained to speed of network
+    // Continue to fetch until total jobs equals data length
+    this.props.updateLineChartData(totalJobs, currentScenarioID);
   }
 
   handleSubmit(e) {
@@ -71,6 +71,7 @@ LiveResults.propTypes = {
   dispatch: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired,
   updateData: PropTypes.func.isRequired,
+  updateLineChartData: PropTypes.func.isRequired,
 };
 
 export default LiveResults;

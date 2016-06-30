@@ -4,17 +4,21 @@ export const UPDATE_DATA = 'UPDATE_DATA';
   // Start with HTPP Request
 
 // Update line chart data
-export const updateLineChartData = () => {
+export const updateLineChartData = (jobCount, scenarioID) => {
   const token = localStorage.getItem('id_token');
+  const serverEndPoint = '/api/resultsdata';
   const config = {
-    method: 'GET',
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      totalJobs: jobCount,
+      currentScenarioID: scenarioID,
+    }),
   };
   return dispatch =>
-    // TBD
-    fetch('/api/spawn', config)
+    fetch(serverEndPoint, config)
       .then(response => response.json()
         .then(res => {
           dispatch({
@@ -22,10 +26,19 @@ export const updateLineChartData = () => {
             labels: res.labels,
             series: res.series,
           });
+          if (jobCount <= res.labels.length) {
+            updateLineChartData(jobCount, scenarioID);
+          }
         }
       )
-    );
+    ).catch(err => console.log('Error: ', err));
 };
+      // Function to make HTTP Request asking for data
+  // If data exists
+    // Dispatch to update state
+    // Do another http request to ask for more data
+  // Base case is when # of results = number of users requested
+// Downside: Speed constrained to speed of network
 
 export const updateFromInput = (inputLabels, inputSeries) =>
   dispatch =>

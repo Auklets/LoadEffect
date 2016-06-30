@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFromInput } from '../../redux/actionCreators/liveResults-actions';
+import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/liveResults-actions';
 import LiveResults from './LiveResults.jsx';
 
 const LiveResultsContainer = (props) => (
@@ -16,6 +16,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   updateData(labelData, seriesData) {
     dispatch(updateFromInput(labelData, seriesData));
+  },
+
+  updateLineChartData(totalJobs, currentScenarioID) {
+    dispatch(updateLineChartData(totalJobs, currentScenarioID));
   },
 });
 
