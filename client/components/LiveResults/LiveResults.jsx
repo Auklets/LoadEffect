@@ -8,15 +8,17 @@ class LiveResults extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     // Variable for total jobs
-    const testTotalSpawns = 5; // TODO - Need to get the right job count from state
-    const totalSpawns = props.state.allScenario.currentSpawnsCount;
-    const testScenarioID = 15;
-    const currentScenarioID = props.state.allScenario.currentScenarioID;
+    // const testTotalSpawns = 5;
+    // const testScenarioID = 15;
+    const totalSpawns = props.currentSpawnsCount;
+    const currentScenarioID = props.currentScenarioID;
 
-    console.log('Current worker count', props.state.allScenario.currentSpawnsCount);
-    console.log('Current Scenario ID', props.state.allScenario.currentScenarioID);
+    console.log('This is props', props);
+
+    console.log('Current spawns count', props.currentSpawnsCount);
+    console.log('Current Scenario ID', props.currentScenarioID);
     // Continue to fetch until total jobs equals data length
-    this.props.updateLineChartData(totalSpawns, testScenarioID);
+    // this.props.updateLineChartData(totalSpawns, currentScenarioID);
   }
 
   handleSubmit(e) {
@@ -27,9 +29,10 @@ class LiveResults extends Component {
   }
 
   render() {
+    const { labels, series } = this.props;
     const simpleLineChartData = {
-      labels: this.props.state.charts.labels,
-      series: [this.props.state.charts.series],
+      labels,
+      series: [series],
     };
     console.log(simpleLineChartData);
     const lineChartOptions = {
@@ -75,6 +78,9 @@ LiveResults.propTypes = {
   state: PropTypes.object.isRequired,
   updateData: PropTypes.func.isRequired,
   updateLineChartData: PropTypes.func.isRequired,
+  allScenario: PropTypes.object.isRequired,
+  currentSpawnsCount: PropTypes.number.isRequired,
+  currentScenarioID: PropTypes.number.isRequired,
 };
 
 export default LiveResults;

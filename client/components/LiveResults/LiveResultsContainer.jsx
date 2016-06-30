@@ -7,11 +7,19 @@ const LiveResultsContainer = (props) => (
   <LiveResults {...props} />
 );
 
-const mapStateToProps = (state) => ({
-  state,
-  labels: state.charts.labels,
-  series: state.charts.series,
-});
+const mapStateToProps = (state) => {
+  const { charts, scenario } = state;
+  const { allScenarios, currentScenarioID } = scenario;
+  const { labels, series } = charts;
+
+  return {
+    state,
+    labels,
+    series,
+    allScenarios,
+    currentScenarioID,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   updateData(labelData, seriesData) {

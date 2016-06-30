@@ -2,7 +2,8 @@ import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_ID, 
 
 const initialState = {
   allScenarios: [],
-  currentScenarioID: 1,
+  currentScenarioID: 0,
+  currentSpawnsCount: 0,
   isValidScript: false,
   attemptedCheck: false,
 };
