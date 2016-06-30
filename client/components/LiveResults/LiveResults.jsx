@@ -8,12 +8,13 @@ class LiveResults extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     // Variable for total jobs
-    const totalJobs = 0; // TODO
+    const totalJobs = 0; // TODO - Pass props into
+    const testScenarioID = 15;
     const currentScenarioID = props.state.allScenario.currentScenarioID;
 
     console.log('Current Scenario ID', props.state.allScenario.currentScenarioID);
     // Continue to fetch until total jobs equals data length
-    this.props.updateLineChartData(totalJobs, currentScenarioID);
+    this.props.updateLineChartData(totalJobs, testScenarioID);
   }
 
   handleSubmit(e) {

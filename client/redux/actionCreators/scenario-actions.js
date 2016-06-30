@@ -64,7 +64,7 @@ export const getScenarios = () => {
     fetch('/api/scenarios', config)
       .then(response => response.json()
         .then(res => {
-          console.log(JSON.parse(res));
+          // console.log(JSON.parse(res));
           dispatch(allScenarios(res));
         })
       )

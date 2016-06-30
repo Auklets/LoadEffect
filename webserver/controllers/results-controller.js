@@ -2,6 +2,7 @@ const Spawn = require('../models/SpawnsModel');
 
 /* EXTRA CREDIT IDEAS
   // Get data from spawns database
+  // Get database where scenario ID and id is greater than the greatest id
     // Get data from DB where timestamp > the last global Variable
       // And where id scenario equals the one we want
     // set lastpull to the latest timestamp of the data received
@@ -10,8 +11,10 @@ const Spawn = require('../models/SpawnsModel');
 
 const getData = (req, res) => {
   // Pull correct data from database
+  // console.log('Received request!', req);
   console.log('Received request in results controller get data!', req.body);
   const scenarioID = req.body.currentScenarioID;
+  const testscenarioID = 15;
   Spawn.where('id_scenario', scenarioID)
     .fetchAll()
     .then(data => {

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const UPDATE_DATA = 'UPDATE_DATA';
 
 // CONSIDER SOCKETS FOR MORE REAL_TIME DATA
@@ -7,29 +9,30 @@ export const UPDATE_DATA = 'UPDATE_DATA';
 export const updateLineChartData = (jobCount, scenarioID) => {
   const token = localStorage.getItem('id_token');
   const serverEndPoint = '/api/resultsdata';
-  const config = {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      currentScenarioID: scenarioID
-    }),
-  };
+  // const config = {
+  //   method: 'POST',
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  //   body: 'hi',
+  //   // JSON.stringify({
+  //   //   currentScenarioID: scenarioID,
+  //   // }),
+  // };
   return dispatch =>
-    fetch(serverEndPoint, config)
-      .then(response => response.json()
-        .then(res => {
-          dispatch({
-            type: UPDATE_DATA,
-            labels: res.labels,
-            series: res.series,
-          });
-          if (jobCount <= res.labels.length) {
-            updateLineChartData(jobCount, scenarioID);
-          }
+    axios.post(serverEndPoint, { currentScenarioID: scenarioID })
+      .then(res => {
+        console.log('This is the response from the server', res);
+        dispatch({
+          type: UPDATE_DATA,
+          labels: res.data.labels,
+          series: res.data.series,
+        });
+        if (jobCount <= res.data.labels.length) {
+          console.log('We are recursively calling');
+          updateLineChartData(jobCount, scenarioID);
         }
-      )
+      }
     ).catch(err => console.log('Error: ', err));
 };
       // Function to make HTTP Request asking for data
