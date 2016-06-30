@@ -16,10 +16,10 @@ const Navigation = props => {
         <Link to="/live-results">[TEST - Live Results]</Link>
       </li>
       <li>
-        <Link to="/results-detail">[TEST - Results Detail]</Link>
+        <Link to="/new-scenario">Create New Scenario</Link>
       </li>
       <li>
-        <Link to="/new-scenario">Create New Scenario</Link>
+        <Link to="/results-detail">[TEST - Results Detail]</Link>
       </li>
       <li>
         <Link to="/main">Main</Link>

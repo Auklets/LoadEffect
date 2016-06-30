@@ -28,6 +28,7 @@ class LiveResults extends Component {
       labels: this.props.state.charts.labels,
       series: [this.props.state.charts.series],
     };
+    console.log(simpleLineChartData);
     const lineChartOptions = {
       low: 0,
       showArea: true,
