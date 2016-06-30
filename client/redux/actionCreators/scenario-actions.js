@@ -1,28 +1,9 @@
 export const GET_SCENARIOS = 'GET_SCENARIOS';
-export const TOGGLE_SCENARIO_MODAL = 'TOGGLE_SCENARIO_MODAL';
-
-const showScenarioModal = () => ({
-  type: TOGGLE_SCENARIO_MODAL,
-  isScenarioOpen: true,
-});
-
-const hideScenarioModal = () => ({
-  type: TOGGLE_SCENARIO_MODAL,
-  isScenarioOpen: false,
-});
 
 const allScenarios = (res) => ({
   type: GET_SCENARIOS,
   allScenarios: JSON.parse(res),
 });
-
-export const openScenarioModal = () => dispatch => {
-  dispatch(showScenarioModal());
-};
-
-export const closeScenarioModal = () => dispatch => {
-  dispatch(hideScenarioModal());
-};
 
 export const getScenarios = () => {
   const token = localStorage.getItem('id_token');
@@ -58,7 +39,6 @@ export const createScenario = data => {
     return fetch('/api/scenarios', config)
       .then(response => response.json()
         .then(res => {
-          dispatch(hideScenarioModal());
         })
       )
       .catch(err => console.log('Error: ', err));

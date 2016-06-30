@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { getScenarios } from '../redux/actionCreators/scenario-actions';
-import Navigation from './Navigation/Navigation.jsx';
+import NavigationContainer from './Navigation/NavigationContainer.jsx';
 import { connect } from 'react-redux';
 
 const App = (props) => {
@@ -14,7 +14,7 @@ const App = (props) => {
 
   return (
     <div>
-      <Navigation
+      <NavigationContainer
         isAuthenticated={isAuthenticated}
         errorMessage={errorMessage}
         dispatch={dispatch}

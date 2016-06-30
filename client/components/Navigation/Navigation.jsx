@@ -1,27 +1,19 @@
 // React/Redux/Router/Bootstrap
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Navbar, Nav } from 'react-bootstrap';
 
-// Dispatched actions
-import { openLoginModal } from '../../redux/actionCreators/login-actions';
-import { openSignupModal } from '../../redux/actionCreators/signup-actions';
-import { openScenarioModal } from '../../redux/actionCreators/scenario-actions';
-import { logoutUser } from '../../redux/actionCreators/logout-actions';
-
 // Modal/Popup Components
-import LoginModal from '../Login/LoginModal.jsx';
-import SignupModal from '../Signup/SignupModal.jsx';
-import NewScenarioModal from '../NewScenario/NewScenarioModal.jsx';
+import LoginContainer from '../Login/LoginContainer.jsx';
+import SignupContainer from '../Signup/SignupContainer.jsx';
 
-const NavigationContainer = (props) => {
-  const { showLogin, showSignup, showNewScenario, handleClick, isAuthenticated } = props;
+const Navigation = props => {
+  const { showLogin, showSignup, handleClick, isAuthenticated } = props;
 
   const LoggedIn = (
     <Nav pullRight>
       <li>
-        <Link to="/" onClick={showNewScenario}>Create New Scenario</Link>
+        <Link to="/new-scenario">Create New Scenario</Link>
       </li>
       <li>
         <Link to="/main">Main</Link>
@@ -29,7 +21,6 @@ const NavigationContainer = (props) => {
       <li>
         <Link onClick={handleClick} to="/">Logout</Link>
       </li>
-      <NewScenarioModal />
     </Nav>
   );
 
@@ -41,8 +32,8 @@ const NavigationContainer = (props) => {
       <li>
         <Link to="/" onClick={showSignup}>Signup</Link>
       </li>
-      <LoginModal />
-      <SignupModal />
+      <LoginContainer />
+      <SignupContainer />
     </Nav>
   );
 
@@ -61,7 +52,7 @@ const NavigationContainer = (props) => {
   );
 };
 
-NavigationContainer.propTypes = {
+Navigation.propTypes = {
   dispatch: PropTypes.func.isRequired,
   showLogin: PropTypes.func,
   showSignup: PropTypes.func,
@@ -70,35 +61,4 @@ NavigationContainer.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const { auth } = state;
-  const { isAuthenticated, errorMessage } = auth;
-
-  return {
-    isLoginOpen: state.isLoginOpen,
-    isSignupOpen: state.isSignupOpen,
-    isScenarioOpen: state.isScenarioOpen,
-    isAuthenticated,
-    errorMessage,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  showLogin() {
-    dispatch(openLoginModal());
-  },
-
-  showSignup() {
-    dispatch(openSignupModal());
-  },
-
-  showNewScenario() {
-    dispatch(openScenarioModal());
-  },
-
-  handleClick() {
-    dispatch(logoutUser());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationContainer);
+export default Navigation;
