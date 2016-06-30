@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Grid, Row, Col, Button, Modal } from 'react-bootstrap';
-import { connect } from 'react-redux';
-
-import { signupUser, closeSignupModal } from '../../redux/actionCreators/signup-actions';
+import { Form, FormGroup, ControlLabel, Col, Button, Modal } from 'react-bootstrap';
 
 class SignupModal extends Component {
   constructor(props) {
@@ -21,7 +18,7 @@ class SignupModal extends Component {
 
   render() {
     const { errorMessage, isSignupOpen, hideSignup } = this.props;
-    console.log(isSignupOpen);
+
     return (
       <Modal show={isSignupOpen} onHide={hideSignup} closeButton>
         <Modal.Header>
@@ -115,26 +112,5 @@ SignupModal.propTypes = {
   isSignupOpen: PropTypes.bool,
 };
 
-const mapStateToProps = state => {
-  const { auth, modal } = state;
-  const { isAuthenticated, errorMessage } = auth;
-  const { isSignupOpen } = modal;
-
-  return {
-    isSignupOpen,
-    isAuthenticated,
-    errorMessage,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  hideSignup() {
-    dispatch(closeSignupModal());
-  },
-  sendSignup(creds) {
-    dispatch(signupUser(creds));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignupModal);
+export default SignupModal;
 
