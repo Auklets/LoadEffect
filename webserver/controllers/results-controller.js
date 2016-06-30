@@ -1,7 +1,4 @@
 const Spawn = require('../models/SpawnsModel');
-const request = require('request');
-const utils = require('../lib/utils');
-
 
 /* EXTRA CREDIT IDEAS
   // Get data from spawns database
@@ -14,13 +11,11 @@ const utils = require('../lib/utils');
 const getData = (req, res) => {
   // Pull correct data from database
   console.log('Received request in results controller get data!', req.body);
-  const testscenarioID = 45;
   const scenarioID = req.body.currentScenarioID;
-  Spawn.where('id_scenario', testscenarioID)
+  Spawn.where('id_scenario', scenarioID)
     .fetchAll()
     .then(data => {
       const cleanedData = JSON.parse(JSON.stringify(data));
-      console.log('Spawn Data from database', JSON.parse(JSON.stringify(data)));
       const dataToSend = { labels: [], series: [] };
       for (let i = 0; i < cleanedData.length; i++) {
         dataToSend.labels.push(i);

@@ -13,8 +13,7 @@ export const updateLineChartData = (jobCount, scenarioID) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      totalJobs: jobCount,
-      currentScenarioID: scenarioID,
+      currentScenarioID: scenarioID
     }),
   };
   return dispatch =>
