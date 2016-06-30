@@ -8,7 +8,7 @@ class LiveResults extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     // Variable for total jobs
-    const totalJobs = 0; // TODO - Pass props into
+    const totalJobs = 5; // TODO - Pass props into
     const testScenarioID = 15;
     const currentScenarioID = props.state.allScenario.currentScenarioID;
 

@@ -7,7 +7,8 @@ export const UPDATE_DATA = 'UPDATE_DATA';
 
 // Update line chart data
 export const updateLineChartData = (jobCount, scenarioID) => {
-  const token = localStorage.getItem('id_token');
+  console.log('We have called updateLineChartData');
+  // const token = localStorage.getItem('id_token');
   const serverEndPoint = '/api/resultsdata';
   // const config = {
   //   method: 'POST',
@@ -20,20 +21,25 @@ export const updateLineChartData = (jobCount, scenarioID) => {
   //   // }),
   // };
   return dispatch =>
-    axios.post(serverEndPoint, { currentScenarioID: scenarioID })
-      .then(res => {
-        console.log('This is the response from the server', res);
-        dispatch({
-          type: UPDATE_DATA,
-          labels: res.data.labels,
-          series: res.data.series,
-        });
-        if (jobCount <= res.data.labels.length) {
-          console.log('We are recursively calling');
-          updateLineChartData(jobCount, scenarioID);
+    {
+      console.log('We got into dispatch');
+      axios.post(serverEndPoint, { currentScenarioID: scenarioID })
+        .then(res => {
+          console.log('This is the response from the server', res);
+          dispatch({
+            type: UPDATE_DATA,
+            labels: res.data.labels,
+            series: res.data.series,
+          });
+          console.log('This is job count', jobCount);
+          console.log('This is data length', res.data.labels.length);
+          if (res.data.labels.length < jobCount) {
+            console.log('We are recursively calling');
+            dispatch(updateLineChartData(jobCount, scenarioID));
+          }
         }
-      }
-    ).catch(err => console.log('Error: ', err));
+      ).catch(err => console.log('Error: ', err));
+    }
 };
       // Function to make HTTP Request asking for data
   // If data exists
