@@ -1,18 +1,27 @@
-
+// React/Redux/Router/Bootstrap
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Navbar, Nav } from 'react-bootstrap';
+
+// Dispatched actions
+import { openLoginModal } from '../../redux/actionCreators/login-actions';
+import { openSignupModal } from '../../redux/actionCreators/signup-actions';
+import { openScenarioModal } from '../../redux/actionCreators/scenario-actions';
 import { logoutUser } from '../../redux/actionCreators/logout-actions';
 
+// Modal/Popup Components
+import LoginModal from '../Login/LoginModal.jsx';
+import SignupModal from '../Signup/SignupModal.jsx';
+import NewScenarioModal from '../NewScenario/NewScenarioModal.jsx';
+
 const NavigationContainer = (props) => {
-  const handleClick = function handleClick() {
-    props.dispatch(logoutUser());
-  };
+  const { showLogin, showSignup, showNewScenario, handleClick, isAuthenticated } = props;
 
   const LoggedIn = (
     <Nav pullRight>
       <li>
-        <Link to="/new-scenario">Create New Scenario</Link>
+        <Link to="/" onClick={showNewScenario}>Create New Scenario</Link>
       </li>
       <li>
         <Link to="/main">Main</Link>
@@ -20,17 +29,20 @@ const NavigationContainer = (props) => {
       <li>
         <Link onClick={handleClick} to="/">Logout</Link>
       </li>
+      <NewScenarioModal />
     </Nav>
   );
 
   const NotLoggedIn = (
     <Nav pullRight>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to="/" onClick={showLogin}>Login</Link>
       </li>
       <li>
-        <Link to="/signup">Signup</Link>
+        <Link to="/" onClick={showSignup}>Signup</Link>
       </li>
+      <LoginModal />
+      <SignupModal />
     </Nav>
   );
 
@@ -43,7 +55,7 @@ const NavigationContainer = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {props.isAuthenticated ? LoggedIn : NotLoggedIn}
+        {isAuthenticated ? LoggedIn : NotLoggedIn}
       </Navbar.Collapse>
     </Navbar>
   );
@@ -51,7 +63,42 @@ const NavigationContainer = (props) => {
 
 NavigationContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  showLogin: PropTypes.func,
+  showSignup: PropTypes.func,
+  showNewScenario: PropTypes.func,
+  handleClick: PropTypes.func,
   isAuthenticated: PropTypes.bool.isRequired,
 };
 
-export default NavigationContainer;
+const mapStateToProps = (state) => {
+  const { auth } = state;
+  const { isAuthenticated, errorMessage } = auth;
+
+  return {
+    isLoginOpen: state.isLoginOpen,
+    isSignupOpen: state.isSignupOpen,
+    isScenarioOpen: state.isScenarioOpen,
+    isAuthenticated,
+    errorMessage,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  showLogin() {
+    dispatch(openLoginModal());
+  },
+
+  showSignup() {
+    dispatch(openSignupModal());
+  },
+
+  showNewScenario() {
+    dispatch(openScenarioModal());
+  },
+
+  handleClick() {
+    dispatch(logoutUser());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationContainer);

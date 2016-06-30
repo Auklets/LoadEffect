@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Grid, Row, Col, Button } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, Grid, Row, Col, Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { signupUser } from '../../redux/actionCreators/signup-actions';
+import { signupUser, closeSignupModal } from '../../redux/actionCreators/signup-actions';
 
-class Signup extends Component {
+class SignupModal extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -12,24 +12,23 @@ class Signup extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    const email = this.refs.email;
-    const first = this.refs.first;
-    const last = this.refs.last;
-    const password = this.refs.password;
-
-    const creds = {
-      email: email.value.trim(),
-      name: `${first.value.trim()} ${last.value.trim()}`,
-      password: password.value.trim(),
-    };
-    this.props.dispatch(signupUser(creds));
+    const email = this.refs.email.value.trim();
+    const name = `${this.refs.first.value.trim()} ${this.refs.last.value.trim()}`;
+    const password = this.refs.password.value.trim();
+    const creds = { email, name, password };
+    this.props.sendSignup(creds);
   }
 
   render() {
+    const { errorMessage, isSignupOpen, hideSignup } = this.props;
+    console.log(isSignupOpen);
     return (
-      <Form onSubmit={this.handleClick}>
-        <Grid>
-          <Row className="show-grid">
+      <Modal show={isSignupOpen} onHide={hideSignup} closeButton>
+        <Modal.Header>
+          <Modal.Title>Signup for a new Account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={this.handleClick}>
             <Col sm={6}>
               <FormGroup controlId="formInlineFirstName">
                 <ControlLabel>First Name:</ControlLabel>
@@ -94,31 +93,48 @@ class Signup extends Component {
                 />
               </FormGroup>
             </Col>
-
-            <Button bStyle="primary" type="submit">
-              SignUp
-            </Button>
-          </Row>
-        </Grid>
-      </Form>
+            <Col smOffset={5}>
+              <Button bStyle="primary" type="submit">
+                SignUp
+              </Button>
+            </Col>
+            {errorMessage &&
+              <p style={{ color: 'red' }}>{errorMessage}</p>
+            }
+          </Form>
+        </Modal.Body>
+      </Modal>
     );
   }
 }
 
-Signup.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+SignupModal.propTypes = {
+  sendSignup: PropTypes.func,
+  hideSignup: PropTypes.func,
   errorMessage: PropTypes.string,
+  isSignupOpen: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
-  const { auth } = state;
+const mapStateToProps = state => {
+  const { auth, modal } = state;
   const { isAuthenticated, errorMessage } = auth;
+  const { isSignupOpen } = modal;
 
   return {
-    data: state.data,
+    isSignupOpen,
     isAuthenticated,
     errorMessage,
   };
 };
 
-export default connect(mapStateToProps)(Signup);
+const mapDispatchToProps = dispatch => ({
+  hideSignup() {
+    dispatch(closeSignupModal());
+  },
+  sendSignup(creds) {
+    dispatch(signupUser(creds));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupModal);
+

@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Grid, Row, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { loginUser } from '../../redux/actionCreators/login-actions';
+import { Form, FormGroup, ControlLabel, Col, Button, Modal } from 'react-bootstrap';
 
-class Login extends Component {
+// Dispatched actions
+import { loginUser, closeLoginModal } from '../../redux/actionCreators/login-actions';
+
+class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -14,17 +16,19 @@ class Login extends Component {
     const email = this.refs.email;
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };
-    this.props.dispatch(loginUser(creds));
+    this.props.sendLogin(creds);
   }
 
   render() {
-    const { errorMessage } = this.props;
+    const { errorMessage, isLoginOpen, hideLogin } = this.props;
 
     return (
-      <Form onSubmit={this.handleClick}>
-        <Grid>
-          <Row className="show-grid">
-
+      <Modal show={isLoginOpen} onHide={hideLogin} closeButton>
+        <Modal.Header>
+          <Modal.Title>Login To Your Account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={this.handleClick}>
             <Col sm={12}>
               <FormGroup controlId="formInlineEmail">
                 <ControlLabel>Email:</ControlLabel>
@@ -50,34 +54,49 @@ class Login extends Component {
                 />
               </FormGroup>
             </Col>
-
-            <Button bStyle="primary" type="submit">
-              Login
-            </Button>
-          </Row>
-        </Grid>
-        {errorMessage &&
-          <p style={{ color: 'red' }}>{errorMessage}</p>
-        }
-      </Form>
+            <Col smOffset={5}>
+              <Button bStyle="primary" type="submit">
+                Login
+              </Button>
+            </Col>
+            {errorMessage &&
+              <p style={{ color: 'red' }}>{errorMessage}</p>
+            }
+          </Form>
+        </Modal.Body>
+      </Modal>
     );
   }
 }
 
-Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+LoginModal.propTypes = {
   errorMessage: PropTypes.string,
+  hideLogin: PropTypes.func,
+  sendLogin: PropTypes.func,
+  isLoginOpen: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
-  const { auth } = state;
+const mapStateToProps = state => {
+  const { auth, modal } = state;
   const { isAuthenticated, errorMessage } = auth;
+  const { isLoginOpen, isSignupOpen } = modal;
 
   return {
-    data: state.data,
+    isLoginOpen,
+    isSignupOpen,
     isAuthenticated,
     errorMessage,
   };
 };
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = dispatch => ({
+  hideLogin() {
+    dispatch(closeLoginModal());
+  },
+
+  sendLogin(creds) {
+    dispatch(loginUser(creds));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
