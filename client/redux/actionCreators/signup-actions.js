@@ -1,6 +1,7 @@
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+export const TOGGLE_SIGNUP_MODAL = 'TOGGLE_SIGNUP_MODAL';
 
 const receiveSignup = user => ({
   type: SIGNUP_SUCCESS,
@@ -22,6 +23,24 @@ const signupError = message => ({
   isAuthenticated: false,
   message,
 });
+
+const showSignupModal = () => ({
+  type: TOGGLE_SIGNUP_MODAL,
+  isSignupOpen: true,
+});
+
+const hideSignupModal = () => ({
+  type: TOGGLE_SIGNUP_MODAL,
+  isSignupOpen: false,
+});
+
+export const openSignupModal = () => dispatch => {
+  dispatch(showSignupModal());
+};
+
+export const closeSignupModal = () => dispatch => {
+  dispatch(hideSignupModal());
+};
 
 export const signupUser = creds => {
   const config = {
@@ -47,6 +66,7 @@ export const signupUser = creds => {
           localStorage.setItem('id_token', user.id_token);
 
           // Dispatch the success action
+          dispatch(hideSignupModal());
           dispatch(receiveSignup(user));
         }
       })
