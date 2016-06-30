@@ -6,9 +6,14 @@ const MainContainer = (props) => (
   <Main {...props} />
 );
 
-const mapStateToProps = (state) => ({
-  state,
-  scenarios: state.allScenario.allScenarios,
-});
+const mapStateToProps = state => {
+  const { scenario } = state;
+  const { allScenarios } = scenario;
+
+  return {
+    allScenarios,
+    state,
+  };
+};
 
 export default connect(mapStateToProps)(MainContainer);
