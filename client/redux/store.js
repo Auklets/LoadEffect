@@ -16,7 +16,7 @@ import api from '../middleware/api';
 const reducers = combineReducers({
   routing: routerReducer,
   auth: authReducer,
-  allScenario: scenarioReducer,
+  scenario: scenarioReducer,
   modal: modalReducer,
 });
 
