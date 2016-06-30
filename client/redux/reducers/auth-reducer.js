@@ -1,23 +1,13 @@
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from './actionCreators/login-actions';
-import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './actionCreators/signup-actions';
-import { LOGOUT_SUCCESS } from './actionCreators/logout-actions';
-import { GET_SCENARIOS } from './actionCreators/scenario-actions';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actionCreators/login-actions';
+import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../actionCreators/signup-actions';
+import { LOGOUT_SUCCESS } from '../actionCreators/logout-actions';
 
-const scenarioReducer = (state = {}, action) => {
-  switch (action.type) {
-    case GET_SCENARIOS:
-      return Object.assign({}, state, {
-        allScenarios: action.allScenarios,
-      });
-
-    default:
-      return state;
-  }
+const initialState = {
+  isAuthenticated: !!localStorage.getItem('id_token'),
+  isFetching: false,
 };
 
-const authReducer = (state = { isFetching: false, isAuthenticated: !!localStorage.getItem('id_token') }, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
@@ -71,13 +61,3 @@ const authReducer = (state = { isFetching: false, isAuthenticated: !!localStorag
       return state;
   }
 };
-
-const rootReducer = combineReducers(
-  {
-    routing: routerReducer,
-    auth: authReducer,
-    allScenario: scenarioReducer,
-  }
-);
-
-export default rootReducer;

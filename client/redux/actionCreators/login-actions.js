@@ -1,6 +1,7 @@
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 
 const requestLogin = creds => ({
   type: LOGIN_REQUEST,
@@ -22,6 +23,24 @@ const loginError = message => ({
   isAuthenticated: false,
   message,
 });
+
+const showLoginModal = () => ({
+  type: TOGGLE_LOGIN_MODAL,
+  isLoginOpen: true,
+});
+
+const hideLoginModal = () => ({
+  type: TOGGLE_LOGIN_MODAL,
+  isLoginOpen: false,
+});
+
+export const openLoginModal = () => dispatch => {
+  dispatch(showLoginModal());
+};
+
+export const closeLoginModal = () => dispatch => {
+  dispatch(hideLoginModal());
+};
 
 export const loginUser = creds => {
   const config = {
@@ -45,7 +64,7 @@ export const loginUser = creds => {
         } else {
           // Sets the token in local storage on success
           localStorage.setItem('id_token', user.id_token);
-
+          dispatch(hideLoginModal());
           // Dispatch the success action
           dispatch(receiveLogin(user));
         }
