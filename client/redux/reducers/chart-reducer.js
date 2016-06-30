@@ -9,6 +9,7 @@ export const chartReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_DATA:
       return Object.assign({}, state, {
+        // In real implementation, we are going to replace with data in action
         labels: state.labels.concat(action.labels),
         series: state.series.concat(action.series),
       });

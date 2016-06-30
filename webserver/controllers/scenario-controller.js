@@ -30,7 +30,7 @@ const createScenario = (req, res) => {
   newScenario.save()
     .then(() => {
       data.scenarioID = newScenario.get('id');
-      sendJSON(res, 201, { message: 'New scenario has been saved!' });
+      sendJSON(res, 201, { message: 'New scenario has been saved!', scenarioID: data.scenarioID });
     })
     .catch(err => sendJSON(res, 400, err));
 

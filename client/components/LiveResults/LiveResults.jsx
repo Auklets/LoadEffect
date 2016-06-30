@@ -9,10 +9,13 @@ class LiveResults extends Component {
     this.dispatch = this.props.dispatch;
     this.handleSubmit = this.handleSubmit.bind(this);
 
+    console.log('current state', props.state);
+    console.log('Current Scenario ID', props.state.allScenario.currentScenarioID);
     // Function to make HTTP Request asking for data
       // If data exists
         // Dispatch to update state
         // Do another http request to ask for more data
+      // Base case is when data is the same
     // Downside: Speed constrained to speed of network
   }
 

@@ -1,6 +1,8 @@
 export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
+export const TOGGLE_SCENARIO_MODAL = 'TOGGLE_SCENARIO_MODAL';
+export const CURRENT_SCENARIO_ID = 'CURRENT_SCENARIO_ID';
 
 const validScript = () => ({
   type: VALID_SCRIPT,
@@ -25,8 +27,14 @@ const allScenarios = res => ({
   scenario: JSON.parse(res),
 });
 
+const storeRecentScenarioID = (scenarioID) => ({
+  type: CURRENT_SCENARIO_ID,
+  currentScenarioID: scenarioID,
+});
+
 // In case user changes script after it was validated, this will reset validation
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
+
 
 export const checkValidScript = script => {
   // script is going to be a string. Below, isValidScript should be a boolean
@@ -55,6 +63,7 @@ export const getScenarios = () => {
     fetch('/api/scenarios', config)
       .then(response => response.json()
         .then(res => {
+          console.log(JSON.parse(res));
           dispatch(allScenarios(res));
         })
       )
@@ -74,6 +83,8 @@ export const createScenario = data => {
     return fetch('/api/scenarios', config)
       .then(response => response.json()
         .then(res => {
+          console.log('Response from the post request', res);
+          dispatch(storeRecentScenarioID(res.scenarioID));
         })
       )
       .catch(err => console.log('Error: ', err));

@@ -12,7 +12,12 @@ const utils = require('../lib/utils');
 */
 
 const getData = (req, res) => {
-}
-
+  // Pull correct data from database
+  const scenarioID = 'TODO_scenarioID';
+  Spawn.where('scenarioID', scenarioID)
+    .then(data => {
+      res.json(data);
+    });
+};
 
 module.exports = { getData };
