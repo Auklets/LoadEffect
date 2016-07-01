@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ChartistGraph from 'react-chartist';
-import { Form, Button, ControlLabel, Grid, Row, Table, Panel, Col, Label } from 'react-bootstrap';
+import { Form, Button, ControlLabel, Grid, Row, Table, Panel, Col, Label, Glyphicon } from 'react-bootstrap';
 
 class LiveResults extends Component {
   constructor(props) {
@@ -51,34 +51,46 @@ class LiveResults extends Component {
       justifyContent: 'center',
     };
 
+    const centerItemsTop = {
+      display: 'flex',
+      justifyContent: 'center',
+      'font-size': '200%',
+    };
+
     return (
       <Grid>
         <Row className="show-grid">
           <Panel bsStyle="primary" style={panelBackgroundColor} header={'Test Summary'}>
-            <span>
-              <p>Test Name: {this.props.currentScenarioName}</p>
-              <p>Number of Workers: {this.props.currentWorkers}</p>
-              <p>Fake Users: {this.props.currentSpawnsCount}</p>
-              <p>Target URL: {this.props.currentTargetURL}</p>
-            </span>
+            <Col xs={6} md={3}>
+              <p style={centerItems}>Test Name: {this.props.currentScenarioName}</p>
+            </Col>
+            <Col xs={6} md={3}>
+              <p style={centerItems}>Number of Workers: {this.props.currentWorkers}</p>
+            </Col>
+            <Col xs={6} md={3}>
+              <p style={centerItems}>Fake Users: {this.props.currentSpawnsCount}</p>
+            </Col>
+            <Col xs={6} md={3}>
+              <p style={centerItems}>Target URL: {this.props.currentTargetURL}</p>
+            </Col>
           </Panel>
         </Row>
         <Row className="show-grid">
           <Panel bsStyle="primary" style={panelBackgroundColor} header={'General Statistics'}>
             <Col xs={6} md={3}>
-              <Row style={centerItems}>[4]</Row>
+              <Row style={centerItemsTop}>[4]</Row>
               <Row style={centerItems}>Average Elapsed Time</Row>
             </Col>
             <Col xs={6} md={3}>
-              <Row style={centerItems}>[5]</Row>
+              <Row style={centerItemsTop}>[5]</Row>
               <Row style={centerItems}>Requests Made</Row>
             </Col>
             <Col xs={6} md={3}>
-              <Row style={centerItems}>[50]</Row>
+              <Row style={centerItemsTop}>[50]</Row>
               <Row style={centerItems}>Data Received</Row>
             </Col>
             <Col xs={6} md={3}>
-              <Row style={centerItems}>[50]</Row>
+              <Row style={centerItemsTop}>[50]</Row>
               <Row style={centerItems}>Active Spawns</Row>
             </Col>
           </Panel>

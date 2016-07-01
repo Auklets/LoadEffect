@@ -4,9 +4,9 @@ const initialState = {
   allScenarios: [],
   currentScenarioID: 0,
   currentSpawnsCount: 0,
-  currentWorkers: '',
-  currentTargetURL: '',
-  currentScenarioName: '',
+  currentWorkers: 0,
+  currentTargetURL: 'LOADING...',
+  currentScenarioName: 'LOADING...',
   isValidScript: false,
   attemptedCheck: false,
 };
