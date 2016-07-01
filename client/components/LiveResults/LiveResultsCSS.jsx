@@ -11,5 +11,5 @@ export const centerItems = {
 export const centerItemsTop = {
   display: 'flex',
   justifyContent: 'center',
-  'font-size': '200%',
+  'fontSize': '200%',
 };

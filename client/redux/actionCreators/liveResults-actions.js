@@ -39,11 +39,3 @@ export const updateLineChartData = (jobCount, scenarioID) => {
       }
     ).catch(err => console.log('Error: ', err));
 };
-
-export const updateFromInput = (inputLabels, inputSeries) =>
-  dispatch =>
-    dispatch({
-      type: UPDATE_LINE_CHART,
-      labels: inputLabels,
-      series: inputSeries,
-    });
