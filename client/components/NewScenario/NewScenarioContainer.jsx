@@ -1,21 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createScenario, closeScenarioModal, checkValidScript, resetAttempt } from '../../redux/actionCreators/scenario-actions';
+import { createScenario, closeScenarioModal, openScenarioModal, checkValidScript, resetAttempt } from '../../redux/actionCreators/scenario-actions';
 
 import NewScenario from './NewScenario.jsx';
+import NewScenarioSuccessModal from './NewScenarioSuccessModal.jsx';
 
 const NewScenarioContainer = props => (
-  <NewScenario {...props} />
+  <div>
+    <NewScenario {...props} />
+    <NewScenarioSuccessModal {...props} />
+  </div>
 );
 
 const mapStateToProps = state => {
   const { auth, modal, scenario } = state;
   const { isAuthenticated, errorMessage } = auth;
-  const { isScenarioOpen } = modal;
+  const { isScenarioModalOpen } = modal;
   const { isValidScript, allScenarios, attemptedCheck } = scenario;
 
   return {
-    isScenarioOpen,
+    isScenarioModalOpen,
     isAuthenticated,
     errorMessage,
     isValidScript,
@@ -26,8 +30,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  hideScenario() {
+  hideScenarioSuccessModal() {
     dispatch(closeScenarioModal());
+  },
+
+  showScenarioSuccessModal() {
+    dispatch(openScenarioModal());
   },
 
   sendScenario(creds) {

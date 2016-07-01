@@ -5,9 +5,37 @@ export const TOGGLE_SCENARIO_MODAL = 'TOGGLE_SCENARIO_MODAL';
 export const CURRENT_SCENARIO_ID = 'CURRENT_SCENARIO_ID';
 export const CURRENT_SPAWNS_COUNT = 'CURRENT_USER_COUNT';
 
+
+/* ******** Scenario Modal Actions  ******** */
+const showScenarioModal = () => ({
+  type: TOGGLE_SCENARIO_MODAL,
+  isScenarioModalOpen: true,
+});
+
+const hideScenarioModal = () => ({
+  type: TOGGLE_SCENARIO_MODAL,
+  isScenarioModalOpen: false,
+});
+
+export const openScenarioModal = () => dispatch => {
+  dispatch(showScenarioModal());
+};
+
+export const closeScenarioModal = () => dispatch => {
+  dispatch(hideScenarioModal());
+};
+
+
+/* ******* Script Validation Actions ******* */
 const validScript = () => ({
   type: VALID_SCRIPT,
   isValidScript: true,
+  attemptedCheck: true,
+});
+
+const invalidScript = () => ({
+  type: VALID_SCRIPT,
+  isValidScript: false,
   attemptedCheck: true,
 });
 
@@ -17,17 +45,7 @@ const resetCheck = () => ({
   attemptedCheck: false,
 });
 
-const invalidScript = () => ({
-  type: VALID_SCRIPT,
-  isValidScript: false,
-  attemptedCheck: true,
-});
-
-const allScenarios = res => ({
-  type: GET_SCENARIOS,
-  scenario: JSON.parse(res),
-});
-
+<<<<<<< adce240c7b0ff4c337f2fa088d066c464d1598eb
 const storeRecentScenarioID = (scenarioID) => ({
   type: CURRENT_SCENARIO_ID,
   currentScenarioID: scenarioID,
@@ -38,7 +56,6 @@ const storeRecentUserCount = (spawnsCount) => ({
   currentSpawnsCount: spawnsCount,
 });
 
-// In case user changes script after it was validated, this will reset validation
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
 
 
@@ -55,6 +72,13 @@ export const checkValidScript = script => {
     }
   };
 };
+
+
+/* ******** Scenario Get and Create Actions  ******** */
+const allScenarios = res => ({
+  type: GET_SCENARIOS,
+  scenario: JSON.parse(res),
+});
 
 export const getScenarios = () => {
   const config = {
@@ -81,19 +105,19 @@ export const createScenario = data => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Bearer ${localStorage.getItem('id_token')}` },
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
 
-  return dispatch => {
-    return fetch('/api/scenarios', config)
+  return dispatch =>
+    fetch('/api/scenarios', config)
       .then(response => response.json()
         .then(res => {
           console.log('Response from the post request', res);
           dispatch(storeRecentScenarioID(res.scenarioID));
           dispatch(storeRecentUserCount(res.spawnsCount));
+          dispatch(showScenarioModal());
         })
       )
       .catch(err => console.log('Error: ', err));
-    };
-  };
+};

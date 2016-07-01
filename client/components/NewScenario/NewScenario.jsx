@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Col, Button } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, Col, Button, Well } from 'react-bootstrap';
 
 class NewScenario extends Component {
   constructor(props) {
@@ -8,7 +8,8 @@ class NewScenario extends Component {
     this.checkScript = this.checkScript.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     const scenarioName = this.refs.scenarioName.value.trim();
     const spawnsCount = this.refs.spawnsCount.value.trim();
     const targetURL = this.refs.targetURL.value.trim();
@@ -38,16 +39,21 @@ class NewScenario extends Component {
 
     return (
       <div>
+        <Col sm={12}>
+          <Well bsSize="small" className="text-center">
+            <h1>Create a Scenario</h1>
+          </Well>
+        </Col>
         <Form onSubmit={isValidScript ? this.handleClick : this.checkScript}>
           <Col sm={6}>
             <FormGroup controlId="formInlineTestName">
-              <ControlLabel>Test Name:</ControlLabel>
+              <ControlLabel>Scenario Name:</ControlLabel>
               {' '}
               <input
                 className="form-control"
                 ref="scenarioName"
                 type="text"
-                placeholder="Enter Test name"
+                placeholder="Enter a name for the scenario"
                 value="Load Test 1"
                 required
               />
@@ -56,7 +62,7 @@ class NewScenario extends Component {
 
           <Col sm={6}>
             <FormGroup controlId="formInlineWorkers">
-              <ControlLabel>Enter Number of Workers:</ControlLabel>
+              <ControlLabel>Number of Workers:</ControlLabel>
               {' '}
               <input
                 className="form-control"
@@ -71,14 +77,14 @@ class NewScenario extends Component {
 
           <Col sm={6}>
             <FormGroup controlId="formInlineSpawnsCount">
-              <ControlLabel>Enter Total Number of Fake Users:</ControlLabel>
+              <ControlLabel>Number of Users to Simulate:</ControlLabel>
               {' '}
               <input
                 className="form-control"
                 ref="spawnsCount"
                 type="number"
                 min="0"
-                placeholder="Enter total number fake users"
+                placeholder="Enter total number of users to simulate"
                 value="20"
                 required
               />
@@ -87,7 +93,7 @@ class NewScenario extends Component {
 
           <Col sm={6}>
             <FormGroup controlId="formInlineTargetURL">
-              <ControlLabel>Enter Target Url:</ControlLabel>
+              <ControlLabel>Target URL:</ControlLabel>
               {' '}
               <input
                 className="form-control"
@@ -102,7 +108,7 @@ class NewScenario extends Component {
 
           <Col sm={12}>
             <FormGroup controlId="formInlineScript">
-              <ControlLabel>Enter your script:</ControlLabel>
+              <ControlLabel>Script:</ControlLabel>
               {' '}
               <textarea
                 className="form-control"
