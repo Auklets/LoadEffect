@@ -31,7 +31,7 @@ class LiveResults extends Component {
   }
 
   render() {
-    const { labels, series } = this.props;
+    const { labels, series, currentSpawnsCount, elapsedTime, httpVerb, index, statusCode } = this.props;
     /* ****** Chartist Configurations ****** */
     const simpleLineChartData = {
       labels,
@@ -44,10 +44,10 @@ class LiveResults extends Component {
     };
 
     /* ****** Table Calculations ****** */
-    const averageElapsedTime = Math.round(calculateAverage(this.props.elapsedTime) * 100) / 100;
-    const numberActions = this.props.httpVerb.length;
+    const averageElapsedTime = Math.round(calculateAverage(elapsedTime) * 100) / 100;
+    const numberActions = httpVerb.length;
     const currentSpawns = labels.length;
-    const percentComplete = percentCompletion(this.props.currentSpawnsCount, this.props.labels.length);
+    const percentComplete = percentCompletion(currentSpawnsCount, labels.length);
 
     return (
       <Grid>
@@ -124,19 +124,23 @@ class LiveResults extends Component {
             <Table striped bordered condensed hover>
               <thead>
                 <tr>
+                  <th>Index</th>
                   <th>Type</th>
-                  <th>Name</th>
-                  <th>Average Time</th>
-                  <th>Number of Fails</th>
+                  <th>Status Code</th>
+                  <th>Elapsed Time</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>DUMMY</td>
-                  <td>DUMMY</td>
-                  <td>DUMMY</td>
-                  <td>DUMMY</td>
-                </tr>
+                {index.map((item, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{item}</td>
+                      <td>{httpVerb[i]}</td>
+                      <td>{statusCode[i]}</td>
+                      <td>{elapsedTime[i]}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </Panel>

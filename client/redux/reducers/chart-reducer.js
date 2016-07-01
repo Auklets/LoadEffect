@@ -4,7 +4,7 @@ const initialStateChart = {
   labels: [1, 2, 3, 4, 5, 6, 7, 8],
   series: [1, 9, 7, 8, 5, 3, 5, 4],
   index: [1, 2, 3, 4, 5, 6, 7, 8],
-  httpVerb: ['GET', 'POST,', 'GET', 'POST', 'GET', 'POST', 'GET', 'POST'],
+  httpVerb: ['GET', 'POST', 'GET', 'POST', 'GET', 'POST', 'GET', 'POST'],
   statusCode: [200, 300, 400, 200, 200, 200, 400, 200],
   elapsedTime: [2, 3, 4, 5, 3, 3, 2, 1],
 };
