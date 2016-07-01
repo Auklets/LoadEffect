@@ -9,7 +9,7 @@ import { logoutUser } from '../../redux/actionCreators/logout-actions';
 
 import Navigation from './Navigation.jsx';
 
-const NavigationContainer = (props) => (
+export const NavigationContainer = (props) => (
   <Navigation {...props} />
 );
 

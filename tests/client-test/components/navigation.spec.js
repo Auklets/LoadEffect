@@ -1,17 +1,22 @@
+/* eslint-env mocha */
 import { expect } from 'chai';
-import sinon from 'sinon';
 import React from 'react';
 import { shallow } from 'enzyme';
 import Navigation from '../../../client/components/Navigation/Navigation.jsx';
-import { Link } from 'react-router';
+import { NavigationContainer } from '../../../client/components/Navigation/NavigationContainer.jsx';
 
-xdescribe('<Navigation />', () => {
-  const linkNodes = [
-    <Link to="/">Load Tester</Link>
-  ];
+describe('Navigation Components', () => {
+  describe('<Navigation />', () => {
+    it('should render Navigation Component', () => {
+      const wrapper = shallow(<Navigation />);
+      expect(wrapper.find('Nav')).to.have.length(1);
+    });
+  });
 
-  it('It should render five <Link> components', () => {
-    const wrapper = shallow(<Navigation />);
-    expect(wrapper.contains(linkNodes)).to.equal(true);
+  describe('<NavigationContainer />', () => {
+    it('should render Navigation Container Component', () => {
+      const wrapper = shallow(<NavigationContainer />);
+      expect(wrapper.find('Navigation')).to.have.length(1);
+    });
   });
 });

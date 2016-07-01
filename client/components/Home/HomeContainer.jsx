@@ -8,7 +8,7 @@ import { openSignupModal } from '../../redux/actionCreators/signup-actions';
 // Dumb Components
 import Home from './Home.jsx';
 
-const HomeContainer = (props) => (
+export const HomeContainer = (props) => (
   <Home {...props} />
 );
 

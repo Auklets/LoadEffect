@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { history } from '../../redux/store';
 
 // Dispatched actions
 import { loginUser, closeLoginModal } from '../../redux/actionCreators/login-actions';
 
 import LoginModal from './LoginModal.jsx';
 
-const LoginContainer = props => (
+export const LoginContainer = props => (
   <LoginModal {...props} />
 );
 
@@ -30,6 +31,11 @@ const mapDispatchToProps = dispatch => ({
 
   sendLogin(creds) {
     dispatch(loginUser(creds));
+  },
+
+  routeToMain() {
+    history.push('/main');
+    dispatch(closeLoginModal());
   },
 });
 

@@ -12,12 +12,12 @@ export const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_LOGIN_MODAL:
       return Object.assign({}, state, {
-        isLoginOpen: !state.isLoginOpen,
+        isLoginOpen: action.isLoginOpen,
       });
 
     case TOGGLE_SIGNUP_MODAL:
       return Object.assign({}, state, {
-        isSignupOpen: !state.isSignupOpen,
+        isSignupOpen: action.isSignupOpen,
       });
 
     case TOGGLE_SCENARIO_MODAL:

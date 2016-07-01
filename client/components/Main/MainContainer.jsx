@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Main from './Main.jsx';
 
-const MainContainer = (props) => (
+export const MainContainer = (props) => (
   <Main {...props} />
 );
 

@@ -13,10 +13,10 @@ class LiveResults extends Component {
     const totalSpawns = props.currentSpawnsCount;
     const currentScenarioID = props.currentScenarioID;
 
-    console.log('This is props', props);
+    // console.log('This is props', props);
 
-    console.log('Current spawns count', props.currentSpawnsCount);
-    console.log('Current Scenario ID', props.currentScenarioID);
+    // console.log('Current spawns count', props.currentSpawnsCount);
+    // console.log('Current Scenario ID', props.currentScenarioID);
     // Continue to fetch until total jobs equals data length
     // this.props.updateLineChartData(totalSpawns, currentScenarioID);
   }

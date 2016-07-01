@@ -14,6 +14,7 @@ class SignupModal extends Component {
     const password = this.refs.password.value.trim();
     const creds = { email, name, password };
     this.props.sendSignup(creds);
+    this.props.routeToMain();
   }
 
   render() {
@@ -108,6 +109,7 @@ class SignupModal extends Component {
 SignupModal.propTypes = {
   sendSignup: PropTypes.func,
   hideSignup: PropTypes.func,
+  routeToMain: PropTypes.func,
   errorMessage: PropTypes.string,
   isSignupOpen: PropTypes.bool,
 };

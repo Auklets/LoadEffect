@@ -4,12 +4,12 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 
 /* ******* Login Modal Actions ******* */
-const showLoginModal = () => ({
+export const showLoginModal = () => ({
   type: TOGGLE_LOGIN_MODAL,
   isLoginOpen: true,
 });
 
-const hideLoginModal = () => ({
+export const hideLoginModal = () => ({
   type: TOGGLE_LOGIN_MODAL,
   isLoginOpen: false,
 });
@@ -23,21 +23,21 @@ export const closeLoginModal = () => dispatch => {
 };
 
 /* ******* Login Authentication Actions ******* */
-const requestLogin = creds => ({
+export const requestLogin = creds => ({
   type: LOGIN_REQUEST,
   isFetching: true,
   isAuthenticated: false,
   creds,
 });
 
-const receiveLogin = user => ({
+export const receiveLogin = user => ({
   type: LOGIN_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
   id_token: user.id_token,
 });
 
-const loginError = message => ({
+export const loginError = message => ({
   type: LOGIN_FAILURE,
   isFetching: false,
   isAuthenticated: false,

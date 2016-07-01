@@ -13,6 +13,7 @@ class LoginModal extends Component {
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.sendLogin(creds);
+    this.props.routeToMain();
   }
 
   render() {
@@ -68,6 +69,7 @@ class LoginModal extends Component {
 LoginModal.propTypes = {
   errorMessage: PropTypes.string,
   hideLogin: PropTypes.func,
+  routeToMain: PropTypes.func,
   sendLogin: PropTypes.func,
   isLoginOpen: PropTypes.bool,
 };
