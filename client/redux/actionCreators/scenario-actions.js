@@ -45,19 +45,7 @@ const resetCheck = () => ({
   attemptedCheck: false,
 });
 
-<<<<<<< adce240c7b0ff4c337f2fa088d066c464d1598eb
-const storeRecentScenarioID = (scenarioID) => ({
-  type: CURRENT_SCENARIO_ID,
-  currentScenarioID: scenarioID,
-});
-
-const storeRecentUserCount = (spawnsCount) => ({
-  type: CURRENT_SPAWNS_COUNT,
-  currentSpawnsCount: spawnsCount,
-});
-
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
-
 
 export const checkValidScript = script => {
   // script is going to be a string. Below, isValidScript should be a boolean
@@ -78,6 +66,16 @@ export const checkValidScript = script => {
 const allScenarios = res => ({
   type: GET_SCENARIOS,
   scenario: JSON.parse(res),
+});
+
+const storeRecentScenarioID = (scenarioID) => ({
+  type: CURRENT_SCENARIO_ID,
+  currentScenarioID: scenarioID,
+});
+
+const storeRecentUserCount = (spawnsCount) => ({
+  type: CURRENT_SPAWNS_COUNT,
+  currentSpawnsCount: spawnsCount,
 });
 
 export const getScenarios = () => {
@@ -116,6 +114,7 @@ export const createScenario = data => {
           console.log('Response from the post request', res);
           dispatch(storeRecentScenarioID(res.scenarioID));
           dispatch(storeRecentUserCount(res.spawnsCount));
+          dispatch(resetCheck());
           dispatch(showScenarioModal());
         })
       )

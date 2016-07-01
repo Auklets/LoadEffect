@@ -1,8 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { history } from '../../redux/store';
 
 const NewScenarioSuccessModal = props => {
   const { isScenarioModalOpen, hideScenarioSuccessModal } = props;
+
+  const routeToLiveResults = () => {
+    history.push('/live-results');
+    hideScenarioSuccessModal();
+  };
 
   return (
     <Modal show={isScenarioModalOpen} onHide={hideScenarioSuccessModal} closeButton>
@@ -17,12 +23,11 @@ const NewScenarioSuccessModal = props => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button bsStyle="success">View Real-Time Results</Button>
+        <Button onClick={routeToLiveResults} bsStyle="success">View Real-Time Results</Button>
       </Modal.Footer>
     </Modal>
   );
 };
-
 
 NewScenarioSuccessModal.propTypes = {
   errorMessage: PropTypes.string,

@@ -12,7 +12,6 @@ import NewScenarioContainer from './components/NewScenario/NewScenarioContainer.
 import LiveResultsContainer from './components/LiveResults/LiveResultsContainer.jsx';
 import ResultDetailsContainer from './components/ResultDetails/ResultDetailsContainer.jsx';
 
-
 const router = (
   <Provider store={store}>
     <Router history={history}>
