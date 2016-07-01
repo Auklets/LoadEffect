@@ -6,6 +6,15 @@ class NewScenario extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.checkScript = this.checkScript.bind(this);
+    this.resetFields = this.resetFields.bind(this);
+  }
+
+  resetFields() {
+    this.refs.scenarioName.value = '';
+    this.refs.spawnsCount.value = '';
+    this.refs.targetURL.value = '';
+    this.refs.script.value = '';
+    this.refs.workers.value = '';
   }
 
   handleClick(e) {
@@ -16,6 +25,8 @@ class NewScenario extends Component {
     const script = this.refs.script.value.trim();
     const workers = this.refs.workers.value.trim();
     const data = { scenarioName, spawnsCount, targetURL, script, workers };
+
+    this.resetFields();
     this.props.sendScenario(data);
   }
 
@@ -48,7 +59,6 @@ class NewScenario extends Component {
           <Col sm={6}>
             <FormGroup controlId="formInlineTestName">
               <ControlLabel>Scenario Name:</ControlLabel>
-              {' '}
               <input
                 className="form-control"
                 ref="scenarioName"
@@ -63,7 +73,6 @@ class NewScenario extends Component {
           <Col sm={6}>
             <FormGroup controlId="formInlineWorkers">
               <ControlLabel>Number of Workers:</ControlLabel>
-              {' '}
               <input
                 className="form-control"
                 ref="workers"
@@ -78,7 +87,6 @@ class NewScenario extends Component {
           <Col sm={6}>
             <FormGroup controlId="formInlineSpawnsCount">
               <ControlLabel>Number of Users to Simulate:</ControlLabel>
-              {' '}
               <input
                 className="form-control"
                 ref="spawnsCount"
@@ -94,7 +102,6 @@ class NewScenario extends Component {
           <Col sm={6}>
             <FormGroup controlId="formInlineTargetURL">
               <ControlLabel>Target URL:</ControlLabel>
-              {' '}
               <input
                 className="form-control"
                 ref="targetURL"
@@ -109,7 +116,6 @@ class NewScenario extends Component {
           <Col sm={12}>
             <FormGroup controlId="formInlineScript">
               <ControlLabel>Script:</ControlLabel>
-              {' '}
               <textarea
                 className="form-control"
                 onChange={resetValidation}
