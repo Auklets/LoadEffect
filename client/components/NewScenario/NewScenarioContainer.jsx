@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createScenario, closeScenarioModal, openScenarioModal, checkValidScript, resetAttempt } from '../../redux/actionCreators/scenario-actions';
+import { history } from '../../redux/store';
 
 import NewScenario from './NewScenario.jsx';
 import NewScenarioSuccessModal from './NewScenarioSuccessModal.jsx';
@@ -48,6 +49,11 @@ const mapDispatchToProps = dispatch => ({
 
   resetValidation() {
     dispatch(resetAttempt());
+  },
+
+  routeToLiveResults() {
+    history.push('/live-results');
+    dispatch(closeScenarioModal());
   },
 });
 

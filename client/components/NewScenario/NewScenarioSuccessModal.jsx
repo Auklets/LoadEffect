@@ -1,14 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { history } from '../../redux/store';
 
 const NewScenarioSuccessModal = props => {
-  const { isScenarioModalOpen, hideScenarioSuccessModal } = props;
-
-  const routeToLiveResults = () => {
-    history.push('/live-results');
-    hideScenarioSuccessModal();
-  };
+  const { isScenarioModalOpen, hideScenarioSuccessModal, routeToLiveResults } = props;
 
   return (
     <Modal show={isScenarioModalOpen} onHide={hideScenarioSuccessModal} closeButton>
@@ -32,6 +26,7 @@ const NewScenarioSuccessModal = props => {
 NewScenarioSuccessModal.propTypes = {
   errorMessage: PropTypes.string,
   hideScenarioSuccessModal: PropTypes.func,
+  routeToLiveResults: PropTypes.func,
   isScenarioModalOpen: PropTypes.bool,
 };
 
