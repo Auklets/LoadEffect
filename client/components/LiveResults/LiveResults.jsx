@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ChartistGraph from 'react-chartist';
-import { Form, Button, ControlLabel, Grid, Row, Table, Panel, Col, Label, Glyphicon } from 'react-bootstrap';
+import { Form, Button, ControlLabel, Grid, Row, Table, Panel, Col } from 'react-bootstrap';
+import { panelBackgroundColor, centerItems, centerItemsTop } from './LiveResultsCSS.jsx';
+import { calculateAverage, sumArray, percentCompletion } from './LiveResultsHelpers.jsx';
 
 class LiveResults extends Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class LiveResults extends Component {
 
   render() {
     const { labels, series } = this.props;
+    /* ****** Chartist Configurations ****** */
     const simpleLineChartData = {
       labels,
       series: [series],
@@ -40,22 +43,11 @@ class LiveResults extends Component {
       showArea: true,
     };
 
-    // Panel Formatting
-    const panelBackgroundColor = {
-      color: 'black',
-      backgroundColor: 'white',
-    };
-
-    const centerItems = {
-      display: 'flex',
-      justifyContent: 'center',
-    };
-
-    const centerItemsTop = {
-      display: 'flex',
-      justifyContent: 'center',
-      'font-size': '200%',
-    };
+    /* ****** Table Calculations ****** */
+    const averageElapsedTime = Math.round(calculateAverage(this.props.elapsedTime) * 100) / 100;
+    const numberActions = this.props.httpVerb.length;
+    const currentSpawns = labels.length;
+    const percentComplete = percentCompletion(this.props.currentSpawnsCount, this.props.labels.length);
 
     return (
       <Grid>
@@ -78,20 +70,20 @@ class LiveResults extends Component {
         <Row className="show-grid">
           <Panel bsStyle="primary" style={panelBackgroundColor} header={'General Statistics'}>
             <Col xs={6} md={3}>
-              <Row style={centerItemsTop}>[4]</Row>
+              <Row style={centerItemsTop}>{averageElapsedTime}</Row>
               <Row style={centerItems}>Average Elapsed Time</Row>
             </Col>
             <Col xs={6} md={3}>
-              <Row style={centerItemsTop}>[5]</Row>
-              <Row style={centerItems}>Requests Made</Row>
+              <Row style={centerItemsTop}>{numberActions}</Row>
+              <Row style={centerItems}>Requests / Actions Made</Row>
             </Col>
             <Col xs={6} md={3}>
-              <Row style={centerItemsTop}>[50]</Row>
-              <Row style={centerItems}>Data Received</Row>
+              <Row style={centerItemsTop}>{currentSpawns}</Row>
+              <Row style={centerItems}>Current Spawns</Row>
             </Col>
             <Col xs={6} md={3}>
-              <Row style={centerItemsTop}>[50]</Row>
-              <Row style={centerItems}>Active Spawns</Row>
+              <Row style={centerItemsTop}>{percentComplete}%</Row>
+              <Row style={centerItems}>Percent Completion</Row>
             </Col>
           </Panel>
         </Row>
@@ -167,6 +159,8 @@ LiveResults.propTypes = {
   currentScenarioName: PropTypes.string.isRequired,
   currentWorkers: PropTypes.number.isRequired,
   currentTargetURL: PropTypes.string.isRequired,
+  httpVerb: PropTypes.array.isRequired,
+  elapsedTime: PropTypes.array.isRequired,
 };
 
 export default LiveResults;

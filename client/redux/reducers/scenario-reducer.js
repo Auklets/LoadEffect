@@ -3,7 +3,7 @@ import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_INFO
 const initialState = {
   allScenarios: [],
   currentScenarioID: 0,
-  currentSpawnsCount: 0,
+  currentSpawnsCount: 10,
   currentWorkers: 0,
   currentTargetURL: 'LOADING...',
   currentScenarioName: 'LOADING...',

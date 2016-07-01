@@ -17,11 +17,10 @@ const getData = (req, res) => {
   console.log('Received request in results controller get data!', req.body);
   const scenarioID = req.body.currentScenarioID;
   // const testscenarioID = 15;
-  
-  const errorHandler = err => console.log(err);
 
   const getFromSpawn = () =>
-    Spawn.where('id_scenario', scenarioID)
+    new Promise((resolve, reject) => {
+      Spawn.where('id_scenario', scenarioID)
       .fetchAll()
       .then(data => {
         const cleanedData = JSON.parse(JSON.stringify(data));
@@ -37,41 +36,40 @@ const getData = (req, res) => {
               series: [],
             }
           */
-        return dataToSend;
+        resolve(dataToSend);
       })
-      .catch(errorHandler);
+      .catch(reject);
+    });
 
-  const getFromActions = () => {
-    Action.where('id_scenario', scenarioID)
+  const getFromActions = () =>
+    new Promise((resolve, reject) => {
+      Action.where('id_scenario', scenarioID)
       .fetchAll()
       .then(data => {
         const cleanedData = JSON.parse(JSON.stringify(data));
-        const dataToSend = { index: [], actionName: [], statusCode: [], elapsedTime: [] };
+        const dataToSend = { index: [], httpVerb: [], statusCode: [], elapsedTime: [] };
         for (let i = 0; i < cleanedData.length; i++) {
           dataToSend.index.push(i);
-          dataToSend.actionName.push(cleanedData[i].actionName);
+          dataToSend.httpVerb.push(cleanedData[i].httpVerb);
           dataToSend.statusCode.push(cleanedData[i].statusCode);
           dataToSend.elapsedTime.push(cleanedData[i].elapsedTime);
         }
         console.log('This is the cleaned data from Action', dataToSend);
-        return dataToSend;
+        resolve(dataToSend);
       })
-      .catch(errorHandler);
-  };
+      .catch(reject);
+    });
 
   Promise.all([getFromActions(), getFromSpawn()])
-    .spread((resultsSpawn, resultsActions) => {
-      console.log('When we call the function 1', resultsSpawn);
-      console.log('When we call the function 2', resultsActions);
+    .spread((resultsActions, resultsSpawn) => {
       const combinedData = {
         spawn: resultsSpawn,
-        // Promise.all didn't wait for all data before responding.
         action: resultsActions,
       };
       console.log('This is the combined data', combinedData);
       res.json(combinedData);
     })
-    .catch(errorHandler);
+    .catch(err => console.log(err));
 };
 
 module.exports = { getData };
