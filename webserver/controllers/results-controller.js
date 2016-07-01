@@ -3,7 +3,6 @@ const Action = require('../models/ActionsModel');
 const Promise = require('bluebird');
 
 /* EXTRA CREDIT IDEAS
-  // Get data from spawns database
   // Get database where scenario ID and id is greater than the greatest id
     // Get data from DB where timestamp > the last global Variable
       // And where id scenario equals the one we want
@@ -11,8 +10,11 @@ const Promise = require('bluebird');
     // respond with data from database
 */
 
+const getResultsDataHandler = () => {
+
+};
+
 const getData = (req, res) => {
-  // Pull correct data from database
   // console.log('Received request!', req);
   console.log('Received request in results controller get data!', req.body);
   const scenarioID = req.body.currentScenarioID;
@@ -72,4 +74,4 @@ const getData = (req, res) => {
     .catch(err => console.log(err));
 };
 
-module.exports = { getData };
+module.exports = { getData, getResultsDataHandler };

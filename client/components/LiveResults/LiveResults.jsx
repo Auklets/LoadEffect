@@ -23,6 +23,9 @@ class LiveResults extends Component {
     // console.log('Current Scenario ID', props.currentScenarioID);
     // Continue to fetch until total jobs equals data length
     // this.props.updateLineChartData(totalSpawns, currentScenarioID);
+
+    // Set up socket listeners here
+
   }
 
   render() {

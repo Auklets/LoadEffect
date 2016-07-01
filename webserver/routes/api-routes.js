@@ -12,6 +12,7 @@ module.exports = (app) => {
   app.post('/api/scenarios', auth, scenarioController.createScenario);
   app.get('/api/scenarios', auth, scenarioController.getScenarios);
 
+  // TO REMOVE DUE TO USE OF SOCKETS
   app.post('/api/resultsdata', resultsController.getData); // Add auth when done testing
 
   app.post('/api/validate-website', auth, scenarioController.validateWebsite);

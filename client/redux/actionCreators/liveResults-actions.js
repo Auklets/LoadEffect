@@ -1,10 +1,10 @@
 import axios from 'axios';
+import io from 'socket.io-client';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
 export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
 
-// CONSIDER SOCKETS FOR MORE REAL_TIME DATA
-  // Start with HTPP Request
+let socket = io();
 
 // Update line chart data
 export const updateLineChartData = (jobCount, scenarioID) => {
@@ -13,6 +13,10 @@ export const updateLineChartData = (jobCount, scenarioID) => {
   const serverEndPoint = '/api/resultsdata';
 
   return dispatch =>
+    // Set up sockets
+    socket.emit('resultsData', { currentScenarioID: scenarioID });
+
+    // HTTP AXIOS REQUEST
     axios.post(serverEndPoint, { currentScenarioID: scenarioID })
       .then(res => {
         console.log('This is the response from the server', res);
