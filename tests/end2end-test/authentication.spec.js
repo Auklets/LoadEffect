@@ -14,7 +14,7 @@ describe('End to End Authentication', function test() {
       const user = new User({ name: 'Tai Huynh', email: 'tai@hackreactor.com' });
       user.setPassword('taiisthebest');
       user.save();
-      done()
+      done();
     });
 
     after(done => {
