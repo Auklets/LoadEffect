@@ -1,3 +1,5 @@
+import { history } from '../store';
+
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
@@ -66,10 +68,10 @@ export const signupUser = creds => {
           dispatch(signupError(user.message));
           return Promise.reject(user);
         } else {
-          // Sets the token in local storage on success
+          // Sets the token in local storage and route to main on success
           localStorage.setItem('id_token', user.id_token);
+          history.push('/main');
 
-          // Dispatch the success action
           dispatch(hideSignupModal());
           dispatch(receiveSignup(user));
         }

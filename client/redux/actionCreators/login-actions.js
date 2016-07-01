@@ -1,3 +1,5 @@
+import { history } from '../store';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -64,10 +66,11 @@ export const loginUser = creds => {
           dispatch(loginError(user.message));
           return Promise.reject(user);
         } else {
-          // Sets the token in local storage on success
+          // Sets the token in local storage and route to main on success
           localStorage.setItem('id_token', user.id_token);
+          history.push('/main');
+
           dispatch(hideLoginModal());
-          // Dispatch the success action
           dispatch(receiveLogin(user));
         }
       })

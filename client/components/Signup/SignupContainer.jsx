@@ -29,11 +29,6 @@ const mapDispatchToProps = dispatch => ({
   sendSignup(creds) {
     dispatch(signupUser(creds));
   },
-
-  routeToMain() {
-    history.push('/main');
-    dispatch(closeSignupModal());
-  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);

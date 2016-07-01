@@ -32,11 +32,6 @@ const mapDispatchToProps = dispatch => ({
   sendLogin(creds) {
     dispatch(loginUser(creds));
   },
-
-  routeToMain() {
-    history.push('/main');
-    dispatch(closeLoginModal());
-  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
