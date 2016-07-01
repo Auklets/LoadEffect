@@ -6,7 +6,7 @@ import { history } from '../../redux/store';
 import NewScenario from './NewScenario.jsx';
 import NewScenarioSuccessModal from './NewScenarioSuccessModal.jsx';
 
-const NewScenarioContainer = props => (
+export const NewScenarioContainer = props => (
   <div>
     <NewScenario {...props} />
     <NewScenarioSuccessModal {...props} />

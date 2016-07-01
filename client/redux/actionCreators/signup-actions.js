@@ -1,3 +1,5 @@
+import { history } from '../store';
+
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
@@ -5,12 +7,12 @@ export const TOGGLE_SIGNUP_MODAL = 'TOGGLE_SIGNUP_MODAL';
 
 
 /* ******** Signup Modal Actions  ******** */
-const showSignupModal = () => ({
+export const showSignupModal = () => ({
   type: TOGGLE_SIGNUP_MODAL,
   isSignupOpen: true,
 });
 
-const hideSignupModal = () => ({
+export const hideSignupModal = () => ({
   type: TOGGLE_SIGNUP_MODAL,
   isSignupOpen: false,
 });
@@ -25,21 +27,21 @@ export const closeSignupModal = () => dispatch => {
 
 
 /* ******* Signup Authentication Actions ******* */
-const receiveSignup = user => ({
+export const receiveSignup = user => ({
   type: SIGNUP_SUCCESS,
   isFetching: false,
   isAuthenticated: true,
   id_token: user.id_token,
 });
 
-const requestSignup = creds => ({
+export const requestSignup = creds => ({
   type: SIGNUP_REQUEST,
   isFetching: true,
   isAuthenticated: false,
   creds,
 });
 
-const signupError = message => ({
+export const signupError = message => ({
   type: SIGNUP_FAILURE,
   isFetching: false,
   isAuthenticated: false,
@@ -66,10 +68,10 @@ export const signupUser = creds => {
           dispatch(signupError(user.message));
           return Promise.reject(user);
         } else {
-          // Sets the token in local storage on success
+          // Sets the token in local storage and route to main on success
           localStorage.setItem('id_token', user.id_token);
+          history.push('/main');
 
-          // Dispatch the success action
           dispatch(hideSignupModal());
           dispatch(receiveSignup(user));
         }

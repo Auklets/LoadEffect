@@ -9,7 +9,6 @@ const initialState = {
 };
 
 export const scenarioReducer = (state = initialState, action) => {
-  console.log('This is scenarioReducers state', state);
   switch (action.type) {
     case GET_SCENARIOS:
       return Object.assign({}, state, {

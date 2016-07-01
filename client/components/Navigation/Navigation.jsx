@@ -59,7 +59,6 @@ const Navigation = props => {
 };
 
 Navigation.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   showLogin: PropTypes.func,
   showSignup: PropTypes.func,
   showNewScenario: PropTypes.func,

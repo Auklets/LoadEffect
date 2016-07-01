@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/liveResults-actions';
 import LiveResults from './LiveResults.jsx';
 
-const LiveResultsContainer = (props) => (
+export const LiveResultsContainer = (props) => (
   <LiveResults {...props} />
 );
 

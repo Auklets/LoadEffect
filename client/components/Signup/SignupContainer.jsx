@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { history } from '../../redux/store';
 
 import { signupUser, closeSignupModal } from '../../redux/actionCreators/signup-actions';
 
 import SignupModal from './SignupModal.jsx';
 
-const SignupContainer = props => (
+export const SignupContainer = props => (
   <SignupModal {...props} />
 );
 

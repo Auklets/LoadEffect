@@ -3,7 +3,7 @@ import { getScenarios } from '../redux/actionCreators/scenario-actions';
 import NavigationContainer from './Navigation/NavigationContainer.jsx';
 import { connect } from 'react-redux';
 
-const App = (props) => {
+export const AppContainer = (props) => {
   const { dispatch, isAuthenticated, errorMessage, getScenarioData } = props;
 
   // Makes a get request to retrieve scenarios data only if user is authenticated
@@ -26,7 +26,7 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {
+AppContainer.propTypes = {
   children: PropTypes.object,
   dispatch: PropTypes.func,
   getScenarioData: PropTypes.func.isRequired,
@@ -51,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

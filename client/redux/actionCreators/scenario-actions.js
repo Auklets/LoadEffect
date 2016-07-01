@@ -7,12 +7,12 @@ export const CURRENT_SPAWNS_COUNT = 'CURRENT_USER_COUNT';
 
 
 /* ******** Scenario Modal Actions  ******** */
-const showScenarioModal = () => ({
+export const showScenarioModal = () => ({
   type: TOGGLE_SCENARIO_MODAL,
   isScenarioModalOpen: true,
 });
 
-const hideScenarioModal = () => ({
+export const hideScenarioModal = () => ({
   type: TOGGLE_SCENARIO_MODAL,
   isScenarioModalOpen: false,
 });
@@ -27,19 +27,19 @@ export const closeScenarioModal = () => dispatch => {
 
 
 /* ******* Script Validation Actions ******* */
-const validScript = () => ({
+export const validScript = () => ({
   type: VALID_SCRIPT,
   isValidScript: true,
   attemptedCheck: true,
 });
 
-const invalidScript = () => ({
+export const invalidScript = () => ({
   type: VALID_SCRIPT,
   isValidScript: false,
   attemptedCheck: true,
 });
 
-const resetCheck = () => ({
+export const resetCheck = () => ({
   type: RESET_ATTEMPT_CHECK,
   isValidScript: false,
   attemptedCheck: false,
@@ -63,17 +63,17 @@ export const checkValidScript = script => {
 
 
 /* ******** Scenario Get and Create Actions  ******** */
-const allScenarios = res => ({
+export const allScenarios = res => ({
   type: GET_SCENARIOS,
   scenario: JSON.parse(res),
 });
 
-const storeRecentScenarioID = (scenarioID) => ({
+export const storeRecentScenarioID = (scenarioID) => ({
   type: CURRENT_SCENARIO_ID,
   currentScenarioID: scenarioID,
 });
 
-const storeRecentUserCount = (spawnsCount) => ({
+export const storeRecentUserCount = (spawnsCount) => ({
   type: CURRENT_SPAWNS_COUNT,
   currentSpawnsCount: spawnsCount,
 });
