@@ -3,6 +3,28 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const TOGGLE_SIGNUP_MODAL = 'TOGGLE_SIGNUP_MODAL';
 
+
+/* ******** Signup Modal Actions  ******** */
+const showSignupModal = () => ({
+  type: TOGGLE_SIGNUP_MODAL,
+  isSignupOpen: true,
+});
+
+const hideSignupModal = () => ({
+  type: TOGGLE_SIGNUP_MODAL,
+  isSignupOpen: false,
+});
+
+export const openSignupModal = () => dispatch => {
+  dispatch(showSignupModal());
+};
+
+export const closeSignupModal = () => dispatch => {
+  dispatch(hideSignupModal());
+};
+
+
+/* ******* Signup Authentication Actions ******* */
 const receiveSignup = user => ({
   type: SIGNUP_SUCCESS,
   isFetching: false,
@@ -23,24 +45,6 @@ const signupError = message => ({
   isAuthenticated: false,
   message,
 });
-
-const showSignupModal = () => ({
-  type: TOGGLE_SIGNUP_MODAL,
-  isSignupOpen: true,
-});
-
-const hideSignupModal = () => ({
-  type: TOGGLE_SIGNUP_MODAL,
-  isSignupOpen: false,
-});
-
-export const openSignupModal = () => dispatch => {
-  dispatch(showSignupModal());
-};
-
-export const closeSignupModal = () => dispatch => {
-  dispatch(hideSignupModal());
-};
 
 export const signupUser = creds => {
   const config = {

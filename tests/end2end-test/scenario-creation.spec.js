@@ -6,7 +6,7 @@ const request = require('supertest');
 const Scenario = require('../../webserver/models/ScenariosModel.js');
 const User = require('../../webserver/models/UsersModel.js');
 
-describe('End to End New Scenario Creation', () => {
+xdescribe('End to End New Scenario Creation', () => {
   let fakeLocalStorageToken;
   let userId;
 

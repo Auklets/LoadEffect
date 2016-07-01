@@ -1,9 +1,11 @@
 import { TOGGLE_LOGIN_MODAL } from '../actionCreators/login-actions';
 import { TOGGLE_SIGNUP_MODAL } from '../actionCreators/signup-actions';
+import { TOGGLE_SCENARIO_MODAL } from '../actionCreators/scenario-actions';
 
 const initialState = {
   isLoginOpen: false,
   isSignupOpen: false,
+  isScenarioModalOpen: false,
 };
 
 export const modalReducer = (state = initialState, action) => {
@@ -17,6 +19,11 @@ export const modalReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isSignupOpen: !state.isSignupOpen,
       });
+
+    case TOGGLE_SCENARIO_MODAL:
+       return Object.assign({}, state, {
+         isScenarioModalOpen: action.isScenarioModalOpen,
+       });
 
     default:
       return state;
