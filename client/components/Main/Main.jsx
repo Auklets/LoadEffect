@@ -16,7 +16,7 @@ const Main = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.scenarios.map((item, i) => {
+        {props.allScenarios.map((item, i) => {
           return (
             <tr key={i}>
               <td>{i + 1}</td>
@@ -47,7 +47,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  scenarios: PropTypes.array,
+  allScenarios: PropTypes.array,
 };
 
 export default Main;

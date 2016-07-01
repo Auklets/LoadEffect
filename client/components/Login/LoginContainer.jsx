@@ -1,83 +1,37 @@
-import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Grid, Row, Col, Button } from 'react-bootstrap';
+import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../redux/actionCreators/login-actions';
+import { history } from '../../redux/store';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+// Dispatched actions
+import { loginUser, closeLoginModal } from '../../redux/actionCreators/login-actions';
 
-  handleClick(e) {
-    e.preventDefault();
-    const email = this.refs.email;
-    const password = this.refs.password;
-    const creds = { email: email.value.trim(), password: password.value.trim() };
-    this.props.dispatch(loginUser(creds));
-  }
+import LoginModal from './LoginModal.jsx';
 
-  render() {
-    const { errorMessage } = this.props;
+export const LoginContainer = props => (
+  <LoginModal {...props} />
+);
 
-    return (
-      <Form onSubmit={this.handleClick}>
-        <Grid>
-          <Row className="show-grid">
-
-            <Col sm={12}>
-              <FormGroup controlId="formInlineEmail">
-                <ControlLabel>Email:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                />
-              </FormGroup>
-            </Col>
-
-            <Col sm={12}>
-              <FormGroup controlId="formInlineEmail">
-                <ControlLabel>Password:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="password"
-                  type="password"
-                  placeholder="Enter your password"
-                />
-              </FormGroup>
-            </Col>
-
-            <Button bStyle="primary" type="submit">
-              Login
-            </Button>
-          </Row>
-        </Grid>
-        {errorMessage &&
-          <p style={{ color: 'red' }}>{errorMessage}</p>
-        }
-      </Form>
-    );
-  }
-}
-
-Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string,
-};
-
-const mapStateToProps = (state) => {
-  const { auth } = state;
+const mapStateToProps = state => {
+  const { auth, modal } = state;
   const { isAuthenticated, errorMessage } = auth;
+  const { isLoginOpen, isSignupOpen } = modal;
 
   return {
-    data: state.data,
+    isLoginOpen,
+    isSignupOpen,
     isAuthenticated,
     errorMessage,
   };
 };
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = dispatch => ({
+  hideLogin() {
+    dispatch(closeLoginModal());
+  },
+
+  sendLogin(creds) {
+    dispatch(loginUser(creds));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

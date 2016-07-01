@@ -30,7 +30,11 @@ const createScenario = (req, res) => {
   newScenario.save()
     .then(() => {
       data.scenarioID = newScenario.get('id');
-      sendJSON(res, 201, { message: 'New scenario has been saved!' });
+      sendJSON(res, 201, {
+        message: 'New scenario has been saved!',
+        scenarioID: data.scenarioID,
+        spawnsCount: +data.spawnsCount,
+      });
     })
     .catch(err => sendJSON(res, 400, err));
 
@@ -40,7 +44,7 @@ const createScenario = (req, res) => {
       console.log('masterName', masterName);
       // send data to master
       setTimeout(() => {
-        dockerController.getMasterIP(masterName, function(masterIP) {
+        dockerController.getMasterIP(masterName, (masterIP) => {
           console.log('Master IP received:', masterIP);
           const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
           console.log('sending data to', masterUrl);
@@ -54,36 +58,13 @@ const createScenario = (req, res) => {
             if (err) {
               console.log('Error while sending data to master', err);
             } else {
-              console.log("Successfully sent data to master");
+              console.log('Successfully sent data to master');
               console.log('body', body);
             }
           });
         });
       }, 7000);
-    }
-  );
-
-  setTimeout(() => {
-    dockerController.getMasterIP(masterName, function(masterIP) {
-      console.log('Master IP received:', masterIP);
-      const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
-      console.log('sending data to', masterUrl);
-      request.post({
-        uri: masterUrl,
-        method: 'POST',
-        json: true,
-        body: data,
-      },
-      (err, response, body) => {
-        if (err) {
-          console.log('Error while sending data to master', err);
-        } else {
-          console.log('response:', response);
-          console.log('body', body);
-        }
-      });
     });
-  }, 1000);
 };
 
 const getAvgResponseTime = (req, res) => {

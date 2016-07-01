@@ -1,18 +1,25 @@
-
+// React/Redux/Router/Bootstrap
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Navbar, Nav } from 'react-bootstrap';
-import { logoutUser } from '../../redux/actionCreators/logout-actions';
 
-const NavigationContainer = (props) => {
-  const handleClick = function handleClick() {
-    props.dispatch(logoutUser());
-  };
+// Modal/Popup Components
+import LoginContainer from '../Login/LoginContainer.jsx';
+import SignupContainer from '../Signup/SignupContainer.jsx';
+
+const Navigation = props => {
+  const { showLogin, showSignup, handleClick, isAuthenticated } = props;
 
   const LoggedIn = (
     <Nav pullRight>
       <li>
+        <Link to="/live-results">[TEST - Live Results]</Link>
+      </li>
+      <li>
         <Link to="/new-scenario">Create New Scenario</Link>
+      </li>
+      <li>
+        <Link to="/results-detail">[TEST - Results Detail]</Link>
       </li>
       <li>
         <Link to="/main">Main</Link>
@@ -26,11 +33,13 @@ const NavigationContainer = (props) => {
   const NotLoggedIn = (
     <Nav pullRight>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to="/" onClick={showLogin}>Login</Link>
       </li>
       <li>
-        <Link to="/signup">Signup</Link>
+        <Link to="/" onClick={showSignup}>Signup</Link>
       </li>
+      <LoginContainer />
+      <SignupContainer />
     </Nav>
   );
 
@@ -43,15 +52,18 @@ const NavigationContainer = (props) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {props.isAuthenticated ? LoggedIn : NotLoggedIn}
+        {isAuthenticated ? LoggedIn : NotLoggedIn}
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
-NavigationContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+Navigation.propTypes = {
+  showLogin: PropTypes.func,
+  showSignup: PropTypes.func,
+  showNewScenario: PropTypes.func,
+  handleClick: PropTypes.func,
   isAuthenticated: PropTypes.bool.isRequired,
 };
 
-export default NavigationContainer;
+export default Navigation;

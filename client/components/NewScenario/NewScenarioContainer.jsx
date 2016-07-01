@@ -1,132 +1,61 @@
-import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Grid, Row, Col, Button } from 'react-bootstrap';
+import React from 'react';
 import { connect } from 'react-redux';
+import { createScenario, closeScenarioModal, openScenarioModal, checkValidScript, resetAttempt } from '../../redux/actionCreators/scenario-actions';
+import { history } from '../../redux/store';
 
-class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+import NewScenario from './NewScenario.jsx';
+import NewScenarioSuccessModal from './NewScenarioSuccessModal.jsx';
 
-  handleClick() {
-    const scenarioName = this.refs.scenarioName.value.trim();
-    const spawnsCount = this.refs.spawnsCount.value.trim();
-    const targetURL = this.refs.targetURL.value.trim();
-    const script = this.refs.script.value.trim();
-    const workers = this.refs.workers.value.trim();
+export const NewScenarioContainer = props => (
+  <div>
+    <NewScenario {...props} />
+    <NewScenarioSuccessModal {...props} />
+  </div>
+);
 
-    const config = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Bearer ${localStorage.getItem('id_token')}` },
-        body: `scenarioName=${scenarioName}&spawnsCount=${spawnsCount}&targetURL=${targetURL}&script=${script}&workers=${workers}`,
-    };
-
-    fetch('/api/scenarios', config);
-  }
-
-  render() {
-    return (
-      <Form onSubmit={this.handleClick}>
-        <Grid>
-          <Row className="show-grid">
-            <Col sm={6}>
-              <FormGroup controlId="formInlineFirstName">
-                <ControlLabel>Test Name:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="scenarioName"
-                  type="text"
-                  placeholder="Enter Test name"
-                  required
-                />
-              </FormGroup>
-            </Col>
-
-            <Col sm={6}>
-              <FormGroup controlId="formInlineFirstName">
-                <ControlLabel>Enter Number of Workers:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="workers"
-                  type="number"
-                  placeholder="Enter total number of workers"
-                  required
-                />
-              </FormGroup>
-            </Col>
-
-            <Col sm={6}>
-              <FormGroup controlId="formInlineLastName">
-                <ControlLabel>Enter Total Number of Fake Users:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="spawnsCount"
-                  type="number"
-                  min="0"
-                  placeholder="Enter total number fake users"
-                  required
-                />
-              </FormGroup>
-            </Col>
-
-            <Col sm={6}>
-              <FormGroup controlId="formInlineLastName">
-                <ControlLabel>Enter Target Url:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="targetURL"
-                  type="url"
-                  placeholder="Enter target url"
-                  required
-                />
-              </FormGroup>
-            </Col>
-
-            <Col sm={12}>
-              <FormGroup controlId="formInlineEmail">
-                <ControlLabel>Enter your script:</ControlLabel>
-                {' '}
-                <textarea
-                  className="form-control"
-                  ref="script"
-                  type="text"
-                  rows="10"
-                  placeholder="Enter your script"
-                  required
-                />
-              </FormGroup>
-            </Col>
-
-            <Button bStyle="primary" type="submit">
-              Create!
-            </Button>
-          </Row>
-        </Grid>
-      </Form>
-    );
-  }
-}
-
-Signup.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string,
-};
-
-const mapStateToProps = (state) => {
-  const { auth } = state;
+const mapStateToProps = state => {
+  const { auth, modal, scenario } = state;
   const { isAuthenticated, errorMessage } = auth;
+  const { isScenarioModalOpen } = modal;
+  const { isValidScript, allScenarios, attemptedCheck } = scenario;
 
   return {
-    data: state.data,
+    isScenarioModalOpen,
     isAuthenticated,
     errorMessage,
+    isValidScript,
+    allScenarios,
+    attemptedCheck,
+    state,
   };
 };
 
-export default connect(mapStateToProps)(Signup);
+const mapDispatchToProps = dispatch => ({
+  hideScenarioSuccessModal() {
+    dispatch(closeScenarioModal());
+  },
+
+  showScenarioSuccessModal() {
+    dispatch(openScenarioModal());
+  },
+
+  sendScenario(creds) {
+    dispatch(createScenario(creds));
+  },
+
+  validateScript(script) {
+    dispatch(checkValidScript(script));
+  },
+
+  resetValidation() {
+    dispatch(resetAttempt());
+  },
+
+  routeToLiveResults() {
+    history.push('/live-results');
+    dispatch(closeScenarioModal());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewScenarioContainer);
+
