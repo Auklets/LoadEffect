@@ -1,9 +1,12 @@
-import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_ID, CURRENT_SPAWNS_COUNT } from '../actionCreators/scenario-actions';
+import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_INFO } from '../actionCreators/scenario-actions';
 
 const initialState = {
   allScenarios: [],
   currentScenarioID: 0,
   currentSpawnsCount: 0,
+  currentWorkers: '',
+  currentTargetURL: '',
+  currentScenarioName: '',
   isValidScript: false,
   attemptedCheck: false,
 };
@@ -28,14 +31,13 @@ export const scenarioReducer = (state = initialState, action) => {
         attemptedCheck: false,
       });
 
-    case CURRENT_SCENARIO_ID:
+    case CURRENT_SCENARIO_INFO:
       return Object.assign({}, state, {
         currentScenarioID: action.currentScenarioID,
-      });
-
-    case CURRENT_SPAWNS_COUNT:
-      return Object.assign({}, state, {
         currentSpawnsCount: action.currentSpawnsCount,
+        currentWorkers: action.currentWorkers,
+        currentTargetURL: action.currentTargetURL,
+        currentScenarioName: action.currentScenarioName,
       });
 
     default:
