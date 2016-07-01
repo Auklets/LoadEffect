@@ -6,9 +6,10 @@ const request = require('supertest');
 const User = require('../../webserver/models/UsersModel.js');
 
 // Outer describe block is written with ES5 to use this.timeout.
-// Writing with ES6 fat arrow function with make 'this' binding point to global
-describe('End to End Authentication', function test() {
-  this.timeout(4000);
+// Writing with ES6 fat arrow function will make 'this' binding point to global
+describe('End to End Authentication', function authTest() {
+  this.timeout(5000);
+
   describe('Login:', () => {
     before(done => {
       const user = new User({ name: 'Tai Huynh', email: 'tai@hackreactor.com' });

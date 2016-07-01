@@ -6,7 +6,11 @@ const request = require('supertest');
 const Scenario = require('../../webserver/models/ScenariosModel.js');
 const User = require('../../webserver/models/UsersModel.js');
 
-xdescribe('End to End New Scenario Creation', () => {
+// Outer describe block is written with ES5 to use this.timeout.
+// Writing with ES6 fat arrow function will make 'this' binding point to global
+xdescribe('End to End New Scenario Creation', function scenarioTest() {
+  this.timeout(5000);
+
   let fakeLocalStorageToken;
   let userId;
 
