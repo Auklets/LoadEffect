@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { history } from '../../redux/store';
 
-// Dispatched actions
-import { loginUser, closeLoginModal } from '../../redux/actionCreators/login-actions';
+import { loginUser } from '../../redux/actionCreators/login-actions';
+import { closeLoginModal } from '../../redux/actionCreators/modal-actions';
 
 import LoginModal from './LoginModal.jsx';
 

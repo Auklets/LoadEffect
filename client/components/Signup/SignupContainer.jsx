@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { history } from '../../redux/store';
 
-import { signupUser, closeSignupModal } from '../../redux/actionCreators/signup-actions';
+import { signupUser } from '../../redux/actionCreators/signup-actions';
+import { closeSignupModal } from '../../redux/actionCreators/modal-actions';
 
 import SignupModal from './SignupModal.jsx';
 
