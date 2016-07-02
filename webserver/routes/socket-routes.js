@@ -1,9 +1,9 @@
-const resultsHandler = '../controllers/results-controller';
+const { getResultsDataHandler } = require('../controllers/results-controller');
 
-module.exports = (socket) => {
+const socketRoutes = (socket) => {
   console.log('a user connected');
-
-  socket.on('getResultsData', resultsHandler);
+  socket.on('getResultsData', getResultsDataHandler);
   socket.on('disconnect', () => console.log('user disconnected'));
 };
 
+module.exports = socketRoutes;

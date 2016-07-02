@@ -27,4 +27,4 @@ http.listen(process.env.WEB_PORT, () => {
   console.log('Express server started in ' + app.get('env') + ' mode on port ' + app.get('port'));
 });
 
-module.exports = app;
+module.exports = { app, io };

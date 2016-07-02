@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ChartistGraph from 'react-chartist';
-import { Grid, Row, Panel } from 'react-bootstrap';
+import { Grid, Row, Panel, ProgressBar } from 'react-bootstrap';
 import { panelBackgroundColor } from './LiveResultsCSS.jsx';
 import { calculateAverage, percentCompletion } from './LiveResultsHelpers.jsx';
 import TestSummary from './ChartComponents/TestSummary.jsx';
@@ -10,6 +10,7 @@ import ActionsTable from './ChartComponents/ActionsTable.jsx';
 class LiveResults extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
 
     // Variable for total jobs
     // const testTotalSpawns = 5;
@@ -23,9 +24,11 @@ class LiveResults extends Component {
     // console.log('Current Scenario ID', props.currentScenarioID);
     // Continue to fetch until total jobs equals data length
     // this.props.updateLineChartData(totalSpawns, currentScenarioID);
+  }
 
-    // Set up socket listeners here
-
+  handleClick(e) {
+    e.preventDefault();
+    this.props.updateLineChartData(this.props.currentSpawnsCount, this.props.currentScenarioID);
   }
 
   render() {
@@ -50,6 +53,11 @@ class LiveResults extends Component {
     return (
       <Grid>
         <Row className="show-grid">
+          <Panel bsStyle="primary" style={panelBackgroundColor}>
+            <button onClick={this.handleClick}>Click to Test Fetching Data!</button>
+          </Panel>
+        </Row>
+        <Row className="show-grid">
           <TestSummary
             currentScenarioName={this.props.currentScenarioName}
             currentWorkers={this.props.currentWorkers}
@@ -58,11 +66,15 @@ class LiveResults extends Component {
           />
         </Row>
         <Row className="show-grid">
+          <Panel bsStyle="primary" style={panelBackgroundColor} header={'Test Percent Completion'}>
+            <ProgressBar bStyle="success" now={percentComplete} label={`${percentComplete}%`} />
+          </Panel>
+        </Row>
+        <Row className="show-grid">
           <GeneralStatistics
             averageElapsedTime={averageElapsedTime}
             numberActions={numberActions}
             currentSpawns={currentSpawns}
-            percentComplete={percentComplete}
           />
         </Row>
         <Row className="show-grid">
