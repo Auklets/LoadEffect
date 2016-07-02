@@ -14,7 +14,6 @@ class LiveResults extends Component {
 
     // Variable for total jobs
     // const testTotalSpawns = 5;
-    // const testScenarioID = 15;
     // const totalSpawns = props.currentSpawnsCount;
     // const currentScenarioID = props.currentScenarioID;
 
@@ -24,11 +23,13 @@ class LiveResults extends Component {
     // console.log('Current Scenario ID', props.currentScenarioID);
     
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
-    // this.props.updateLineChartData(totalSpawns, currentScenarioID);
+    // this.props.updateLineChartData(props.currentSpawnsCount, props.currentScenarioID);
   }
 
+  // REMOVE CLICK HANDLER FOR PRODUCTION
   handleClick(e) {
     e.preventDefault();
+    // REMOVE FOR PRODUCTION
     const testScenarioID = 15;
     this.props.updateLineChartData(this.props.currentSpawnsCount, testScenarioID);
     // this.props.updateLineChartData(this.props.currentSpawnsCount, this.props.currentScenarioID);

@@ -22,7 +22,6 @@ const getResultsDataHandler = (socket) =>
           action: resultsActions,
         };
         socket.emit('receiveResultsData', combinedData);
-        // Server.io.emit('receiveResultsData', combinedData);
       })
       .catch(err => console.log(err));
   };
