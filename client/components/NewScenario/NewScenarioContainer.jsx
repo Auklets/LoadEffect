@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createScenario, closeScenarioModal, openScenarioModal, checkValidScript, resetAttempt } from '../../redux/actionCreators/scenario-actions';
+import { createScenario, checkValidScript, resetAttempt } from '../../redux/actionCreators/scenario-actions';
+import { closeScenarioModal, openScenarioModal } from '../../redux/actionCreators/modal-actions';
+
 import { history } from '../../redux/store';
 
 import NewScenario from './NewScenario.jsx';
