@@ -8,6 +8,10 @@ const socket = io({
   query: `token=${token}`,
 });
 
+socket.on('connect', () => {
+  socket.emit('room', 'clientID');
+});
+
 // REMOVE COUNTER FOR PRODUCTION
 let tempCounter = 0;
 let updateCounter = 0;
