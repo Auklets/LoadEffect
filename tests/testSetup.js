@@ -53,4 +53,4 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-documentRef = document;  //eslint-disable-line no-undef
+// documentRef = document;  //eslint-disable-line no-undef

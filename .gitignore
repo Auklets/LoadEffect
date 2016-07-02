@@ -2,3 +2,4 @@ node_modules/
 env/development.env
 env/production.env
 *.log
+coverage
