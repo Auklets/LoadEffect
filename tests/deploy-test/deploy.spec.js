@@ -7,12 +7,12 @@ const DockerController = require('../../webserver/controllers/docker-controller'
 const url = `${process.env.PROTOCOL}${process.env.HOST}:${process.env.PORT}`;
 
 // specify tests for functionality of spawning docker instances on incoming API requests
-describe('DockerController tests: ', function() {
+describe('Docker Controller Tests: ', function() {
 
   // test working API routes
   describe('Requests to docker API routes: ', function() {
     describe('POST /api/docker: ', function() {
-      it('respond with 201 statusCode and success message', function(done) {
+      it('should respond with 201 statusCode and success message', function(done) {
         request(url)
           .post('/api/docker')
           .expect(201)
@@ -21,7 +21,7 @@ describe('DockerController tests: ', function() {
     });
 
     describe('GET /api/docker: ', function() {
-      it('respond with 200 statusCode and checked message', function(done) {
+      it('should respond with 200 statusCode and checked message', function(done) {
         request(url)
           .get('/api/docker')
           .expect(200)
@@ -32,7 +32,7 @@ describe('DockerController tests: ', function() {
 
   // incoming post request to /api/docker calls correct functions
   xdescribe('Controller function calls: ', function() {
-    it('createContainer function called', function(done) {
+    it('should invoke createContainer function on POST request to /api/docker', function(done) {
       request(url)
         .post('/api/docker')
         .send('')
@@ -41,7 +41,8 @@ describe('DockerController tests: ', function() {
           done();
         });
     });
-    it('checkContainer function called', function(done) {
+
+    it('should invoke checkContainer function on GET request to /api/docker', function(done) {
       const checkContainer = sinon.spy(DockerController, 'checkContainer');
       request(url)
         .get('/api/docker')

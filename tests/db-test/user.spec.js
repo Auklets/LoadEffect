@@ -13,6 +13,7 @@ describe('User Model Schema', () => {
 
     user2 = new User({ name: 'Felix Ramsey', email: 'Chris@hackreactor.com' });
     user2.password = user2.setPassword('taiisthebest');
+    user2.generateSiteToken();
     user2.save();
 
     done();
@@ -38,6 +39,7 @@ describe('User Model Schema', () => {
     it('should not be able to save duplicate emails', done => {
       const newUser = new User({ name: 'Chris Ramsey', email: 'Chris@hackreactor.com' });
       newUser.setPassword('taiisthebest');
+      newUser.generateSiteToken();
       newUser.save()
         .then(model => {
           return model;

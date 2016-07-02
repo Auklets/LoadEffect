@@ -2,11 +2,11 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-const requestLogout = () => ({
+export const requestLogout = () => ({
   type: LOGOUT_REQUEST,
 });
 
-const receiveLogout = () => ({
+export const receiveLogout = () => ({
   type: LOGOUT_SUCCESS,
 });
 

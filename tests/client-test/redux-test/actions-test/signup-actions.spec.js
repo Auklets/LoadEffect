@@ -3,58 +3,23 @@ import { expect } from 'chai';
 import * as action from '../../../../client/redux/actionCreators/signup-actions';
 
 describe('Redux Signup Actions', () => {
-  describe('Signup Modal Actions', () => {
-    it('should set state isSignupOpen to true on showSignupModal()', () => {
-      const expectedAction = {
-        type: action.TOGGLE_SIGNUP_MODAL,
-        isSignupOpen: true,
-      };
-
-      expect(action.showSignupModal()).to.deep.equal(expectedAction);
-    });
-
-    it('should set state isSignupOpen to false on hideSignupModal()', () => {
-      const expectedAction = {
-        type: action.TOGGLE_SIGNUP_MODAL,
-        isSignupOpen: false,
-      };
-
-      expect(action.hideSignupModal()).to.deep.equal(expectedAction);
-    });
-  });
-
   describe('Signup Authentication Actions', () => {
-    it('should set state isFetching to true and isAuthenticate to false on requestSignup()', () => {
-      const fakeCreds = {
-        email: 'tai@hackreactor.com',
-        name: 'Tai Huynh',
-        password: 'passsss',
-      };
-
+    it('should send action type SIGNUP_REQUEST on requestSignup()', () => {
       const expectedAction = {
-        type: action.SIGNUP_REQUEST,
-        isFetching: true,
-        isAuthenticated: false,
-        creds: {
-          email: 'tai@hackreactor.com',
-          name: 'Tai Huynh',
-          password: 'passsss',
-        },
+        type: 'SIGNUP_REQUEST',
       };
 
-      expect(action.requestSignup(fakeCreds)).to.deep.equal(expectedAction);
+      expect(action.requestSignup()).to.deep.equal(expectedAction);
     });
 
-    it('should set state isFetching to false and isAuthenticated to true on receiveSignup() and store user.id_token', () => {
+    it('should send action type SIGNUP_SUCCESS on receiveSignup() and store user.site_token', () => {
       const fakeUser = {
-        id_token: 'somdasodssomesignuptoken',
+        site_token: 'somdasodssomesignuptoken',
       };
 
       const expectedAction = {
-        type: action.SIGNUP_SUCCESS,
-        isFetching: false,
-        isAuthenticated: true,
-        id_token: 'somdasodssomesignuptoken',
+        type: 'SIGNUP_SUCCESS',
+        siteToken: 'LoadEffect-somdasodssomesignuptoken',
       };
 
       expect(action.receiveSignup(fakeUser)).to.deep.equal(expectedAction);
@@ -64,9 +29,7 @@ describe('Redux Signup Actions', () => {
       const fakeMessage = 'There was an error signing in';
 
       const expectedAction = {
-        type: action.SIGNUP_FAILURE,
-        isFetching: false,
-        isAuthenticated: false,
+        type: 'SIGNUP_FAILURE',
         message: fakeMessage,
       };
 
