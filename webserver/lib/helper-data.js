@@ -30,7 +30,6 @@ const getFromActions = (scenarioID) =>
         dataToSend.statusCode.push(cleanedData[i].statusCode);
         dataToSend.elapsedTime.push(cleanedData[i].elapsedTime);
       }
-      console.log('This is the cleaned data from Action', dataToSend);
       resolve(dataToSend);
     })
     .catch(reject);

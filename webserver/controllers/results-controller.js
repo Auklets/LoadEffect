@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 */
 
 const getResultsDataHandler = (req) => {
-  console.log('Received request in results controller get data!', req);
+  // console.log('Received request in results controller get data!', req);
   const scenarioID = req.currentScenarioID;
 
   Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID)])
@@ -20,7 +20,7 @@ const getResultsDataHandler = (req) => {
         spawn: resultsSpawn,
         action: resultsActions,
       };
-      console.log('This is the combined data', combinedData);
+      // console.log('This is the combined data', combinedData);
       Server.io.emit('receiveResultsData', combinedData);
     })
     .catch(err => console.log(err));

@@ -11,7 +11,21 @@ const socket = io({
 // REMOVE COUNTER FOR PRODUCTION
 let tempCounter = 0;
 
-// Update line chart data
+/* ******* Update Line Chart Data Actions ******* */
+export const updateLineChartAction = spawnData => ({
+  type: UPDATE_LINE_CHART,
+  labels: spawnData.labels,
+  series: spawnData.series,
+});
+
+export const updateCurrentAction = actionData => ({
+  type: UPDATE_LINE_CHART,
+  index: actionData.index,
+  httpVerb: actionData.httpVerb,
+  statusCode: actionData.statusCode,
+  elapsedTime: actionData.elapsedTime,
+});
+
 export const updateLineChartData = (jobCount, scenarioID) => {
   console.log('We have called updateLineChartData');
 
@@ -22,29 +36,18 @@ export const updateLineChartData = (jobCount, scenarioID) => {
       console.log('Got data from sockets', data);
       const spawnData = data.spawn;
       const actionData = data.action;
-      dispatch({
-        type: UPDATE_LINE_CHART,
-        labels: spawnData.labels,
-        series: spawnData.series,
-      });
-      dispatch({
-        type: UPDATE_CURRENT_ACTION,
-        index: actionData.index,
-        httpVerb: actionData.httpVerb,
-        statusCode: actionData.statusCode,
-        elapsedTime: actionData.elapsedTime,
-      });
-      console.log('This is job count', jobCount);
-      console.log('This is data length', data.spawn.labels.length);
+      dispatch(updateLineChartData(spawnData));
+      dispatch(updateCurrentAction(actionData));
+      // console.log('This is job count', jobCount);
+      // console.log('This is data length', data.spawn.labels.length);
       // REMOVE COUNTER FOR PRODUCTION
-      if (data.spawn.labels.length < jobCount && tempCounter < 100) {
-        console.log('We are recursively calling');
-        // REMOVE TEST SCENARIO FOR PRODUCTION
-        const testScenarioID = 15;
-        dispatch(updateLineChartData(jobCount, testScenarioID));
+      if (data.spawn.labels.length < jobCount && tempCounter < 20) {
         // REMOVE COUNTER FOR PRODUCTION
         tempCounter++;
         console.log('tempCounter count is', tempCounter);
+        // REMOVE TEST SCENARIO FOR PRODUCTION
+        const testScenarioID = 15;
+        dispatch(updateLineChartData(jobCount, testScenarioID));
       }
     });
   };
