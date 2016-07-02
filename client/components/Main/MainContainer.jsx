@@ -1,19 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Main from './Main.jsx';
+import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
 
 export const MainContainer = (props) => (
-  <Main {...props} />
+  <div>
+    <Main {...props} />
+  </div>
 );
 
 const mapStateToProps = state => {
-  const { scenario } = state;
+  const { scenario, auth } = state;
   const { allScenarios } = scenario;
+  const { siteToken, isAuthenticated } = auth;
 
   return {
     allScenarios,
+    siteToken,
+    isAuthenticated,
     state,
   };
 };
 
-export default connect(mapStateToProps)(MainContainer);
+const mapDispatchToProps = dispatch => ({
+  hideVerifyModal() {
+    dispatch(closeVerifyModal());
+  },
+
+  showVerifyModal() {
+    dispatch(openVerifyModal());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

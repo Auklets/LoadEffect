@@ -2,6 +2,8 @@ const Scenario = require('../models/ScenariosModel');
 const dockerController = require('./docker-controller');
 const utils = require('../lib/utils');
 const request = require('request');
+const dns = require('dns');
+
 const sendJSON = utils.sendJSON;
 
 // URL Configuration for Master Server
@@ -19,6 +21,7 @@ const createScenario = (req, res) => {
     workers: req.body.workers,
     targetURL: req.body.targetURL,
     script: req.body.script,
+    isVerifiedOwner: false,
     id_user: req.user._id,
   };
 
@@ -67,30 +70,6 @@ const createScenario = (req, res) => {
     });
 };
 
-const getAvgResponseTime = (req, res) => {
-  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user._id })
-    .fetch()
-    .then(scenario => {
-      sendJSON(res, 200, {
-        averageResponseTime: scenario.get('averageResponseTime'),
-      });
-    })
-    .catch(err => {
-      sendJSON(res, 404, err);
-    });
-};
-
-const getAvgActionTime = (req, res) => {
-  Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user })
-    .fetch()
-    .then(scenario => {
-      sendJSON(res, 200, {
-        averageActionTime: scenario.get('averageActionTime'),
-      });
-    })
-    .catch(err => sendJSON(res, 404, err));
-};
-
 const deleteScenario = (req, res) => {
   Scenario.where({ scenarioName: req.body.scenarioName, id_user: req.user._id })
     .destroy()
@@ -103,8 +82,38 @@ const getScenarios = (req, res) => {
   Scenario.where({ id_user: req.user._id })
     .fetchAll()
     .then(data => {
-      sendJSON(res, 200, JSON.stringify(data.models));
+      const scenarios = JSON.stringify(data.models);
+      sendJSON(res, 200, { scenarios, site_token: req.user.siteToken });
     });
 };
 
-module.exports = { getScenarios, createScenario, getAvgResponseTime, getAvgActionTime, deleteScenario };
+const validateWebsite = (req, res) => {
+  const url = req.body.url;
+  const scenarioID = req.body.scenarioID;
+  const siteToken = `LoadEffect-${req.user.siteToken}`;
+
+  dns.resolveTxt(url, (err, results) => {
+    if (err) {
+      sendJSON(res, 400, { message: 'There was an error with the validation' });
+      return;
+    }
+
+    Scenario.where('id', scenarioID)
+      .fetch()
+      .then(scenario => {
+        for (let i = 0, len = results.length; i < len; i++) {
+          if (results[i][0] === siteToken) {
+            scenario.set('isVerifiedOwner', 1);
+            return scenario.save().then(() => {
+              sendJSON(res, 201, { message: 'Great! Website is verified' });
+            });
+          }
+        }
+
+        return sendJSON(res, 201, { message: "Sorry, but we were unable to verify. If you've recently added the DNS text record, please give it a few hours before checkingagain" });
+      })
+      .catch(err => console.log('Uh oh, there was an error in Scenario lookup for website validation', err));
+  })
+};
+
+module.exports = { getScenarios, createScenario, deleteScenario, validateWebsite };

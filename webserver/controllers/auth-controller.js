@@ -13,10 +13,11 @@ const signup = (req, res) => {
     .then(existingUser => {
       if (!existingUser) {
         const newUser = new User({ name: req.body.name, email: req.body.email });
+        const siteToken = newUser.generateSiteToken();
         newUser.setPassword(req.body.password);
         newUser.save()
         .then(() => {
-          sendJSON(res, 200, { id_token: newUser.generateJwt() });
+          sendJSON(res, 200, { id_token: newUser.generateJwt(), site_token: siteToken });
         });
 
         return newUser;
@@ -36,7 +37,7 @@ const login = (req, res, next) => {
     }
 
     if (user) {
-      sendJSON(res, 200, { id_token: user.generateJwt() });
+      sendJSON(res, 200, { id_token: user.generateJwt(), site_token: user.getSiteToken() });
     } else {
       sendJSON(res, 401, info);
     }

@@ -28,6 +28,7 @@ const Home = (props) => {
 
 Home.propTypes = {
   showLogin: PropTypes.func,
+  isAuthenticated: PropTypes.bool,
   showSignup: PropTypes.func,
 };
 

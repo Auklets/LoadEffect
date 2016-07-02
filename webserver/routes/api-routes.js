@@ -14,6 +14,8 @@ module.exports = (app) => {
 
   app.post('/api/resultsdata', resultsController.getData); // Add auth when done testing
 
+  app.post('/api/validate-website', auth, scenarioController.validateWebsite);
+
    // Catch all;
   app.get('/*', (req, res) => {
     res.redirect('/');

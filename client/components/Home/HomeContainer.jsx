@@ -1,11 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-// Dispatched actions
-import { openLoginModal } from '../../redux/actionCreators/login-actions';
-import { openSignupModal } from '../../redux/actionCreators/signup-actions';
-
-// Dumb Components
+import { openLoginModal, openSignupModal } from '../../redux/actionCreators/modal-actions';
 import Home from './Home.jsx';
 
 export const HomeContainer = (props) => (

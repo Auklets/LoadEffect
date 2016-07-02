@@ -1,48 +1,23 @@
 import { history } from '../store';
+import { hideLoginModal } from './modal-actions';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 
-/* ******* Login Modal Actions ******* */
-export const showLoginModal = () => ({
-  type: TOGGLE_LOGIN_MODAL,
-  isLoginOpen: true,
-});
-
-export const hideLoginModal = () => ({
-  type: TOGGLE_LOGIN_MODAL,
-  isLoginOpen: false,
-});
-
-export const openLoginModal = () => dispatch => {
-  dispatch(showLoginModal());
-};
-
-export const closeLoginModal = () => dispatch => {
-  dispatch(hideLoginModal());
-};
 
 /* ******* Login Authentication Actions ******* */
-export const requestLogin = creds => ({
+export const requestLogin = () => ({
   type: LOGIN_REQUEST,
-  isFetching: true,
-  isAuthenticated: false,
-  creds,
 });
 
 export const receiveLogin = user => ({
   type: LOGIN_SUCCESS,
-  isFetching: false,
-  isAuthenticated: true,
-  id_token: user.id_token,
+  siteToken: `LoadEffect-${user.site_token}`,
 });
 
 export const loginError = message => ({
   type: LOGIN_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
   message,
 });
 
@@ -54,7 +29,7 @@ export const loginUser = creds => {
   };
 
   return dispatch => {
-    dispatch(requestLogin(creds));
+    dispatch(requestLogin());
 
     return fetch('/api/login', config)
       .then(response =>
@@ -69,7 +44,6 @@ export const loginUser = creds => {
           // Sets the token in local storage and route to main on success
           localStorage.setItem('id_token', user.id_token);
           history.push('/main');
-
           dispatch(hideLoginModal());
           dispatch(receiveLogin(user));
         }
