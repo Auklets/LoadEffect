@@ -13,18 +13,19 @@ export const scenarioReducer = (state = initialState, action) => {
     case GET_SCENARIOS:
       return Object.assign({}, state, {
         allScenarios: action.scenario,
+        siteToken: action.siteToken,
       });
 
     case VALID_SCRIPT:
       return Object.assign({}, state, {
         isValidScript: action.isValidScript,
-        attemptedCheck: action.attemptedCheck,
+        attemptedCheck: true,
       });
 
     case RESET_ATTEMPT_CHECK:
       return Object.assign({}, state, {
-        isValidScript: action.isValidScript,
-        attemptedCheck: action.attemptedCheck,
+        isValidScript: false,
+        attemptedCheck: false,
       });
 
     case CURRENT_SCENARIO_ID:

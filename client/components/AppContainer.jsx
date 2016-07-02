@@ -39,7 +39,6 @@ const mapStateToProps = state => {
   const { isAuthenticated, errorMessage } = auth;
 
   return {
-    data: state.data,
     isAuthenticated,
     errorMessage,
   };

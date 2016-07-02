@@ -19,9 +19,10 @@ class NewScenario extends Component {
 
   handleClick(e) {
     e.preventDefault();
+    const fullURL = this.refs.targetURL.value.trim();
+    const targetURL = fullURL.slice(fullURL.indexOf('.') + 1);
     const scenarioName = this.refs.scenarioName.value.trim();
     const spawnsCount = this.refs.spawnsCount.value.trim();
-    const targetURL = this.refs.targetURL.value.trim();
     const script = this.refs.script.value.trim();
     const workers = this.refs.workers.value.trim();
     const data = { scenarioName, spawnsCount, targetURL, script, workers };
@@ -107,7 +108,6 @@ class NewScenario extends Component {
                 ref="targetURL"
                 type="url"
                 placeholder="Enter target url"
-                value="http://45.55.183.145"
                 required
               />
             </FormGroup>

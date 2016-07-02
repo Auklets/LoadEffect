@@ -9,6 +9,7 @@ db.knex.schema.hasTable('users').then(exists => {
       user.increments('id').primary();
       user.string('email', 255).unique();
       user.string('name', 255);
+      user.string('siteToken', 255);
       user.string('hash', 255);
       user.string('salt', 255);
       user.timestamps();
@@ -33,6 +34,16 @@ const User = db.Model.extend({
     this.set('salt', salt);
   },
 
+  generateSiteToken() {
+    const siteToken = crypto.randomBytes(16).toString('hex');
+    this.set('siteToken', siteToken);
+    return siteToken;
+  },
+
+  getSiteToken() {
+    return this.get('siteToken');
+  },
+
   validPassword(password) {
     const hash = crypto.pbkdf2Sync(password, this.get('salt'), 1000, 64).toString('hex');
     return this.get('hash') === hash;
@@ -45,6 +56,7 @@ const User = db.Model.extend({
     return jwt.sign({
       _id: this.get('id'),
       email: this.get('email'),
+      siteToken: this.get('siteToken'),
       name: this.get('name'),
       exp: parseInt(expiry.getTime() / 1000),
     }, process.env.JWT_SECRET);
