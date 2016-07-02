@@ -5,7 +5,6 @@ const app = `${process.env.PROTOCOL}${process.env.WEB_HOST}:${process.env.WEB_PO
 const request = require('supertest');
 const Scenario = require('../../webserver/models/ScenariosModel.js');
 const User = require('../../webserver/models/UsersModel.js');
-console.log('appp', app);
 
 // Outer describe block is written with ES5 to use this.timeout.
 // Writing with ES6 fat arrow function will make 'this' binding point to global
