@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 
 const expect = require('chai').expect;
-const app = `${process.env.PROTOCOL}${process.env.HOST}:${process.env.PORT}`;
+const app = `${process.env.PROTOCOL}${process.env.WEB_HOST}:${process.env.WEB_PORT}`;
 const request = require('supertest');
 const User = require('../../webserver/models/UsersModel.js');
-
+console.log('appp', app);
 // Outer describe block is written with ES5 to use this.timeout.
 // Writing with ES6 fat arrow function will make 'this' binding point to global
 describe('End to End Authentication', function authTest() {
@@ -14,6 +14,7 @@ describe('End to End Authentication', function authTest() {
     before(done => {
       const user = new User({ name: 'Tai Huynh', email: 'tai@hackreactor.com' });
       user.setPassword('taiisthebest');
+      user.generateSiteToken();
       user.save();
       done();
     });
