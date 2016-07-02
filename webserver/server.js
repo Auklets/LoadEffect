@@ -19,8 +19,8 @@ require('./routes/auth-routes.js')(app);
 require('./routes/api-routes.js')(app);
 require('./config/passport.js')(app, passport);
 
+/* ***** SOCKETS ***** */
 const io = require('socket.io')(http);
-
 const socketRoutes = require('./routes/socket-routes.js');
 io.on('connection', socketRoutes);
 

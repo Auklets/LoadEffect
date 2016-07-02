@@ -10,11 +10,9 @@ const Promise = require('bluebird');
     // respond with data from database
 */
 
-
 const getResultsDataHandler = (req) => {
   console.log('Received request in results controller get data!', req);
   const scenarioID = req.currentScenarioID;
-  // const testscenarioID = 15;
 
   Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID)])
     .spread((resultsActions, resultsSpawn) => {
@@ -27,23 +25,5 @@ const getResultsDataHandler = (req) => {
     })
     .catch(err => console.log(err));
 };
-
-// const getData = (req, res) => {
-//   // console.log('Received request!', req);
-//   console.log('Received request in results controller get data!', req.body);
-//   const scenarioID = req.body.currentScenarioID;
-//   // const testscenarioID = 15;
-
-//   Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID)])
-//     .spread((resultsActions, resultsSpawn) => {
-//       const combinedData = {
-//         spawn: resultsSpawn,
-//         action: resultsActions,
-//       };
-//       console.log('This is the combined data', combinedData);
-//       res.json(combinedData);
-//     })
-//     .catch(err => console.log(err));
-// };
 
 module.exports = getResultsDataHandler;

@@ -22,7 +22,8 @@ class LiveResults extends Component {
 
     // console.log('Current spawns count', props.currentSpawnsCount);
     // console.log('Current Scenario ID', props.currentScenarioID);
-    // Continue to fetch until total jobs equals data length
+    
+    // PRODUCTION: UNCOMMENT FOR PRODUCTION
     // this.props.updateLineChartData(totalSpawns, currentScenarioID);
   }
 
