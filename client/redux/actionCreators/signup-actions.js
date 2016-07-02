@@ -1,50 +1,23 @@
 import { history } from '../store';
+import { hideSignupModal } from './modal-actions';
 
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
-export const TOGGLE_SIGNUP_MODAL = 'TOGGLE_SIGNUP_MODAL';
-
-
-/* ******** Signup Modal Actions  ******** */
-export const showSignupModal = () => ({
-  type: TOGGLE_SIGNUP_MODAL,
-  isSignupOpen: true,
-});
-
-export const hideSignupModal = () => ({
-  type: TOGGLE_SIGNUP_MODAL,
-  isSignupOpen: false,
-});
-
-export const openSignupModal = () => dispatch => {
-  dispatch(showSignupModal());
-};
-
-export const closeSignupModal = () => dispatch => {
-  dispatch(hideSignupModal());
-};
 
 
 /* ******* Signup Authentication Actions ******* */
-export const receiveSignup = user => ({
-  type: SIGNUP_SUCCESS,
-  isFetching: false,
-  isAuthenticated: true,
-  id_token: user.id_token,
+export const requestSignup = () => ({
+  type: SIGNUP_REQUEST,
 });
 
-export const requestSignup = creds => ({
-  type: SIGNUP_REQUEST,
-  isFetching: true,
-  isAuthenticated: false,
-  creds,
+export const receiveSignup = user => ({
+  type: SIGNUP_SUCCESS,
+  siteToken: `LoadEffect-${user.site_token}`,
 });
 
 export const signupError = message => ({
   type: SIGNUP_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
   message,
 });
 
@@ -56,7 +29,7 @@ export const signupUser = creds => {
   };
 
   return dispatch => {
-    dispatch(requestSignup(creds));
+    dispatch(requestSignup());
 
     return fetch('/api/signup', config)
       .then(response =>
