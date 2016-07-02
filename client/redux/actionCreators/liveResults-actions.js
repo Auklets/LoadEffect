@@ -12,13 +12,33 @@ export const updateLineChartData = (jobCount, scenarioID) => {
   // const token = localStorage.getItem('id_token');
   // const serverEndPoint = '/api/resultsdata';
 
-  return dispatch =>
+  return dispatch => {
     // Set up sockets
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
+      const spawnData = data.spawn;
+      const actionData = data.action;
+      dispatch({
+        type: UPDATE_LINE_CHART,
+        labels: spawnData.labels,
+        series: spawnData.series,
+      });
+      dispatch({
+        type: UPDATE_CURRENT_ACTION,
+        index: actionData.index,
+        httpVerb: actionData.httpVerb,
+        statusCode: actionData.statusCode,
+        elapsedTime: actionData.elapsedTime,
+      });
+      console.log('This is job count', jobCount);
+      console.log('This is data length', data.spawn.labels.length);
+      if (data.spawn.labels.length < jobCount) {
+        console.log('We are recursively calling');
+        dispatch(updateLineChartData(jobCount, scenarioID));
+      }
     });
-
+  };
     // HTTP AXIOS REQUEST
     // axios.post(serverEndPoint, { currentScenarioID: scenarioID })
     //   .then(res => {

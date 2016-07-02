@@ -1,6 +1,6 @@
 const path = require('path');
 const scenarioController = require('../controllers/scenario-controller');
-const resultsController = require('../controllers/results-controller');
+// const resultsController = require('../controllers/results-controller');
 const jwt = require('express-jwt');
 const auth = jwt({ secret: process.env.JWT_SECRET });
 
@@ -13,7 +13,7 @@ module.exports = (app) => {
   app.get('/api/scenarios', auth, scenarioController.getScenarios);
 
   // TO REMOVE DUE TO USE OF SOCKETS
-  app.post('/api/resultsdata', resultsController.getData); // Add auth when done testing
+  // app.post('/api/resultsdata', resultsController.getData); // Add auth when done testing
 
   app.post('/api/validate-website', auth, scenarioController.validateWebsite);
 

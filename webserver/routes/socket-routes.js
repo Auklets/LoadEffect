@@ -1,4 +1,4 @@
-const { getResultsDataHandler } = require('../controllers/results-controller');
+const getResultsDataHandler = require('../controllers/results-controller');
 
 const socketRoutes = (socket) => {
   console.log('a user connected');

@@ -1,6 +1,4 @@
-const io = require('../server').io;
-// Does this create a new socket connection?
-
+const Server = require('../server.js');
 const { getFromSpawn, getFromActions } = require('../lib/helper-data');
 const Promise = require('bluebird');
 
@@ -11,6 +9,7 @@ const Promise = require('bluebird');
     // set lastpull to the latest timestamp of the data received
     // respond with data from database
 */
+
 
 const getResultsDataHandler = (req) => {
   console.log('Received request in results controller get data!', req);
@@ -24,28 +23,27 @@ const getResultsDataHandler = (req) => {
         action: resultsActions,
       };
       console.log('This is the combined data', combinedData);
-      io.emit('receiveResultsData', combinedData);
-      // res.json(combinedData);
+      Server.io.emit('receiveResultsData', combinedData);
     })
     .catch(err => console.log(err));
 };
 
-const getData = (req, res) => {
-  // console.log('Received request!', req);
-  console.log('Received request in results controller get data!', req.body);
-  const scenarioID = req.body.currentScenarioID;
-  // const testscenarioID = 15;
+// const getData = (req, res) => {
+//   // console.log('Received request!', req);
+//   console.log('Received request in results controller get data!', req.body);
+//   const scenarioID = req.body.currentScenarioID;
+//   // const testscenarioID = 15;
 
-  Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID)])
-    .spread((resultsActions, resultsSpawn) => {
-      const combinedData = {
-        spawn: resultsSpawn,
-        action: resultsActions,
-      };
-      console.log('This is the combined data', combinedData);
-      res.json(combinedData);
-    })
-    .catch(err => console.log(err));
-};
+//   Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID)])
+//     .spread((resultsActions, resultsSpawn) => {
+//       const combinedData = {
+//         spawn: resultsSpawn,
+//         action: resultsActions,
+//       };
+//       console.log('This is the combined data', combinedData);
+//       res.json(combinedData);
+//     })
+//     .catch(err => console.log(err));
+// };
 
-module.exports = { getData, getResultsDataHandler };
+module.exports = getResultsDataHandler;

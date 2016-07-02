@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
 const passport = require('passport');
 
 const environment = require('dotenv');
@@ -20,6 +19,8 @@ require('./routes/auth-routes.js')(app);
 require('./routes/api-routes.js')(app);
 require('./config/passport.js')(app, passport);
 
+const io = require('socket.io')(http);
+
 const socketRoutes = require('./routes/socket-routes.js');
 io.on('connection', socketRoutes);
 
@@ -27,4 +28,5 @@ http.listen(process.env.WEB_PORT, () => {
   console.log('Express server started in ' + app.get('env') + ' mode on port ' + app.get('port'));
 });
 
-module.exports = { app, io };
+exports.app = app;
+exports.io = io;
