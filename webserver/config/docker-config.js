@@ -4,8 +4,8 @@ const Docker = require('dockerode');
 const dockerModemConfig = new Docker({ socketPath: '/var/run/docker.sock' });
 
 const dockerConnection = new Docker({
-  host: '45.55.183.145',
-  port: 2376,
+  host: process.env.DOCKER_HOST,
+  port: process.env.DOCKER_PORT,
   ca: fs.readFileSync('../env/certs/ca.pem'),
   cert: fs.readFileSync('../env/certs/cert.pem'),
   key: fs.readFileSync('../env/certs/key.pem'),
