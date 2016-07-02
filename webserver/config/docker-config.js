@@ -6,9 +6,9 @@ const dockerModemConfig = new Docker({ socketPath: '/var/run/docker.sock' });
 const dockerConnection = new Docker({
   host: '45.55.183.145',
   port: 2376,
-  ca: fs.readFileSync('./do1/ca.pem'),
-  cert: fs.readFileSync('./do1/cert.pem'),
-  key: fs.readFileSync('./do1/key.pem'),
+  ca: fs.readFileSync('../env/certs/ca.pem'),
+  cert: fs.readFileSync('../env/certs/cert.pem'),
+  key: fs.readFileSync('../env/certs/key.pem'),
 });
 
 module.exports = dockerConnection;
