@@ -3,15 +3,17 @@ import io from 'socket.io-client';
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
 export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
 
-const socket = io();
+const token = localStorage.getItem('id_token');
+const socket = io({
+  query: `token=${token}`,
+});
 
 // REMOVE COUNTER FOR PRODUCTION
 let tempCounter = 0;
+
 // Update line chart data
 export const updateLineChartData = (jobCount, scenarioID) => {
   console.log('We have called updateLineChartData');
-  // const token = localStorage.getItem('id_token');
-  // const serverEndPoint = '/api/resultsdata';
 
   return dispatch => {
     // Set up sockets

@@ -21,7 +21,14 @@ require('./config/passport.js')(app, passport);
 
 /* ***** SOCKETS ***** */
 const io = require('socket.io')(http);
+const socketioJwt = require('socketio-jwt');
 const socketRoutes = require('./routes/socket-routes.js');
+
+io.use(socketioJwt.authorize({
+  secret: process.env.JWT_SECRET,
+  handshake: true,
+}));
+
 io.on('connection', socketRoutes);
 
 http.listen(process.env.WEB_PORT, () => {
