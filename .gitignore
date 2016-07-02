@@ -1,8 +1,4 @@
 node_modules/
-bower_components/
-*.log
 env/development.env
 env/production.env
-build/
-dist/
-do1/
+*.log
