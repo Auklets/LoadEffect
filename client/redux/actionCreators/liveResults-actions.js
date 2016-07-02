@@ -10,6 +10,7 @@ const socket = io({
 
 // REMOVE COUNTER FOR PRODUCTION
 let tempCounter = 0;
+let updateCounter = 0;
 
 /* ******* Update Line Chart Data Actions ******* */
 export const updateLineChartAction = spawnData => ({
@@ -19,7 +20,7 @@ export const updateLineChartAction = spawnData => ({
 });
 
 export const updateCurrentAction = actionData => ({
-  type: UPDATE_LINE_CHART,
+  type: UPDATE_CURRENT_ACTION,
   index: actionData.index,
   httpVerb: actionData.httpVerb,
   statusCode: actionData.statusCode,
@@ -33,21 +34,22 @@ export const updateLineChartData = (jobCount, scenarioID) => {
     // Set up sockets
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
     socket.on('receiveResultsData', (data) => {
-      console.log('Got data from sockets', data);
+      // console.log('Got data from sockets', data);
+      // console.log('updateCounter count is', updateCounter);
+      updateCounter++;
       const spawnData = data.spawn;
       const actionData = data.action;
-      dispatch(updateLineChartData(spawnData));
+      dispatch(updateLineChartAction(spawnData));
       dispatch(updateCurrentAction(actionData));
       // console.log('This is job count', jobCount);
       // console.log('This is data length', data.spawn.labels.length);
       // REMOVE COUNTER FOR PRODUCTION
-      if (data.spawn.labels.length < jobCount && tempCounter < 20) {
+      if (data.spawn.labels.length < jobCount && tempCounter < 10) {
         // REMOVE COUNTER FOR PRODUCTION
         tempCounter++;
-        console.log('tempCounter count is', tempCounter);
+        // console.log('tempCounter count is', tempCounter);
         // REMOVE TEST SCENARIO FOR PRODUCTION
-        const testScenarioID = 15;
-        dispatch(updateLineChartData(jobCount, testScenarioID));
+        dispatch(updateLineChartData(jobCount, scenarioID));
       }
     });
   };

@@ -9,6 +9,7 @@ const Promise = require('bluebird');
     // set lastpull to the latest timestamp of the data received
     // respond with data from database
 */
+let emitCounter = 0;
 
 const getResultsDataHandler = (req) => {
   // console.log('Received request in results controller get data!', req);
@@ -21,7 +22,9 @@ const getResultsDataHandler = (req) => {
         action: resultsActions,
       };
       // console.log('This is the combined data', combinedData);
+      console.log('emitCounter', emitCounter);
       Server.io.emit('receiveResultsData', combinedData);
+      emitCounter++;
     })
     .catch(err => console.log(err));
 };

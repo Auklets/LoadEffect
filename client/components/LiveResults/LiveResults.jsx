@@ -15,8 +15,8 @@ class LiveResults extends Component {
     // Variable for total jobs
     // const testTotalSpawns = 5;
     // const testScenarioID = 15;
-    const totalSpawns = props.currentSpawnsCount;
-    const currentScenarioID = props.currentScenarioID;
+    // const totalSpawns = props.currentSpawnsCount;
+    // const currentScenarioID = props.currentScenarioID;
 
     // console.log('This is props', props);
 
@@ -29,7 +29,9 @@ class LiveResults extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.updateLineChartData(this.props.currentSpawnsCount, this.props.currentScenarioID);
+    const testScenarioID = 15;
+    this.props.updateLineChartData(this.props.currentSpawnsCount, testScenarioID);
+    // this.props.updateLineChartData(this.props.currentSpawnsCount, this.props.currentScenarioID);
   }
 
   render() {
@@ -39,7 +41,6 @@ class LiveResults extends Component {
       labels,
       series: [series],
     };
-    console.log(simpleLineChartData);
     const lineChartOptions = {
       low: 0,
       showArea: true,
@@ -112,6 +113,8 @@ LiveResults.propTypes = {
   currentTargetURL: PropTypes.string.isRequired,
   httpVerb: PropTypes.array.isRequired,
   elapsedTime: PropTypes.array.isRequired,
+  statusCode: PropTypes.array.isRequired,
+  index: PropTypes.array.isRequired,
 };
 
 export default LiveResults;
