@@ -4,7 +4,7 @@ export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
 export const TOGGLE_SCENARIO_MODAL = 'TOGGLE_SCENARIO_MODAL';
 export const CURRENT_SCENARIO_ID = 'CURRENT_SCENARIO_ID';
 export const CURRENT_SPAWNS_COUNT = 'CURRENT_USER_COUNT';
-
+const parser = require('../../middleware/parser.js');
 
 /* ******** Scenario Modal Actions  ******** */
 export const showScenarioModal = () => ({
@@ -50,7 +50,13 @@ export const resetAttempt = () => dispatch => dispatch(resetCheck());
 export const checkValidScript = script => {
   // script is going to be a string. Below, isValidScript should be a boolean
 
-  const isValidScript = /* Insert Parsing script logic here */ true;
+  const parseObject = parser.parseTest(script);
+
+  const isValidScript = parseObject.success;
+
+  if (!isValidScript) {
+    alert('At line: ' + parseObject.line + ' and column: ' + parseObject.column + ' ' + parseObject.error);
+  }
 
   return dispatch => {
     if (isValidScript) {
