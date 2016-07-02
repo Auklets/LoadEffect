@@ -9,8 +9,8 @@ export const LiveResultsContainer = (props) => (
 
 const mapStateToProps = (state) => {
   const { charts, scenario } = state;
-  const { allScenarios, currentScenarioID } = scenario;
-  const { labels, series } = charts;
+  const { allScenarios, currentScenarioID, currentSpawnsCount, currentTargetURL, currentWorkers, currentScenarioName } = scenario;
+  const { labels, series, elapsedTime, httpVerb, index, statusCode } = charts;
 
   return {
     state,
@@ -18,6 +18,14 @@ const mapStateToProps = (state) => {
     series,
     allScenarios,
     currentScenarioID,
+    currentSpawnsCount,
+    currentTargetURL,
+    currentWorkers,
+    currentScenarioName,
+    elapsedTime,
+    httpVerb,
+    index,
+    statusCode,
   };
 };
 

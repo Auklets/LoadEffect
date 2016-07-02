@@ -4,8 +4,7 @@ import { showScenarioModal } from './modal-actions';
 export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
-export const CURRENT_SCENARIO_ID = 'CURRENT_SCENARIO_ID';
-export const CURRENT_SPAWNS_COUNT = 'CURRENT_USER_COUNT';
+export const CURRENT_SCENARIO_INFO = 'CURRENT_SCENARIO_INFO';
 const parser = require('../../middleware/parser.js');
 
 /* ******* Script Validation Actions ******* */
@@ -22,6 +21,7 @@ export const invalidScript = () => ({
 export const resetCheck = () => ({
   type: RESET_ATTEMPT_CHECK,
 });
+
 
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
 
@@ -52,15 +52,15 @@ export const allScenarios = res => ({
   scenario: JSON.parse(res.scenarios),
 });
 
-export const storeRecentScenarioID = (scenarioID) => ({
-  type: CURRENT_SCENARIO_ID,
+const storeRecentScenarioInfo = (scenarioID, spawnsCount, workerCount, targetURL, scenarioName) => ({
+  type: CURRENT_SCENARIO_INFO,
   currentScenarioID: scenarioID,
+  currentSpawnsCount: spawnsCount,
+  currentWorkers: workerCount,
+  currentTargetURL: targetURL,
+  currentScenarioName: scenarioName,
 });
 
-export const storeRecentUserCount = (spawnsCount) => ({
-  type: CURRENT_SPAWNS_COUNT,
-  currentSpawnsCount: spawnsCount,
-});
 
 export const getScenarios = () => {
   const config = {
@@ -98,10 +98,9 @@ export const createScenario = data => {
       .then(response => response.json()
         .then(res => {
           console.log('Response from the post request', res);
-          dispatch(storeRecentScenarioID(res.scenarioID));
-          dispatch(storeRecentUserCount(res.spawnsCount));
           dispatch(resetCheck());
           dispatch(showScenarioModal());
+          dispatch(storeRecentScenarioInfo(res.scenarioID, res.spawnsCount, res.workers, res.targetURL, res.scenarioName));
         })
       )
       .catch(err => console.log('Error: ', err));

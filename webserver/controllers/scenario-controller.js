@@ -33,11 +33,17 @@ const createScenario = (req, res) => {
   newScenario.save()
     .then(() => {
       data.scenarioID = newScenario.get('id');
-      sendJSON(res, 201, {
+      const dataToSend = {
         message: 'New scenario has been saved!',
         scenarioID: data.scenarioID,
         spawnsCount: +data.spawnsCount,
-      });
+        targetURL: data.targetURL,
+        scenarioName: data.scenarioName,
+        workers: +data.workers,
+      };
+      console.log('This is the data were sending', dataToSend);
+      sendJSON(res, 201, dataToSend);
+      console.log('Sent data from scenario controller back to client');
     })
     .catch(err => sendJSON(res, 400, err));
 

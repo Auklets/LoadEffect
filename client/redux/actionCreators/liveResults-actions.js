@@ -1,54 +1,55 @@
-import axios from 'axios';
+import io from 'socket.io-client';
 
-export const UPDATE_DATA = 'UPDATE_DATA';
+export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
+export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
 
-// CONSIDER SOCKETS FOR MORE REAL_TIME DATA
-  // Start with HTPP Request
+const token = localStorage.getItem('id_token');
+const socket = io({
+  query: `token=${token}`,
+});
 
-// Update line chart data
+// REMOVE COUNTER FOR PRODUCTION
+let tempCounter = 0;
+let updateCounter = 0;
+
+/* ******* Update Line Chart Data Actions ******* */
+export const updateLineChartAction = spawnData => ({
+  type: UPDATE_LINE_CHART,
+  labels: spawnData.labels,
+  series: spawnData.series,
+});
+
+export const updateCurrentAction = actionData => ({
+  type: UPDATE_CURRENT_ACTION,
+  index: actionData.index,
+  httpVerb: actionData.httpVerb,
+  statusCode: actionData.statusCode,
+  elapsedTime: actionData.elapsedTime,
+});
+
 export const updateLineChartData = (jobCount, scenarioID) => {
   console.log('We have called updateLineChartData');
-  // const token = localStorage.getItem('id_token');
-  const serverEndPoint = '/api/resultsdata';
-  // const config = {
-  //   method: 'POST',
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  //   body: 'hi',
-  //   // JSON.stringify({
-  //   //   currentScenarioID: scenarioID,
-  //   // }),
-  // };
-  return dispatch =>
-    axios.post(serverEndPoint, { currentScenarioID: scenarioID })
-      .then(res => {
-        console.log('This is the response from the server', res);
-        dispatch({
-          type: UPDATE_DATA,
-          labels: res.data.labels,
-          series: res.data.series,
-        });
-        console.log('This is job count', jobCount);
-        console.log('This is data length', res.data.labels.length);
-        if (res.data.labels.length < jobCount) {
-          console.log('We are recursively calling');
-          dispatch(updateLineChartData(jobCount, scenarioID));
-        }
-      }
-    ).catch(err => console.log('Error: ', err));
-};
-      // Function to make HTTP Request asking for data
-  // If data exists
-    // Dispatch to update state
-    // Do another http request to ask for more data
-  // Base case is when # of results = number of users requested
-// Downside: Speed constrained to speed of network
 
-export const updateFromInput = (inputLabels, inputSeries) =>
-  dispatch =>
-    dispatch({
-      type: UPDATE_DATA,
-      labels: inputLabels,
-      series: inputSeries,
+  return dispatch => {
+    // Set up sockets
+    socket.emit('getResultsData', { currentScenarioID: scenarioID });
+    socket.on('receiveResultsData', (data) => {
+      console.log('Got data from sockets', data);
+      console.log('updateCounter count is', updateCounter);
+      socket.removeAllListeners('receiveResultsData');
+      updateCounter++;
+      const spawnData = data.spawn;
+      const actionData = data.action;
+      dispatch(updateLineChartAction(spawnData));
+      dispatch(updateCurrentAction(actionData));
+      // REMOVE COUNTER FOR PRODUCTION
+      tempCounter++;
+      if (data.spawn.labels.length < jobCount && tempCounter < 10) {
+        // REMOVE COUNTER FOR PRODUCTION
+        console.log('tempCounter count is', tempCounter);
+        // REMOVE TEST SCENARIO FOR PRODUCTION
+        dispatch(updateLineChartData(jobCount, scenarioID));
+      }
     });
+  };
+};
