@@ -12,7 +12,7 @@ const status = {
 const createMaster = (callback) => {
   status.masterCount++;
   const masterName = 'master'.concat(status.masterCount);
-  const imageName = 'cshg/loadmaster';
+  const imageName = 'cshg/loadmaster_integration';
   util.createContainer(dockerConnection, imageName, masterName);
   callback(masterName);
 };
