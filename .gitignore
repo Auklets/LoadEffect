@@ -5,4 +5,3 @@ env/development.env
 env/production.env
 build/
 dist/
-do1/
