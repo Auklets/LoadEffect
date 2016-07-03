@@ -2,14 +2,11 @@ import io from 'socket.io-client';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
 export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
+export const UPDATE_COMPUTED = 'UPDATE_COMPUTED';
 
 const token = localStorage.getItem('id_token');
 const socket = io({
   query: `token=${token}`,
-});
-
-socket.on('connect', () => {
-  socket.emit('room', 'clientID');
 });
 
 // REMOVE COUNTER FOR PRODUCTION
@@ -30,19 +27,26 @@ export const updateCurrentAction = actionData => ({
   elapsedTime: actionData.elapsedTime,
 });
 
-export const updateLineChartData = (jobCount, scenarioID) => {
-  // console.log('We have called updateLineChartData');
+export const updateComputedData = (averageElapsedTime, numberErrors) => ({
+  type: UPDATE_COMPUTED,
+  averageElapsedTime,
+  numberErrors,
+});
 
-  return dispatch => {
-    // Set up sockets
+export const updateLineChartData = (jobCount, scenarioID, calculated) =>
+  dispatch => {
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
       socket.removeAllListeners('receiveResultsData');
+
       const spawnData = data.spawn;
       const actionData = data.action;
+
       dispatch(updateLineChartAction(spawnData));
       dispatch(updateCurrentAction(actionData));
+      dispatch(updateComputedData(calculated.averageElapsedTime, calculated.numberErrors));
+
       // REMOVE COUNTER FOR PRODUCTION
       tempCounter++;
       if (data.spawn.labels.length < jobCount && tempCounter < 10) {
@@ -50,7 +54,9 @@ export const updateLineChartData = (jobCount, scenarioID) => {
         // console.log('tempCounter count is', tempCounter);
         // REMOVE TEST SCENARIO FOR PRODUCTION
         dispatch(updateLineChartData(jobCount, scenarioID));
+      } else {
+        // Get all computed data and send over
+        socket.emit('complete', 'TODO-COMPUTED DATA');
       }
     });
   };
-};

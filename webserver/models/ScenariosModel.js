@@ -11,6 +11,7 @@ db.knex.schema.hasTable('scenarios').then(exists => {
       scenario.integer('spawnsCount');
       scenario.integer('workers');
       scenario.integer('averageActionTime');
+      scenario.integer('numberErrors');
       scenario.string('targetURL', 255);
       scenario.boolean('isVerifiedOwner', 255);
       scenario.text('script');

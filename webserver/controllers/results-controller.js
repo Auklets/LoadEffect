@@ -1,5 +1,5 @@
-// const Server = require('../server.js');
 const { getFromSpawn, getFromActions } = require('../lib/helper-data');
+const Scenario = require('../models/ScenariosModel');
 const Promise = require('bluebird');
 
 /* EXTRA CREDIT IDEAS
@@ -26,4 +26,14 @@ const getResultsDataHandler = (socket) =>
       .catch(err => console.log(err));
   };
 
-module.exports = getResultsDataHandler;
+// STILL WIP
+const completedData = (data) => {
+  Scenario.where('scenario_id', data.scenarioID)
+    .fetch()
+    .save({
+      averageActionTime: 'TODO-averageTotalTime',
+      numberErrors: 'TODO-Number of errors',
+    }, { patch: true });
+};
+
+module.exports = { getResultsDataHandler, completedData };
