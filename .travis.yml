@@ -7,7 +7,7 @@ services:
 before_script:
   - mysql -e "create database IF NOT EXISTS lta;" -uroot
 script:
-    npm start
+  - npm run server:integration
   - npm run test:integration
 after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
 
