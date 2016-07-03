@@ -10,14 +10,14 @@ describe('User Model Schema', () => {
     user1 = new User({ name: 'Bill Haug', email: 'Jack@hackreactor.com' });
     user1.setPassword('taiisthebest');
     user1.generateSiteToken();
-    user1.save();
-
-    user2 = new User({ name: 'Felix Ramsey', email: 'Chris@hackreactor.com' });
-    user2.setPassword('taiisthebest');
-    user2.generateSiteToken();
-    user2.save();
-
-    done();
+    user1.save()
+      .then(() => {
+        user2 = new User({ name: 'Felix Ramsey', email: 'Chris@hackreactor.com' });
+        user2.setPassword('taiisthebest');
+        user2.generateSiteToken();
+        user2.save()
+          .then(() => done());
+      });
   });
 
   after(done => {
