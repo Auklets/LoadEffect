@@ -1,11 +1,12 @@
 import { receiveLogin } from './login-actions';
 import { showScenarioModal } from './modal-actions';
+import { sendRequestThenDispatch } from '../../lib/utils.js';
 
 export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
 export const CURRENT_SCENARIO_INFO = 'CURRENT_SCENARIO_INFO';
-const parser = require('../../middleware/parser.js');
+const parser = require('../../lib/parser.js');
 
 /* ******* Script Validation Actions ******* */
 export const validScript = () => ({
@@ -21,7 +22,6 @@ export const invalidScript = () => ({
 export const resetCheck = () => ({
   type: RESET_ATTEMPT_CHECK,
 });
-
 
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
 
@@ -52,13 +52,13 @@ export const allScenarios = res => ({
   scenario: JSON.parse(res.scenarios),
 });
 
-const storeRecentScenarioInfo = (scenarioID, spawnsCount, workerCount, targetURL, scenarioName) => ({
+const storeRecentScenarioInfo = res => ({
   type: CURRENT_SCENARIO_INFO,
-  currentScenarioID: scenarioID,
-  currentSpawnsCount: spawnsCount,
-  currentWorkers: workerCount,
-  currentTargetURL: targetURL,
-  currentScenarioName: scenarioName,
+  currentScenarioID: res.scenarioID,
+  currentSpawnsCount: res.spawnsCount,
+  currentWorkers: res.workers,
+  currentTargetURL: res.targetURL,
+  currentScenarioName: res.scenarioName,
 });
 
 
@@ -71,17 +71,7 @@ export const getScenarios = () => {
     },
   };
 
-  return dispatch =>
-    fetch('/api/scenarios', config)
-      .then(response => response.json()
-        .then(res => {
-          // Store all scenarios associated with user to state
-          dispatch(allScenarios(res));
-          // Store users site token, so page refreshes will still send it back
-          dispatch(receiveLogin(res));
-        })
-      )
-      .catch(err => console.log('Error: ', err));
+  return sendRequestThenDispatch('/api/scenarios', config, allScenarios, receiveLogin);
 };
 
 export const createScenario = data => {
@@ -93,17 +83,7 @@ export const createScenario = data => {
       body: `scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
 
-  return dispatch =>
-    fetch('/api/scenarios', config)
-      .then(response => response.json()
-        .then(res => {
-          console.log('Response from the post request', res);
-          dispatch(resetCheck());
-          dispatch(showScenarioModal());
-          dispatch(storeRecentScenarioInfo(res.scenarioID, res.spawnsCount, res.workers, res.targetURL, res.scenarioName));
-        })
-      )
-      .catch(err => console.log('Error: ', err));
+  return sendRequestThenDispatch('/api/scenarios', config, resetCheck, showScenarioModal, storeRecentScenarioInfo);
 };
 
 
@@ -117,13 +97,5 @@ export const checkForValidUrl = (url, scenarioID) => {
       body: `url=${url}&scenarioID=${scenarioID}`,
   };
 
-  return dispatch =>
-    fetch('/api/validate-website', config)
-      .then(response => response.json()
-        .then(res => {
-          console.log('Response from the post request', res);
-          dispatch(getScenarios());
-        })
-      )
-      .catch(err => console.log('Error: ', err));
+  return sendRequestThenDispatch('/api/validate-website', config, getScenarios);
 };
