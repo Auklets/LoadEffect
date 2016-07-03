@@ -7,6 +7,11 @@ const initialStateChart = {
   httpVerb: ['GET', 'POST', 'GET', 'POST', 'GET', 'POST', 'GET', 'POST'],
   statusCode: [200, 300, 400, 200, 200, 200, 400, 200],
   elapsedTime: [2, 3, 4, 5, 3, 3, 2, 1],
+  averageElapsedTime: 0,
+  numberErrors: 0,
+  numberActions: 0,
+  currentSpawns: 0,
+  percentComplete: 0,
 };
 
 export const chartReducer = (state = initialStateChart, action) => {
@@ -29,6 +34,9 @@ export const chartReducer = (state = initialStateChart, action) => {
       return Object.assign({}, state, {
         averageElapsedTime: action.averageElapsedTime,
         numberErrors: action.numberErrors,
+        numberActions: action.numberActions,
+        currentSpawns: action.currentSpawns,
+        percentComplete: action.percentComplete,
       });
 
     default:

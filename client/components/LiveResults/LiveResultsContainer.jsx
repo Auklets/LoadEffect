@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/liveResults-actions';
 import LiveResults from './LiveResults.jsx';
-import { calculateAverage, percentCompletion } from './LiveResultsHelpers.jsx';
 
 export const LiveResultsContainer = (props) => (
   <LiveResults {...props} />
@@ -11,15 +10,6 @@ export const LiveResultsContainer = (props) => (
 const mapStateToProps = (state) => {
   const { charts, scenario } = state;
   const { allScenarios, currentScenarioID, currentSpawnsCount, currentTargetURL, currentWorkers, currentScenarioName } = scenario;
-  const { labels, elapsedTime, httpVerb } = charts;
-
-  const calculated = {
-    averageElapsedTime: Math.round(calculateAverage(elapsedTime) * 100) / 100,
-    numberActions: httpVerb.length,
-    currentSpawns: labels.length,
-    percentComplete: percentCompletion(currentSpawnsCount, labels.length),
-    numberErrors: 0, // TODO with httpVerb arrays
-  };
 
   return {
     state,
@@ -30,7 +20,6 @@ const mapStateToProps = (state) => {
     currentTargetURL,
     currentWorkers,
     currentScenarioName,
-    calculated,
   };
 };
 

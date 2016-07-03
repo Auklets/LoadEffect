@@ -12,23 +12,22 @@ class LiveResults extends Component {
     this.handleClick = this.handleClick.bind(this);
 
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
-    // this.props.updateLineChartData(props.currentSpawnsCount, props.currentScenarioID);
+    // props.updateLineChartData(props.currentSpawnsCount, props.currentScenarioID, props.calculated);
   }
 
   // REMOVE CLICK HANDLER FOR PRODUCTION
   handleClick(e) {
     e.preventDefault();
-    const { currentSpawnsCount, calculated } = this.props;
+    const { currentSpawnsCount, updateLineChartData } = this.props;
     // REMOVE FOR PRODUCTION
     const testScenarioID = 15;
-    this.props.updateLineChartData(currentSpawnsCount, testScenarioID, calculated);
-    // this.props.updateLineChartData(this.props.currentSpawnsCount, this.props.currentScenarioID);
+    updateLineChartData(currentSpawnsCount, testScenarioID);
+    // updateLineChartData(currentSpawnsCount, currentScenarioID);
   }
 
   render() {
-    const { currentSpawnsCount } = this.props;
-    const { labels, series, elapsedTime, httpVerb, index, statusCode } = this.props.charts;
-    const { averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = this.props.calculated;
+    const { currentSpawnsCount, charts } = this.props;
+    const { labels, series, elapsedTime, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = charts;
 
     /* ****** Chartist Configurations ****** */
     const simpleLineChartData = {
@@ -98,7 +97,6 @@ LiveResults.propTypes = {
   currentScenarioName: PropTypes.string.isRequired,
   currentWorkers: PropTypes.number.isRequired,
   currentTargetURL: PropTypes.string.isRequired,
-  calculated: PropTypes.object.isRequired,
   charts: PropTypes.object.isRequired,
 };
 
