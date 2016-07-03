@@ -6,7 +6,7 @@ import LiveResults from '../../../client/components/LiveResults/LiveResults.jsx'
 import { LiveResultsContainer } from '../../../client/components/LiveResults/LiveResultsContainer.jsx';
 
 describe('Live Results Components', () => {
-  describe('<LiveResults />', () => {
+  xdescribe('<LiveResults />', () => {
     it('should render Live Results Component', () => {
       const wrapper = shallow(<LiveResults />);
       expect(wrapper.find('ChartistGraph')).to.have.length(1);
