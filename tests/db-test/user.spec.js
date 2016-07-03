@@ -9,10 +9,11 @@ describe('User Model Schema', () => {
   before(done => {
     user1 = new User({ name: 'Bill Haug', email: 'Jack@hackreactor.com' });
     user1.setPassword('taiisthebest');
+    user1.generateSiteToken();
     user1.save();
 
     user2 = new User({ name: 'Felix Ramsey', email: 'Chris@hackreactor.com' });
-    user2.password = user2.setPassword('taiisthebest');
+    user2.setPassword('taiisthebest');
     user2.generateSiteToken();
     user2.save();
 
@@ -26,7 +27,7 @@ describe('User Model Schema', () => {
   });
 
   describe('Creating A New User', () => {
-    xit('should store new user to database', done => {
+    it('should store new user to database', done => {
       User.where('name', 'Felix Ramsey')
         .fetch()
         .then(user => {
