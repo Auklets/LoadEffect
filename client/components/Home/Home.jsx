@@ -4,7 +4,7 @@ import { Jumbotron, Button } from 'react-bootstrap';
 const Home = (props) => {
   const { showLogin, showSignup, isAuthenticated } = props;
   return (
-    <div>
+    <div className="container">
       <Jumbotron>
         <h1>LoadEffect</h1>
         <p>

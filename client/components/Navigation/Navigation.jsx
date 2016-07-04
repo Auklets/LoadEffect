@@ -13,13 +13,7 @@ const Navigation = props => {
   const LoggedIn = (
     <Nav pullRight>
       <li>
-        <Link to="/live-results">[TEST - Live Results]</Link>
-      </li>
-      <li>
         <Link to="/new-scenario">Create New Scenario</Link>
-      </li>
-      <li>
-        <Link to="/results-detail">[TEST - Results Detail]</Link>
       </li>
       <li>
         <Link to="/main">Main</Link>
@@ -44,7 +38,7 @@ const Navigation = props => {
   );
 
   return (
-    <Navbar inverse>
+    <Navbar fluid>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/">LoadEffect</Link>

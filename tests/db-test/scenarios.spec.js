@@ -10,7 +10,9 @@ describe('Scenario Model Schema', () => {
       scenarioName: 'Scenario Test',
       spawnsCount: 1000,
       workers: 10,
-      averageActionTime: 1000,
+      averageElapsedTime: 1000,
+      numberActions: 5,
+      numberErrors: 0,
       targetURL: 'http://www.anhtaihuynh.com',
       isVerifiedOwner: false,
       script: 'Some kind of script that will run jobs',
@@ -21,7 +23,9 @@ describe('Scenario Model Schema', () => {
       scenarioName: 'Scenario Test 2',
       spawnsCount: 2000,
       workers: 20,
-      averageActionTime: 1500,
+      averageElapsedTime: 1500,
+      numberActions: 5,
+      numberErrors: 0,
       targetURL: 'http://www.billramsey.com',
       isVerifiedOwner: false,
       script: 'Do some stuff',
@@ -32,7 +36,9 @@ describe('Scenario Model Schema', () => {
       scenarioName: 'Login Test',
       spawnsCount: 5000,
       workers: 30,
-      averageActionTime: 1200,
+      averageElapsedTime: 1200,
+      numberActions: 5,
+      numberErrors: 0,
       targetURL: 'http://www.felixfeng.com',
       isVerifiedOwner: false,
       script: 'Another Script',
@@ -57,7 +63,9 @@ describe('Scenario Model Schema', () => {
           expect(scenario.get('scenarioName')).to.equal('Scenario Test');
           expect(scenario.get('spawnsCount')).to.equal(1000);
           expect(scenario.get('workers')).to.equal(10);
-          expect(scenario.get('averageActionTime')).to.equal(1000);
+          expect(scenario.get('averageElapsedTime')).to.equal(1000);
+          expect(scenario.get('numberActions')).to.equal(5);
+          expect(scenario.get('numberErrors')).to.equal(0);
           expect(scenario.get('targetURL')).to.equal('http://www.anhtaihuynh.com');
           expect(scenario.get('script')).to.equal('Some kind of script that will run jobs');
           done();

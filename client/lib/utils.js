@@ -13,7 +13,7 @@ export const sendRequestThenDispatch = (endpoint, config, ...actions) =>
         )
         .then(({ user, response }) => {
           if (!response.ok) {
-            dispatch(errorAction(user.message));
+            dispatch(errorAction[0](user.message));
             return Promise.reject(user);
           } else {
             localStorage.setItem('id_token', user.id_token);
