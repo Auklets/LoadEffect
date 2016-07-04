@@ -36,10 +36,13 @@ const createContainer = (dockerConnection, imageName, containerName) => {
 
 const checkContainer = (dockerConnection, containerName, callback) => {
   var container = dockerConnection.getContainer(containerName);
-  container.inspect(function (err, data) {
-    callback(data);
+  container.inspect((err, data) => {
+    if (err) {
+      console.error('error while fetching IP from container', err);
+    } else {
+      callback(data);
+    }
   });
 };
-
 
 module.exports = { sendJSON, createContainer, checkContainer };
