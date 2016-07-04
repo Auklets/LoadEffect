@@ -20,7 +20,7 @@ class NewScenario extends Component {
   handleClick(e) {
     e.preventDefault();
     const fullURL = this.refs.targetURL.value.trim();
-    const targetURL = fullURL.replace(/^(https?:\/\/|www\.)/i, '');
+    const targetURL = fullURL.replace(/^https?:\/\/|www\./gi, '');
     const scenarioName = this.refs.scenarioName.value.trim();
     const spawnsCount = this.refs.spawnsCount.value.trim();
     const script = this.refs.script.value.trim();
@@ -104,7 +104,7 @@ class NewScenario extends Component {
                 className="form-control"
                 ref="targetURL"
                 type="url"
-                placeholder="Enter target url"
+                placeholder="Enter target url e.g. http://yourwebsite.com"
                 required
               />
             </FormGroup>

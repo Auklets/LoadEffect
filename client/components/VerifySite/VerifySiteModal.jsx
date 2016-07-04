@@ -20,7 +20,6 @@ const VerifySiteModal = props => {
         <h3 className="text-center">Websites requiring verification:</h3>
         {
           unverifiedSites.map((site, i) => {
-            console.log('site is -->', site);
             const handleUrlClick = () => validateUrl(site.targetURL, site.id);
             return (
               <div>
