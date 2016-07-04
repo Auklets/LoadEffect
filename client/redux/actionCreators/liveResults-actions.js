@@ -49,14 +49,20 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       const elapsedTime = spawnData.series;
       const spawnLabel = spawnData.labels;
 
+      // TODO DRY - put into one function
       dispatch(updateLineChartAction(spawnData));
       dispatch(updateCurrentAction(actionData));
+
+      // Pull from scenario
+      const scenarioData = data.scenario;
+      console.log('Scenario Data', data.scenario);
+      const { averageElapsedTime, numberActions, numberErrors } = scenarioData;
       const calculated = {
-        averageElapsedTime: Math.round(calculateAverage(elapsedTime) * 100) / 100,
-        numberActions: actionData.httpVerb.length,
+        averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTime) * 100) / 100),
+        numberActions: numberActions || actionData.httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: 0, // TODO with httpVerb arrays
+        numberErrors: numberErrors || 0, // TODO with httpVerb arrays
       };
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
@@ -67,15 +73,14 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       ));
 
       // REMOVE COUNTER FOR PRODUCTION
-      // tempCounter++;
-      if (data.spawn.labels.length < jobCount /*&& tempCounter < 10*/) {
-        // REMOVE COUNTER FOR PRODUCTION
-        // console.log('tempCounter count is', tempCounter);
-        // REMOVE TEST SCENARIO FOR PRODUCTION
-        dispatch(updateLineChartData(jobCount, scenarioID, calculated));
-      } else {
-        // Get all computed data and send over
-        socket.emit('complete', { calculated, scenarioID: scenarioID });
+      if (!scenarioData.completion) {
+        if (data.spawn.labels.length < jobCount) {
+          // REMOVE TEST SCENARIO FOR PRODUCTION
+          dispatch(updateLineChartData(jobCount, scenarioID, calculated));
+        } else {
+          // Get all computed data and send over
+          socket.emit('saveComplete', { calculated, scenarioID: scenarioID });
+        }
       }
     });
   };
