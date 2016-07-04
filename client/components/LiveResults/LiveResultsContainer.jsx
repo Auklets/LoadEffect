@@ -10,22 +10,16 @@ export const LiveResultsContainer = (props) => (
 const mapStateToProps = (state) => {
   const { charts, scenario } = state;
   const { allScenarios, currentScenarioID, currentSpawnsCount, currentTargetURL, currentWorkers, currentScenarioName } = scenario;
-  const { labels, series, elapsedTime, httpVerb, index, statusCode } = charts;
 
   return {
     state,
-    labels,
-    series,
+    charts,
     allScenarios,
     currentScenarioID,
     currentSpawnsCount,
     currentTargetURL,
     currentWorkers,
     currentScenarioName,
-    elapsedTime,
-    httpVerb,
-    index,
-    statusCode,
   };
 };
 
@@ -37,6 +31,7 @@ const mapDispatchToProps = dispatch => ({
   updateLineChartData(totalJobs, currentScenarioID) {
     dispatch(updateLineChartData(totalJobs, currentScenarioID));
   },
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LiveResultsContainer);
