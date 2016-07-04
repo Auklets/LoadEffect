@@ -11,6 +11,16 @@ class LiveResults extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
+    // Variable for total jobs
+    const totalSpawns = props.currentSpawnsCount;
+    const currentScenarioID = props.currentScenarioID;
+
+    // console.log('This is props', props);
+    // console.log('Current spawns count', props.currentSpawnsCount);
+    // console.log('Current Scenario ID', props.currentScenarioID);
+
+    // PRODUCTION: UNCOMMENT FOR PRODUCTION
+    this.props.updateLineChartData(totalSpawns, currentScenarioID);
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
     // props.updateLineChartData(props.currentSpawnsCount, props.currentScenarioID, props.calculated);
   }
