@@ -15,21 +15,21 @@ class LiveResults extends Component {
     // Variable for total jobs
     // const testTotalSpawns = 5;
     // const testScenarioID = 15;
-    // const totalSpawns = props.currentSpawnsCount;
-    // const currentScenarioID = props.currentScenarioID;
+    const totalSpawns = props.currentSpawnsCount;
+    const currentScenarioID = props.currentScenarioID;
 
     // console.log('This is props', props);
 
     // console.log('Current spawns count', props.currentSpawnsCount);
     // console.log('Current Scenario ID', props.currentScenarioID);
-    
+
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
-    // this.props.updateLineChartData(totalSpawns, currentScenarioID);
+    this.props.updateLineChartData(totalSpawns, currentScenarioID);
   }
 
   handleClick(e) {
     e.preventDefault();
-    const testScenarioID = 15;
+    const testScenarioID = 1;
     this.props.updateLineChartData(this.props.currentSpawnsCount, testScenarioID);
     // this.props.updateLineChartData(this.props.currentSpawnsCount, this.props.currentScenarioID);
   }

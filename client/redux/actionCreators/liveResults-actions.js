@@ -43,10 +43,10 @@ export const updateLineChartData = (jobCount, scenarioID) => {
       dispatch(updateLineChartAction(spawnData));
       dispatch(updateCurrentAction(actionData));
       // REMOVE COUNTER FOR PRODUCTION
-      tempCounter++;
-      if (data.spawn.labels.length < jobCount && tempCounter < 10) {
+      // tempCounter++;
+      if (data.spawn.labels.length < jobCount /*&& tempCounter < 10*/) {
         // REMOVE COUNTER FOR PRODUCTION
-        console.log('tempCounter count is', tempCounter);
+        // console.log('tempCounter count is', tempCounter);
         // REMOVE TEST SCENARIO FOR PRODUCTION
         dispatch(updateLineChartData(jobCount, scenarioID));
       }
