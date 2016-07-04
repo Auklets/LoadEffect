@@ -89,6 +89,42 @@ describe('User Model Schema', () => {
     });
   });
 
+  describe('Generating and Getting Site Tokens:', () => {
+    it('should be a method on user schema', done => {
+      User.where('name', 'Felix Ramsey')
+        .fetch()
+        .then(user => {
+          expect(user.generateSiteToken).to.be.a('function');
+          expect(user.getSiteToken).to.be.a('function');
+          done();
+        });
+    });
+
+    it('should have a site token on existing user', done => {
+      User.where('name', 'Bill Haug')
+        .fetch()
+        .then(user => {
+          const token = user.getSiteToken();
+          expect(token).to.be.a('string');
+          expect(token).to.have.length.above(10);
+          done();
+        });
+    });
+
+    it('should have unique site token specific to a user', done => {
+      User.where('name', 'Felix Ramsey')
+        .fetch()
+        .then(user1 => {
+          User.where('name', 'Bill Haug')
+            .fetch()
+            .then(user2 => {
+              expect(user1.getSiteToken()).to.not.equal(user2.getSiteToken());
+              done();
+            });
+        });
+    });
+  });
+
   describe('Setting Salted Hash Password:', () => {
     it('should be a method on user schema', done => {
       User.where('name', 'Felix Ramsey')

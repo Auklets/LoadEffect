@@ -52,7 +52,7 @@ export const allScenarios = res => ({
   scenario: JSON.parse(res.scenarios),
 });
 
-const storeRecentScenarioInfo = res => ({
+export const storeRecentScenarioInfo = res => ({
   type: CURRENT_SCENARIO_INFO,
   currentScenarioID: res.scenarioID,
   currentSpawnsCount: res.spawnsCount,
