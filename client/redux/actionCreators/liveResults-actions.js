@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import { calculateAverage, percentCompletion } from './liveResults-helpers';
+import { storeRecentScenarioInfo } from './scenario-actions';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
 export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
@@ -9,9 +10,6 @@ const token = localStorage.getItem('id_token');
 const socket = io({
   query: `token=${token}`,
 });
-
-// REMOVE COUNTER FOR PRODUCTION
-let tempCounter = 0;
 
 /* ******* Update Line Chart Data Actions ******* */
 export const updateLineChartAction = spawnData => ({
@@ -46,15 +44,16 @@ export const updateLineChartData = (jobCount, scenarioID) =>
 
       const spawnData = data.spawn;
       const actionData = data.action;
+      const scenarioData = data.scenario;
       const elapsedTime = spawnData.series;
       const spawnLabel = spawnData.labels;
 
       // TODO DRY - put into one function
+      dispatch(storeRecentScenarioInfo(scenarioData));
       dispatch(updateLineChartAction(spawnData));
       dispatch(updateCurrentAction(actionData));
 
       // Pull from scenario
-      const scenarioData = data.scenario;
       console.log('Scenario Data', data.scenario);
       const { averageElapsedTime, numberActions, numberErrors } = scenarioData;
       const calculated = {
@@ -64,6 +63,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
         numberErrors: numberErrors || 0, // TODO with httpVerb arrays
       };
+      console.log('data from sockets', data);
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
         calculated.numberActions,
@@ -75,6 +75,8 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       // REMOVE COUNTER FOR PRODUCTION
       if (!scenarioData.completion) {
         if (data.spawn.labels.length < jobCount) {
+          // REMOVE COUNTER FOR PRODUCTION
+          // console.log('tempCounter count is', tempCounter);
           // REMOVE TEST SCENARIO FOR PRODUCTION
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {

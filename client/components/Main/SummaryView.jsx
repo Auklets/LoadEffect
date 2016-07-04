@@ -16,6 +16,7 @@ const SummaryView = (props) => {
           <th>Average Elapsed Time</th>
           <th>Target URL</th>
           <th>Website Validation</th>
+          <th>Completed</th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,7 @@ const SummaryView = (props) => {
                   (<span style={{ color: 'red' }}>Unverified</span>)
                 }
               </td>
+              <td>{item.completion ? 'Yes' : 'No'}</td>
             </tr>
             );
         })}

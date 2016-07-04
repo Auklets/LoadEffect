@@ -22,6 +22,7 @@ class LiveResults extends Component {
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
     this.props.updateLineChartData(totalSpawns, currentScenarioID);
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
+    // TODO - Build so that the click would change the currentScenario ID
     // props.updateLineChartData(props.currentSpawnsCount, props.currentScenarioID, props.calculated);
   }
 
