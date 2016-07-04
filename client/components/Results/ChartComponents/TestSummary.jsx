@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { panelBackgroundColor, centerItems } from '../LiveResultsCSS.jsx';
+import { panelBackgroundColor, centerItems } from '../ResultsCSS.jsx';
 import { Panel, Col } from 'react-bootstrap';
 
 const TestSummary = (props) => (

@@ -9,6 +9,8 @@ import HomeContainer from './components/Home/HomeContainer.jsx';
 import MainContainer from './components/Main/MainContainer.jsx';
 import NewScenarioContainer from './components/NewScenario/NewScenarioContainer.jsx';
 
+import ResultsContainer from './components/Results/ResultsContainer.jsx';
+
 const router = (
   <Provider store={store}>
     <Router history={history}>
@@ -16,6 +18,7 @@ const router = (
         <IndexRoute component={HomeContainer} />
         <Route path="/main" component={MainContainer} />
         <Route path="/new-scenario" component={NewScenarioContainer} />
+        <Route path="/results" component={ResultsContainer} />
       </Route>
     </Router>
   </Provider>

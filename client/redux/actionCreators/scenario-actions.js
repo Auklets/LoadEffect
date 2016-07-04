@@ -54,7 +54,7 @@ export const allScenarios = res => ({
 
 export const storeRecentScenarioInfo = res => ({
   type: CURRENT_SCENARIO_INFO,
-  currentScenarioID: res.scenarioID,
+  currentScenarioID: res.scenarioID || res.id,
   currentSpawnsCount: res.spawnsCount,
   currentWorkers: res.workers,
   currentTargetURL: res.targetURL,

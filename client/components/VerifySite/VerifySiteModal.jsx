@@ -48,7 +48,7 @@ VerifySiteModal.propTypes = {
   hideVerifyModal: PropTypes.func,
   validateUrl: PropTypes.func,
   getScenarioData: PropTypes.func,
-  routeToLiveResults: PropTypes.func,
+  routeToResults: PropTypes.func,
   isVerifyModalOpen: PropTypes.bool,
 };
 

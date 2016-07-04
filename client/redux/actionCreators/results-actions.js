@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
-import { calculateAverage, percentCompletion } from './liveResults-helpers';
+import { calculateAverage, percentCompletion } from './results-helpers';
+import { storeRecentScenarioInfo } from './scenario-actions';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
 export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
@@ -9,9 +10,6 @@ const token = localStorage.getItem('id_token');
 const socket = io({
   query: `token=${token}`,
 });
-
-// REMOVE COUNTER FOR PRODUCTION
-let tempCounter = 0;
 
 /* ******* Update Line Chart Data Actions ******* */
 export const updateLineChartAction = spawnData => ({
@@ -46,18 +44,26 @@ export const updateLineChartData = (jobCount, scenarioID) =>
 
       const spawnData = data.spawn;
       const actionData = data.action;
+      const scenarioData = data.scenario;
       const elapsedTime = spawnData.series;
       const spawnLabel = spawnData.labels;
 
+      // TODO DRY - put into one function
+      dispatch(storeRecentScenarioInfo(scenarioData));
       dispatch(updateLineChartAction(spawnData));
       dispatch(updateCurrentAction(actionData));
+
+      // Pull from scenario
+      console.log('Scenario Data', data.scenario);
+      const { averageElapsedTime, numberActions, numberErrors } = scenarioData;
       const calculated = {
-        averageElapsedTime: Math.round(calculateAverage(elapsedTime) * 100) / 100,
-        numberActions: actionData.httpVerb.length,
+        averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTime) * 100) / 100),
+        numberActions: numberActions || actionData.httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: 0, // TODO with httpVerb arrays
+        numberErrors: numberErrors || 0, // TODO with httpVerb arrays
       };
+      console.log('data from sockets', data);
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
         calculated.numberActions,
@@ -67,15 +73,14 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       ));
 
       // REMOVE COUNTER FOR PRODUCTION
-      // tempCounter++;
-      if (data.spawn.labels.length < jobCount /*&& tempCounter < 10*/) {
-        // REMOVE COUNTER FOR PRODUCTION
-        // console.log('tempCounter count is', tempCounter);
-        // REMOVE TEST SCENARIO FOR PRODUCTION
-        dispatch(updateLineChartData(jobCount, scenarioID, calculated));
-      } else {
-        // Get all computed data and send over
-        socket.emit('complete', { calculated, scenarioID: scenarioID });
+      if (!scenarioData.completion) {
+        if (data.spawn.labels.length < jobCount) {
+          // REMOVE TEST SCENARIO FOR PRODUCTION
+          dispatch(updateLineChartData(jobCount, scenarioID, calculated));
+        } else {
+          // Get all computed data and send over
+          socket.emit('saveComplete', { calculated, scenarioID: scenarioID });
+        }
       }
     });
   };

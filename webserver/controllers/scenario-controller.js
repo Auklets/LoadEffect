@@ -23,6 +23,7 @@ const createScenario = (req, res) => {
     script: req.body.script,
     isVerifiedOwner: false,
     id_user: req.user._id,
+    completion: false,
   };
 
   if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
@@ -40,6 +41,7 @@ const createScenario = (req, res) => {
         targetURL: data.targetURL,
         scenarioName: data.scenarioName,
         workers: +data.workers,
+        completion: data.completion,
       };
       console.log('This is the data were sending', dataToSend);
       sendJSON(res, 201, dataToSend);

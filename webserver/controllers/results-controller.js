@@ -1,4 +1,4 @@
-const { getFromSpawn, getFromActions } = require('../lib/helper-data');
+const { getFromSpawn, getFromActions, getFromScenario } = require('../lib/helper-data');
 const Scenario = require('../models/ScenariosModel');
 const Promise = require('bluebird');
 
@@ -15,19 +15,20 @@ const getResultsDataHandler = (socket) =>
     // console.log('Received request in results controller get data!', req);
     const scenarioID = req.currentScenarioID;
 
-    Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID)])
-      .spread((resultsActions, resultsSpawn) => {
+    Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID), getFromScenario(scenarioID)])
+      .spread((resultsActions, resultsSpawn, resultsScenario) => {
         const combinedData = {
           spawn: resultsSpawn,
           action: resultsActions,
+          scenario: resultsScenario,
         };
         socket.emit('receiveResultsData', combinedData);
       })
       .catch(err => console.log(err));
   };
 
-const completedData = (data) => {
-  console.log('Got data from completed data', data);
+const saveCompletedData = (data) => {
+  // console.log('Got data from completed data', data);
   const calculated = data.calculated;
   Scenario.where('id', data.scenarioID)
     .fetch()
@@ -36,10 +37,11 @@ const completedData = (data) => {
         averageElapsedTime: calculated.averageElapsedTime,
         numberActions: calculated.numberActions,
         numberErrors: calculated.numberErrors,
+        completion: true,
       }, { patch: true }
     )
     .catch(err => console.log(err));
     });
 };
 
-module.exports = { getResultsDataHandler, completedData };
+module.exports = { getResultsDataHandler, saveCompletedData };
