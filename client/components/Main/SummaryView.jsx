@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Button, Table, Jumbotron, Well } from 'react-bootstrap';
 import VerifySiteContainer from '../VerifySite/VerifySiteContainer.jsx';
 
-const Main = (props) => {
+const SummaryView = (props) => {
   const { showVerifyModal, allScenarios } = props;
 
   const tableInstance = (
@@ -13,7 +13,7 @@ const Main = (props) => {
           <th>Scenario Name</th>
           <th>Spawn Count</th>
           <th># of Workers</th>
-          <th>Average Action Time</th>
+          <th>Average Elapsed Time</th>
           <th>Target URL</th>
           <th>Website Validation</th>
         </tr>
@@ -60,9 +60,9 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
+SummaryView.propTypes = {
   allScenarios: PropTypes.array,
   showVerifyModal: PropTypes.func,
 };
 
-export default Main;
+export default SummaryView;

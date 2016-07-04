@@ -17,12 +17,13 @@ export const NewScenarioContainer = props => (
 
 const mapStateToProps = state => {
   const { auth, modal, scenario } = state;
-  const { isAuthenticated, errorMessage } = auth;
+  const { isAuthenticated, errorMessage, siteToken } = auth;
   const { isScenarioModalOpen } = modal;
   const { isValidScript, allScenarios, attemptedCheck } = scenario;
 
   return {
     isScenarioModalOpen,
+    siteToken,
     isAuthenticated,
     errorMessage,
     isValidScript,
@@ -53,8 +54,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(resetAttempt());
   },
 
-  routeToLiveResults() {
-    history.push('/live-results');
+  routeToMain() {
+    history.push('/main');
     dispatch(closeScenarioModal());
   },
 });

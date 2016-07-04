@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Main from './Main.jsx';
+import TabsView from './TabsView.jsx';
 import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
 
 export const MainContainer = (props) => (
   <div>
-    <Main {...props} />
+    <TabsView {...props} />
   </div>
 );
 
