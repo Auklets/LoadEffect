@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { panelBackgroundColor, centerItems, centerItemsTop } from '../LiveResultsCSS.jsx';
+import { panelBackgroundColor, centerItems, centerItemsTop } from '../ResultsCSS.jsx';
 import { Panel, Table } from 'react-bootstrap';
 
 const ActionsTable = (props) => (

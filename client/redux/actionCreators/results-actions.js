@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { calculateAverage, percentCompletion } from './liveResults-helpers';
+import { calculateAverage, percentCompletion } from './results-helpers';
 import { storeRecentScenarioInfo } from './scenario-actions';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
@@ -75,8 +75,6 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       // REMOVE COUNTER FOR PRODUCTION
       if (!scenarioData.completion) {
         if (data.spawn.labels.length < jobCount) {
-          // REMOVE COUNTER FOR PRODUCTION
-          // console.log('tempCounter count is', tempCounter);
           // REMOVE TEST SCENARIO FOR PRODUCTION
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {

@@ -1,4 +1,4 @@
-import { UPDATE_LINE_CHART, UPDATE_CURRENT_ACTION, UPDATE_COMPUTED } from '../actionCreators/liveResults-actions';
+import { UPDATE_LINE_CHART, UPDATE_CURRENT_ACTION, UPDATE_COMPUTED } from '../actionCreators/results-actions';
 
 const initialStateChart = {
   labels: [1, 2, 3, 4, 5, 6, 7, 8],

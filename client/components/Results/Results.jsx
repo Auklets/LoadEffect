@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Panel, ProgressBar } from 'react-bootstrap';
-import { panelBackgroundColor } from './LiveResultsCSS.jsx';
+import { panelBackgroundColor } from './ResultsCSS.jsx';
 import TestSummary from './ChartComponents/TestSummary.jsx';
 import GeneralStatistics from './ChartComponents/GeneralStatistics.jsx';
 import ActionsTable from './ChartComponents/ActionsTable.jsx';
 
-class LiveResults extends Component {
+class Results extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -98,7 +98,7 @@ class LiveResults extends Component {
   }
 }
 
-LiveResults.propTypes = {
+Results.propTypes = {
   state: PropTypes.object.isRequired,
   updateData: PropTypes.func.isRequired,
   updateLineChartData: PropTypes.func.isRequired,
@@ -111,4 +111,4 @@ LiveResults.propTypes = {
   charts: PropTypes.object.isRequired,
 };
 
-export default LiveResults;
+export default Results;
