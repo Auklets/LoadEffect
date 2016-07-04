@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'developme
   const dockerConnection = new Docker({
     host: process.env.DOCKER_HOST,
     port: process.env.DOCKER_PORT,
+    protocol: 'https',
     ca: fs.readFileSync('../env/certs/ca.pem'),
     cert: fs.readFileSync('../env/certs/cert.pem'),
     key: fs.readFileSync('../env/certs/key.pem'),
