@@ -55,7 +55,6 @@ class LoginModal extends Component {
                 Login
               </Button>
             </Col>
-            {console.log('error message', errorMessage)}
             {errorMessage &&
               <p style={{ color: 'red' }}>{errorMessage}</p>
             }
