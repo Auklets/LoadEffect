@@ -50,7 +50,7 @@ class NewScenario extends Component {
     };
 
     return (
-      <div>
+      <div className="container">
         <Col sm={12}>
           <Well bsSize="small" className="text-center">
             <h1>Create a Scenario</h1>
@@ -65,7 +65,6 @@ class NewScenario extends Component {
                 ref="scenarioName"
                 type="text"
                 placeholder="Enter a name for the scenario"
-                value="Load Test 1"
                 required
               />
             </FormGroup>
@@ -79,7 +78,6 @@ class NewScenario extends Component {
                 ref="workers"
                 type="number"
                 placeholder="Enter total number of workers"
-                value="2"
                 required
               />
             </FormGroup>
@@ -94,7 +92,6 @@ class NewScenario extends Component {
                 type="number"
                 min="0"
                 placeholder="Enter total number of users to simulate"
-                value="20"
                 required
               />
             </FormGroup>
