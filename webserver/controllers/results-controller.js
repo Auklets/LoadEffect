@@ -31,16 +31,17 @@ const completedData = (data) => {
   console.log('Got data from completed data', data);
   const calculated = data.calculated;
   // WIP NEED TO FIX THIS
-  Scenario.where('scenario_id', data.scenarioID)
+  Scenario.where('id', data.scenarioID)
     .fetch()
-    .save({
-      averageElapsedTime: calculated.averageElapsedTime,
-      numberActions: calculated.numberActions,
-      currentSpawns: calculated.currentSpawns,
-      percentComplete: calculated.percentComplete,
-      numberErrors: calculated.numberErrors,
-    }, { patch: true })
+    .then(scenario => {
+      scenario.save({
+        averageElapsedTime: calculated.averageElapsedTime,
+        numberActions: calculated.numberActions,
+        numberErrors: calculated.numberErrors,
+      }, { patch: true }
+    )
     .catch(err => console.log(err));
+    });
 };
 
 module.exports = { getResultsDataHandler, completedData };
