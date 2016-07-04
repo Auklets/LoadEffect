@@ -26,11 +26,9 @@ const getResultsDataHandler = (socket) =>
       .catch(err => console.log(err));
   };
 
-// STILL WIP
 const completedData = (data) => {
   console.log('Got data from completed data', data);
   const calculated = data.calculated;
-  // WIP NEED TO FIX THIS
   Scenario.where('id', data.scenarioID)
     .fetch()
     .then(scenario => {
