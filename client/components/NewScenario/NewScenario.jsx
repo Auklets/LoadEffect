@@ -20,7 +20,7 @@ class NewScenario extends Component {
   handleClick(e) {
     e.preventDefault();
     const fullURL = this.refs.targetURL.value.trim();
-    const targetURL = fullURL.slice(fullURL.indexOf('.') + 1);
+    const targetURL = fullURL.replace(/^(https?:\/\/|www\.)/i, '');
     const scenarioName = this.refs.scenarioName.value.trim();
     const spawnsCount = this.refs.spawnsCount.value.trim();
     const script = this.refs.script.value.trim();
