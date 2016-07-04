@@ -1,12 +1,9 @@
-// This file is written in ES5 since it's not transpiled by Babel.
 // This file does the following:
 // 1. Sets Node environment constiable
 // 2. Registers babel for transpiling our code for testing
 // 3. Disables Webpack-specific features that Mocha doesn't understand.
 // 4. Requires jsdom so we can test via an in-memory DOM in Node
 // 5. Sets up global consts that mimic a browser.
-
-/* eslint-disable no-const*/
 
 /* This setting assures the .babelrc dev config (which includes
  hot module reloading code) doesn't apply for tests.
