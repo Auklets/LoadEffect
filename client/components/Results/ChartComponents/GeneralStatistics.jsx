@@ -5,7 +5,7 @@ import { Panel, Col, Row } from 'react-bootstrap';
 const GeneralStatistics = (props) => (
   <Panel bsStyle="primary" style={panelBackgroundColor} header={'General Statistics'}>
     <Col xs={6} md={3}>
-      <Row style={centerItemsTop}>{props.averageElapsedTime}</Row>
+      <Row style={centerItemsTop}>{props.averageElapsedTime} ms</Row>
       <Row style={centerItems}>Average Elapsed Time</Row>
     </Col>
     <Col xs={6} md={3}>
