@@ -1,8 +1,9 @@
 const Scenario = require('../models/ScenariosModel');
 const utils = require('../lib/utils');
+const dockerController = require('./docker-controller');
 
 const sendJSON = utils.sendJSON;
-const createMaster = utils.spoolUpMaster;
+const createMaster = dockerController.spoolUpMaster;
 
 const createScenario = (req, res) => {
   const data = {

@@ -12,8 +12,8 @@ module.exports = (app) => {
 
   app.post('/api/scenarios', auth, scenarioController.createScenario);
   app.get('/api/scenarios', auth, scenarioController.getScenarios);
-  app.post('/api/run-scenario', auth, scenarioController.runScenarioTest);
   app.post('/api/rerun-scenario', auth, scenarioController.rerunScenarioTest);
+  app.post('/api/run-scenario', auth, scenarioController.runScenarioTest);
 
   app.post('/api/validate-website', auth, siteValidationController.validateWebsite);
 
