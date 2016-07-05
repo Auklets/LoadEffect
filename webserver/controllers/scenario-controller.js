@@ -23,6 +23,7 @@ const createScenario = (req, res) => {
     script: req.body.script,
     isVerifiedOwner: false,
     id_user: req.user._id,
+    completion: false,
   };
 
   if (!data.scenarioName || !data.spawnsCount || !data.targetURL) {
@@ -40,12 +41,26 @@ const createScenario = (req, res) => {
         targetURL: data.targetURL,
         scenarioName: data.scenarioName,
         workers: +data.workers,
+        completion: data.completion,
       };
       console.log('This is the data were sending', dataToSend);
       sendJSON(res, 201, dataToSend);
       console.log('Sent data from scenario controller back to client');
     })
     .catch(err => sendJSON(res, 400, err));
+};
+
+const runScenarioTest = (req, res) => {
+  const data = {
+    scenarioName: req.body.scenarioName,
+    scenarioID: req.body.scenarioID,
+    spawnsCount: req.body.spawnsCount,
+    workers: req.body.workers,
+    targetURL: req.body.targetURL,
+    script: req.body.script,
+    id_user: req.user._id,
+  };
+  sendJSON(res, 201, data);
 
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
     // create Master to execute new scenario
@@ -124,4 +139,4 @@ const validateWebsite = (req, res) => {
   })
 };
 
-module.exports = { getScenarios, createScenario, deleteScenario, validateWebsite };
+module.exports = { getScenarios, createScenario, deleteScenario, validateWebsite, runScenarioTest };

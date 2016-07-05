@@ -19,13 +19,14 @@ const mapStateToProps = state => {
   const { auth, modal, scenario } = state;
   const { isAuthenticated, errorMessage, siteToken } = auth;
   const { isScenarioModalOpen } = modal;
-  const { isValidScript, allScenarios, attemptedCheck } = scenario;
+  const { isValidScript, allScenarios, attemptedCheck, scriptMessage } = scenario;
 
   return {
     isScenarioModalOpen,
     siteToken,
     isAuthenticated,
     errorMessage,
+    scriptMessage,
     isValidScript,
     allScenarios,
     attemptedCheck,

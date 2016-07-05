@@ -1,8 +1,4 @@
-// if (process.env.NODE_ENV !== 'integration') {
-  console.log('create dockerConnection');
-  const dockerConnection = require('../config/docker-config');
-// }
-
+const dockerConnection = require('../config/docker-config');
 const util = require('../lib/utils');
 
 const status = {
@@ -18,8 +14,7 @@ const createMaster = (callback) => {
 };
 
 const getMasterIP = (masterName, callback) => {
-  const containerName = masterName;
-  util.checkContainer(dockerConnection, containerName, (data) => {
+  util.checkContainer(dockerConnection, masterName, (data) => {
     callback(data.NetworkSettings.IPAddress);
   });
 };

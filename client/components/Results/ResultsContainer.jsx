@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/liveResults-actions';
-import LiveResults from './LiveResults.jsx';
+import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/results-actions';
+import Results from './Results.jsx';
 
-export const LiveResultsContainer = (props) => (
-  <LiveResults {...props} />
+export const ResultsContainer = (props) => (
+  <Results {...props} />
 );
 
 const mapStateToProps = (state) => {
@@ -34,4 +34,4 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LiveResultsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsContainer);

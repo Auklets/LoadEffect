@@ -2,21 +2,21 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import LiveResults from '../../../client/components/LiveResults/LiveResults.jsx';
-import { LiveResultsContainer } from '../../../client/components/LiveResults/LiveResultsContainer.jsx';
+import Results from '../../../client/components/Results/Results.jsx';
+import { ResultsContainer } from '../../../client/components/Results/ResultsContainer.jsx';
 
-describe('Live Results Components', () => {
-  xdescribe('<LiveResults />', () => {
-    it('should render Live Results Component', () => {
-      const wrapper = shallow(<LiveResults />);
+describe('Results Components', () => {
+  xdescribe('<Results />', () => {
+    it('should render Results Component', () => {
+      const wrapper = shallow(<Results />);
       expect(wrapper.find('ChartistGraph')).to.have.length(1);
     });
   });
 
-  describe('<LiveResultsContainer />', () => {
-    it('should render Live Results Container Component', () => {
-      const wrapper = shallow(<LiveResultsContainer />);
-      expect(wrapper.find('LiveResults')).to.have.length(1);
+  describe('<ResultsContainer />', () => {
+    it('should render Results Container Component', () => {
+      const wrapper = shallow(<ResultsContainer />);
+      expect(wrapper.find('Results')).to.have.length(1);
     });
   });
 });

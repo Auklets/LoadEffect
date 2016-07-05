@@ -1,5 +1,6 @@
 const Spawn = require('../models/SpawnsModel');
 const Action = require('../models/ActionsModel');
+const Scenario = require('../models/ScenariosModel');
 
 const getFromSpawn = (scenarioID) =>
   new Promise((resolve, reject) => {
@@ -35,4 +36,16 @@ const getFromActions = (scenarioID) =>
     .catch(reject);
   });
 
-module.exports = { getFromSpawn, getFromActions };
+const getFromScenario = (scenarioID) =>
+  new Promise((resolve, reject) => {
+    Scenario.where('id', scenarioID)
+    .fetch()
+    .then(data => {
+      const dataToSend = JSON.parse(JSON.stringify(data));
+      console.log('Scenario Data format', dataToSend);
+      resolve(dataToSend);
+    })
+    .catch(reject);
+  });
+
+module.exports = { getFromSpawn, getFromActions, getFromScenario };
