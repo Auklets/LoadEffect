@@ -7,6 +7,7 @@ db.knex.schema.hasTable('spawns').then(exists => {
       spawn.increments('id').primary();
       spawn.integer('totalTime', 255);
       spawn.integer('id_scenario', 255);
+      spawn.timestamps();
     }).then(table => {
       console.log('Spawns table has been created.', table);
     });
