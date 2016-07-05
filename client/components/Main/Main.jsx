@@ -70,7 +70,7 @@ const Main = props => {
   );
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Jumbotron>
         <h1>Summary</h1>
         <p>

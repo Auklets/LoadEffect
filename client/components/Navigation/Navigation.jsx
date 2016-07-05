@@ -4,13 +4,11 @@ import { Link } from 'react-router';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 // Modal/Popup Components
-import LoginContainer from '../Login/LoginContainer.jsx';
-import SignupContainer from '../Signup/SignupContainer.jsx';
 import VerifySiteContainer from '../VerifySite/VerifySiteContainer.jsx';
 import ScenarioModalContainer from '../Scenario/ScenarioModalContainer.jsx';
 
 const Navigation = props => {
-  const { showLogin, showSignup, handleClick, isAuthenticated, allScenarios, showVerifyModal } = props;
+  const { handleClick, allScenarios, showVerifyModal } = props;
 
   const LoggedIn = (
     <Nav pullRight>
@@ -29,21 +27,8 @@ const Navigation = props => {
     </Nav>
   );
 
-  const NotLoggedIn = (
-    <Nav pullRight>
-      <li>
-        <Link to="/" onClick={showLogin}>Login</Link>
-      </li>
-      <li>
-        <Link to="/" onClick={showSignup}>Signup</Link>
-      </li>
-      <LoginContainer />
-      <SignupContainer />
-    </Nav>
-  );
-
   return (
-    <Navbar fluid>
+    <Navbar fluid inverse>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/">LoadEffect</Link>
@@ -51,20 +36,17 @@ const Navigation = props => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {isAuthenticated ? LoggedIn : NotLoggedIn}
+        {LoggedIn}
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
 Navigation.propTypes = {
-  showLogin: PropTypes.func,
-  showSignup: PropTypes.func,
   showVerifyModal: PropTypes.func,
   showNewScenario: PropTypes.func,
   handleClick: PropTypes.func,
   allScenarios: PropTypes.array,
-  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Navigation;
