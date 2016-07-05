@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TabsView from './TabsView.jsx';
+import Main from './Main.jsx';
+import { history } from '../../redux/store';
 import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
+import { runScenario, changeCurrentScenarioId, checkForValidUrl } from '../../redux/actionCreators/scenario-actions';
 
 export const MainContainer = (props) => (
   <div>
-    <TabsView {...props} />
+    <Main {...props} />
   </div>
 );
 
@@ -29,6 +31,20 @@ const mapDispatchToProps = dispatch => ({
 
   showVerifyModal() {
     dispatch(openVerifyModal());
+  },
+
+  showResultsPage(id) {
+    dispatch(changeCurrentScenarioId(id));
+    history.push('/results');
+  },
+
+  validateUrl(url, scenarioID) {
+    dispatch(checkForValidUrl(url, scenarioID));
+  },
+
+  runVerifiedScenario(creds) {
+    dispatch(runScenario(creds));
+    history.push('/results');
   },
 });
 

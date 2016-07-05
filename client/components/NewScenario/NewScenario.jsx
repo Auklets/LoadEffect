@@ -20,7 +20,7 @@ class NewScenario extends Component {
   handleClick(e) {
     e.preventDefault();
     const fullURL = this.refs.targetURL.value.trim();
-    const targetURL = fullURL.replace(/^(https?:\/\/|www\.)/i, '');
+    const targetURL = fullURL.replace(/^https?:\/\/|www\./gi, '');
     const scenarioName = this.refs.scenarioName.value.trim();
     const spawnsCount = this.refs.spawnsCount.value.trim();
     const script = this.refs.script.value.trim();
@@ -38,13 +38,16 @@ class NewScenario extends Component {
   }
 
   render() {
-    const { errorMessage, isValidScript, attemptedCheck, resetValidation } = this.props;
+    const { errorMessage, isValidScript, attemptedCheck, resetValidation, scriptMessage } = this.props;
 
     const ScriptValidationMessage = () => {
       if (attemptedCheck) {
         return isValidScript ?
           (<p style={{ color: 'green' }}>Your script passes! Go ahead and submit.</p>) :
-          (<p style={{ color: 'red' }}>Invalid script. Check your syntax for errors.</p>);
+          (<div>
+            <p style={{ color: 'red' }}>Invalid script:</p>
+            <p style={{ color: 'red' }}>{scriptMessage}</p>
+          </div>);
       }
       return null;
     };
@@ -104,7 +107,7 @@ class NewScenario extends Component {
                 className="form-control"
                 ref="targetURL"
                 type="url"
-                placeholder="Enter target url"
+                placeholder="Enter target url e.g. http://yourwebsite.com"
                 required
               />
             </FormGroup>
@@ -145,6 +148,7 @@ NewScenario.propTypes = {
   resetValidation: PropTypes.func,
   hideScenario: PropTypes.func,
   errorMessage: PropTypes.string,
+  scriptMessage: PropTypes.string,
   attemptedCheck: PropTypes.bool,
   isValidScript: PropTypes.bool,
 };

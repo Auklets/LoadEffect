@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Dispatched actions
-import { openLoginModal, openSignupModal } from '../../redux/actionCreators/modal-actions';
+import { openLoginModal, openSignupModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
 import { logoutUser } from '../../redux/actionCreators/logout-actions';
 
 import Navigation from './Navigation.jsx';
@@ -13,13 +13,15 @@ export const NavigationContainer = (props) => (
 );
 
 const mapStateToProps = (state) => {
-  const { auth } = state;
+  const { auth, scenario } = state;
   const { isAuthenticated, errorMessage, siteToken } = auth;
+  const { allScenarios } = scenario;
 
   return {
     isLoginOpen: state.isLoginOpen,
     isSignupOpen: state.isSignupOpen,
     isScenarioOpen: state.isScenarioOpen,
+    allScenarios,
     isAuthenticated,
     errorMessage,
     siteToken,
@@ -38,6 +40,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   handleClick() {
     dispatch(logoutUser());
+  },
+
+  showVerifyModal() {
+    dispatch(openVerifyModal());
   },
 });
 

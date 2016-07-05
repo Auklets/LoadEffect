@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
-import { getScenarios, checkForValidUrl } from '../../redux/actionCreators/scenario-actions';
+import { getScenarios } from '../../redux/actionCreators/scenario-actions';
 
 import VerifySiteModal from './VerifySiteModal.jsx';
 
@@ -35,10 +35,6 @@ const mapDispatchToProps = dispatch => ({
 
   getScenarioData() {
     dispatch(getScenarios());
-  },
-
-  validateUrl(url, scenarioID) {
-    dispatch(checkForValidUrl(url, scenarioID));
   },
 });
 

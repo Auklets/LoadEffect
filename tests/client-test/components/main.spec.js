@@ -2,14 +2,14 @@
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
-import SummaryView from '../../../client/components/Main/SummaryView.jsx';
+import Main from '../../../client/components/Main/Main.jsx';
 import { MainContainer } from '../../../client/components/Main/MainContainer.jsx';
 
 const setup = () => {
   const props = {
     allScenarios: [],
   };
-  return shallow(<SummaryView {...props} />);
+  return shallow(<Main {...props} />);
 };
 
 describe('Main Components', () => {
@@ -23,7 +23,7 @@ describe('Main Components', () => {
   describe('<MainContainer />', () => {
     it('should render Main Container Component', () => {
       const wrapper = shallow(<MainContainer />);
-      expect(wrapper.find('TabsView')).to.have.length(1);
+      expect(wrapper.find('Main')).to.have.length(1);
     });
   });
 });
