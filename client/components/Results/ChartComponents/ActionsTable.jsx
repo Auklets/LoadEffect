@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Panel, Table } from 'react-bootstrap';
 
 const ActionsTable = (props) => (
-  <Panel bsStyle="primary">
+  <Panel bsStyle="primary" header={'Actions Summary'}>
     <Table striped bordered condensed hover>
       <thead>
         <tr>

@@ -1,23 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import ChartistGraph from 'react-chartist';
+import Chartist from 'chartist';
 import { Grid, Row, Panel, ProgressBar } from 'react-bootstrap';
 import { panelBackgroundColor } from './ResultsCSS.jsx';
 import TestSummary from './ChartComponents/TestSummary.jsx';
 import GeneralStatistics from './ChartComponents/GeneralStatistics.jsx';
 import ActionsTable from './ChartComponents/ActionsTable.jsx';
+import LineGraph from './ChartComponents/Linegraph.jsx';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
-    // Variable for total jobs
     const totalSpawns = props.currentSpawnsCount;
     const currentScenarioID = props.currentScenarioID;
 
     // console.log('This is props', props);
-    // console.log('Current spawns count', props.currentSpawnsCount);
-    // console.log('Current Scenario ID', props.currentScenarioID);
 
     // PRODUCTION: UNCOMMENT FOR PRODUCTION
     this.props.updateLineChartData(totalSpawns, currentScenarioID);
@@ -39,15 +38,10 @@ class Results extends Component {
   render() {
     const { currentSpawnsCount, charts } = this.props;
     const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = charts;
-
     /* ****** Chartist Configurations ****** */
     const simpleLineChartData = {
-      index,
+      index: charts.spawnLabel,
       series: [elapsedTimeSpawn],
-    };
-    const lineChartOptions = {
-      low: 0,
-      showArea: true,
     };
 
     return (
@@ -79,11 +73,7 @@ class Results extends Component {
           />
         </Row>
         <Row className="show-grid">
-          <Panel bsStyle="primary" style={panelBackgroundColor}>
-            <div style={{ backgroundColor: 'white' }}>
-              <ChartistGraph data={simpleLineChartData} options={lineChartOptions} type={'Line'} />
-            </div>
-          </Panel>
+          <LineGraph simpleLineChartData={simpleLineChartData} />
         </Row>
         <Row className="show-grid">
           <ActionsTable
