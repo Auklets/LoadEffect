@@ -38,13 +38,16 @@ class NewScenario extends Component {
   }
 
   render() {
-    const { errorMessage, isValidScript, attemptedCheck, resetValidation } = this.props;
+    const { errorMessage, isValidScript, attemptedCheck, resetValidation, scriptMessage } = this.props;
 
     const ScriptValidationMessage = () => {
       if (attemptedCheck) {
         return isValidScript ?
           (<p style={{ color: 'green' }}>Your script passes! Go ahead and submit.</p>) :
-          (<p style={{ color: 'red' }}>Invalid script. Check your syntax for errors.</p>);
+          (<div>
+            <p style={{ color: 'red' }}>Invalid script:</p>
+            <p style={{ color: 'red' }}>{scriptMessage}</p>
+          </div>);
       }
       return null;
     };
@@ -145,6 +148,7 @@ NewScenario.propTypes = {
   resetValidation: PropTypes.func,
   hideScenario: PropTypes.func,
   errorMessage: PropTypes.string,
+  scriptMessage: PropTypes.string,
   attemptedCheck: PropTypes.bool,
   isValidScript: PropTypes.bool,
 };

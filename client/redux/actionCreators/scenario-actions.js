@@ -6,6 +6,7 @@ export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
 export const CURRENT_SCENARIO_INFO = 'CURRENT_SCENARIO_INFO';
+export const CHANGE_CURRENT_ID = 'CHANGE_CURRENT_ID';
 const parser = require('../../lib/parser.js');
 
 /* ******* Script Validation Actions ******* */
@@ -14,9 +15,10 @@ export const validScript = () => ({
   isValidScript: true,
 });
 
-export const invalidScript = () => ({
+export const invalidScript = (scriptMessage) => ({
   type: VALID_SCRIPT,
   isValidScript: false,
+  scriptMessage,
 });
 
 export const resetCheck = () => ({
@@ -26,21 +28,16 @@ export const resetCheck = () => ({
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
 
 export const checkValidScript = script => {
-  // script is going to be a string. Below, isValidScript should be a boolean
-
   const parseObject = parser.parseTest(script);
-
   const isValidScript = parseObject.success;
-
-  if (!isValidScript) {
-    alert('At line: ' + parseObject.line + ' and column: ' + parseObject.column + ' ' + parseObject.error);
-  }
+  const errorDescription = !isValidScript ? `Error found at at line ${parseObject.line}, column ${parseObject.column}.
+  ${parseObject.error}` : '';
 
   return dispatch => {
     if (isValidScript) {
       dispatch(validScript());
     } else {
-      dispatch(invalidScript());
+      dispatch(invalidScript(errorDescription));
     }
   };
 };
@@ -61,6 +58,10 @@ export const storeRecentScenarioInfo = res => ({
   currentScenarioName: res.scenarioName,
 });
 
+export const changeCurrentScenarioId = id => ({
+  type: CHANGE_CURRENT_ID,
+  currentScenarioID: id,
+});
 
 export const getScenarios = () => {
   const config = {

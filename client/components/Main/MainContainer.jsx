@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Main from './Main.jsx';
+import { history } from '../../redux/store';
 import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
+import { changeCurrentScenarioId, checkForValidUrl } from '../../redux/actionCreators/scenario-actions';
 
 export const MainContainer = (props) => (
   <div>
@@ -29,6 +31,15 @@ const mapDispatchToProps = dispatch => ({
 
   showVerifyModal() {
     dispatch(openVerifyModal());
+  },
+
+  showResultsPage(id) {
+    dispatch(changeCurrentScenarioId(id));
+    history.push('/results');
+  },
+
+  validateUrl(url, scenarioID) {
+    dispatch(checkForValidUrl(url, scenarioID));
   },
 });
 

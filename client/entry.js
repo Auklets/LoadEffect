@@ -18,7 +18,7 @@ const router = (
         <IndexRoute component={HomeContainer} />
         <Route path="/main" component={MainContainer} />
         <Route path="/new-scenario" component={NewScenarioContainer} />
-        <Route path="/results" component={ResultsContainer} />
+        <Route name="results" path="/results" component={ResultsContainer} />
       </Route>
     </Router>
   </Provider>
