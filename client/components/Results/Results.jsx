@@ -4,17 +4,15 @@ import { panelBackgroundColor, progressBarHeight } from './ResultsCSS.jsx';
 import TestSummary from './ChartComponents/TestSummary.jsx';
 import GeneralStatistics from './ChartComponents/GeneralStatistics.jsx';
 import ActionsTable from './ChartComponents/ActionsTable.jsx';
-import LineGraph from './ChartComponents/Linegraph.jsx';
+import LineGraph from './ChartComponents/LineGraph.jsx';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
-    const totalSpawns = props.currentSpawnsCount;
-    const currentScenarioID = props.currentScenarioID;
-
-    // console.log('This is props', props);
+    const totalSpawns = props.scenario.currentSpawnsCount;
+    const currentScenarioID = props.scenario.currentScenarioID;
 
     this.props.updateLineChartData(totalSpawns, currentScenarioID);
   }
@@ -22,20 +20,23 @@ class Results extends Component {
   // REMOVE CLICK HANDLER FOR PRODUCTION
   handleClick(e) {
     e.preventDefault();
-    const { currentSpawnsCount, updateLineChartData } = this.props;
+    const { updateLineChartData } = this.props;
+    const { currentSpawnsCount } = this.props.scenario;
     // REMOVE FOR PRODUCTION
     const testScenarioID = 15;
     updateLineChartData(currentSpawnsCount, testScenarioID);
   }
 
   render() {
-    const { currentSpawnsCount, charts } = this.props;
+    const { scenario, charts } = this.props;
+    const { currentSpawnsCount, currentScenarioName, currentTargetURL, currentWorkers } = scenario;
     const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors, actionTaken, path } = charts;
-    /* ****** Chartist Configurations ****** */
+
     const simpleLineChartData = {
       labels: charts.spawnLabel,
       series: [elapsedTimeSpawn],
     };
+
     return (
       <Grid>
         <Row className="show-grid">
@@ -45,10 +46,10 @@ class Results extends Component {
         </Row>
         <Row className="show-grid">
           <TestSummary
-            currentScenarioName={this.props.currentScenarioName}
-            currentWorkers={this.props.currentWorkers}
+            currentScenarioName={currentScenarioName}
+            currentWorkers={currentWorkers}
             currentSpawnsCount={currentSpawnsCount}
-            currentTargetURL={this.props.currentTargetURL}
+            currentTargetURL={currentTargetURL}
           />
         </Row>
         <Row className="show-grid">
@@ -83,15 +84,10 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-  state: PropTypes.object.isRequired,
   updateData: PropTypes.func.isRequired,
   updateLineChartData: PropTypes.func.isRequired,
   allScenarios: PropTypes.array.isRequired,
-  currentSpawnsCount: PropTypes.number.isRequired,
-  currentScenarioID: PropTypes.number.isRequired,
-  currentScenarioName: PropTypes.string.isRequired,
-  currentWorkers: PropTypes.number.isRequired,
-  currentTargetURL: PropTypes.string.isRequired,
+  scenario: PropTypes.object.isRequired,
   charts: PropTypes.object.isRequired,
 };
 

@@ -38,11 +38,12 @@ const runScenarioTest = (req, res) => {
     spawnsCount: req.body.spawnsCount,
     workers: req.body.workers,
     targetURL: req.body.targetURL,
+    isVerifiedOwner: true,
     script: req.body.script,
     id_user: req.user._id,
+    completion: false,
   };
   sendJSON(res, 201, data);
-
   createMaster(data);
 };
 

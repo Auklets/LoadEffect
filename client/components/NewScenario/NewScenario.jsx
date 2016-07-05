@@ -146,7 +146,6 @@ NewScenario.propTypes = {
   sendScenario: PropTypes.func,
   validateScript: PropTypes.func,
   resetValidation: PropTypes.func,
-  hideScenario: PropTypes.func,
   errorMessage: PropTypes.string,
   scriptMessage: PropTypes.string,
   attemptedCheck: PropTypes.bool,

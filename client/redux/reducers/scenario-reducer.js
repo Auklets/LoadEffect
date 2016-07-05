@@ -9,6 +9,8 @@ const initialState = {
   currentScenarioName: '',
   isValidScript: false,
   attemptedCheck: false,
+  completion: false,
+  isVerifiedOwner: false,
 };
 
 export const scenarioReducer = (state = initialState, action) => {
@@ -43,6 +45,9 @@ export const scenarioReducer = (state = initialState, action) => {
         currentWorkers: action.currentWorkers,
         currentTargetURL: action.currentTargetURL,
         currentScenarioName: action.currentScenarioName,
+        currentScript: action.currentScript,
+        isVerifiedOwner: action.isVerifiedOwner,
+        completion: action.completion,
       });
 
     default:

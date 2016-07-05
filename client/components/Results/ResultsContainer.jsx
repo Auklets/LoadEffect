@@ -1,26 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/results-actions';
-import { rerunScenario } from '../../redux/actionCreators/scenario-actions';
 import Results from './Results.jsx';
 
 export const ResultsContainer = (props) => (
   <Results {...props} />
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { charts, scenario } = state;
-  const { allScenarios, currentScenarioID, currentSpawnsCount, currentTargetURL, currentWorkers, currentScenarioName } = scenario;
+  const { allScenarios } = scenario;
 
   return {
-    state,
     charts,
     allScenarios,
-    currentScenarioID,
-    currentSpawnsCount,
-    currentTargetURL,
-    currentWorkers,
-    currentScenarioName,
+    scenario,
   };
 };
 
@@ -32,11 +26,6 @@ const mapDispatchToProps = dispatch => ({
   updateLineChartData(totalJobs, currentScenarioID) {
     dispatch(updateLineChartData(totalJobs, currentScenarioID));
   },
-
-  rerunScenarioTest(creds) {
-    dispatch(rerunScenario(creds));
-  },
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsContainer);

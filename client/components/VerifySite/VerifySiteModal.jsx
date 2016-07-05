@@ -29,13 +29,8 @@ const VerifySiteModal = props => {
 };
 
 VerifySiteModal.propTypes = {
-  allScenarios: PropTypes.array,
-  errorMessage: PropTypes.string,
   siteToken: PropTypes.string,
   hideVerifyModal: PropTypes.func,
-  validateUrl: PropTypes.func,
-  getScenarioData: PropTypes.func,
-  routeToResults: PropTypes.func,
   isVerifyModalOpen: PropTypes.bool,
 };
 

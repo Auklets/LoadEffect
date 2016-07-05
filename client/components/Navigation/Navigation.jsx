@@ -7,6 +7,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import LoginContainer from '../Login/LoginContainer.jsx';
 import SignupContainer from '../Signup/SignupContainer.jsx';
 import VerifySiteContainer from '../VerifySite/VerifySiteContainer.jsx';
+import ScenarioModalContainer from '../Scenario/ScenarioModalContainer.jsx';
 
 const Navigation = props => {
   const { showLogin, showSignup, handleClick, isAuthenticated, allScenarios, showVerifyModal } = props;
@@ -24,6 +25,7 @@ const Navigation = props => {
         <Link onClick={handleClick} to="/">Logout</Link>
       </li>
       <VerifySiteContainer allScenarios={allScenarios} />
+      <ScenarioModalContainer />
     </Nav>
   );
 

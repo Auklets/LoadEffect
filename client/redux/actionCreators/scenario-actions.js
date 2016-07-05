@@ -1,15 +1,16 @@
 import { receiveLogin } from './login-actions';
 import { showScenarioModal } from './modal-actions';
 import { sendRequestThenDispatch } from '../../lib/utils.js';
+const parser = require('../../lib/parser.js');
 
 export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
 export const CURRENT_SCENARIO_INFO = 'CURRENT_SCENARIO_INFO';
 export const CHANGE_CURRENT_ID = 'CHANGE_CURRENT_ID';
-const parser = require('../../lib/parser.js');
 
 /* ******* Script Validation Actions ******* */
+
 export const validScript = () => ({
   type: VALID_SCRIPT,
   isValidScript: true,
@@ -42,8 +43,8 @@ export const checkValidScript = script => {
   };
 };
 
+/* ******** Scenario Get / Create Actions  ******** */
 
-/* ******** Scenario Get and Create Actions  ******** */
 export const allScenarios = res => ({
   type: GET_SCENARIOS,
   scenario: JSON.parse(res.scenarios),
@@ -56,12 +57,17 @@ export const storeRecentScenarioInfo = res => ({
   currentWorkers: res.workers,
   currentTargetURL: res.targetURL,
   currentScenarioName: res.scenarioName,
+  currentScript: res.script,
+  isVerifiedOwner: res.isVerifiedOwner,
+  completion: res.completion,
 });
 
 export const changeCurrentScenarioId = id => ({
   type: CHANGE_CURRENT_ID,
   currentScenarioID: id,
 });
+
+/* *********** Scenario API Calls *********** */
 
 export const getScenarios = () => {
   const config = {
@@ -71,7 +77,6 @@ export const getScenarios = () => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}`,
     },
   };
-
   return sendRequestThenDispatch('/api/scenarios', config, allScenarios, receiveLogin);
 };
 
@@ -83,7 +88,6 @@ export const runScenario = data => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
-
   return sendRequestThenDispatch('/api/run-scenario', config, storeRecentScenarioInfo);
 };
 
@@ -95,7 +99,6 @@ export const rerunScenario = data => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
-
   return sendRequestThenDispatch('/api/rerun-scenario', config, showScenarioModal, storeRecentScenarioInfo);
 };
 
@@ -107,12 +110,11 @@ export const createScenario = data => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
-
   return sendRequestThenDispatch('/api/scenarios', config, resetCheck, showScenarioModal, storeRecentScenarioInfo);
 };
 
-
 /* ******** Website Url Validation Actions  ******** */
+
 export const checkForValidUrl = (url, scenarioID) => {
   const config = {
     method: 'POST',
@@ -121,6 +123,5 @@ export const checkForValidUrl = (url, scenarioID) => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `url=${url}&scenarioID=${scenarioID}`,
   };
-
   return sendRequestThenDispatch('/api/validate-website', config, getScenarios);
 };
