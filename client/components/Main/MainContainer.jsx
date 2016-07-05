@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Main from './Main.jsx';
 import { history } from '../../redux/store';
 import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
-import { changeCurrentScenarioId, checkForValidUrl } from '../../redux/actionCreators/scenario-actions';
+import { runScenario, changeCurrentScenarioId, checkForValidUrl } from '../../redux/actionCreators/scenario-actions';
 
 export const MainContainer = (props) => (
   <div>
@@ -40,6 +40,10 @@ const mapDispatchToProps = dispatch => ({
 
   validateUrl(url, scenarioID) {
     dispatch(checkForValidUrl(url, scenarioID));
+  },
+
+  runVerifiedScenario(creds) {
+    dispatch(runScenario(creds));
   },
 });
 

@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import { Button, Table, Jumbotron, Well } from 'react-bootstrap';
 
 const Main = (props) => {
-  const { allScenarios, showResultsPage, validateUrl } = props;
-  const handleButtonClick = id => () => showResultsPage(id);
+  const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario } = props;
+  const handleViewResultsClick = item => () => showResultsPage(item.id);
   const handleValidationClick = (url, id) => () => validateUrl(url, id);
+  const handleRunTestClick = creds => () => runVerifiedScenario(creds);
 
   const tableInstance = (
     <Table responsive striped hover bordered>
@@ -23,9 +24,10 @@ const Main = (props) => {
         {allScenarios.map((item, i) => {
           const buttonStyle = item.completion ? 'success' : 'warning';
           const buttonText = item.completion ? 'View Results' : 'Run Test';
-          item.completion = 1;
+          const buttonClickHandler = item.completion ? handleViewResultsClick : handleRunTestClick;
+
           const status = item.isVerifiedOwner ?
-            <Button onClick={handleButtonClick(item.id)} bsSize="xsmall" bsStyle={buttonStyle}>{buttonText}</Button> :
+            <Button onClick={buttonClickHandler(item)} bsSize="xsmall" bsStyle={buttonStyle}>{buttonText}</Button> :
             <Button onClick={handleValidationClick(item.targetURL, item.id)} bsSize="xsmall" bsStyle="danger">Validate Site</Button>;
 
           return (
@@ -66,6 +68,7 @@ const Main = (props) => {
 Main.propTypes = {
   allScenarios: PropTypes.array,
   validateUrl: PropTypes.func,
+  runVerifiedScenario: PropTypes.func,
   showResultsPage: PropTypes.func,
 };
 

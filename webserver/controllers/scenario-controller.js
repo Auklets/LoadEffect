@@ -49,6 +49,38 @@ const createScenario = (req, res) => {
     })
     .catch(err => sendJSON(res, 400, err));
 
+  // if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
+  //   // create Master to execute new scenario
+  //   dockerController.createMaster(
+  //     (masterName) => {
+  //       console.log('masterName', masterName);
+  //       // send data to master
+  //       setTimeout(() => {
+  //         dockerController.getMasterIP(masterName, (masterIP) => {
+  //           console.log('Master IP received:', masterIP);
+  //           const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
+  //           console.log('sending data to', masterUrl);
+  //           data.masterName = masterName;
+  //           request.post({
+  //             url: masterUrl,
+  //             json: true,
+  //             body: data,
+  //           },
+  //           (err, response, body) => {
+  //             if (err) {
+  //               console.log('Error while sending data to master', err);
+  //             } else {
+  //               console.log('Successfully sent data to master');
+  //               console.log('body', body);
+  //             }
+  //           });
+  //         });
+  //       }, 7000);
+  //     });
+  // }
+};
+
+const runScenarioTest = (req, res) => {
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
     // create Master to execute new scenario
     dockerController.createMaster(
@@ -126,4 +158,4 @@ const validateWebsite = (req, res) => {
   })
 };
 
-module.exports = { getScenarios, createScenario, deleteScenario, validateWebsite };
+module.exports = { getScenarios, createScenario, deleteScenario, validateWebsite, runScenarioTest };

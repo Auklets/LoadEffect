@@ -75,6 +75,18 @@ export const getScenarios = () => {
   return sendRequestThenDispatch('/api/scenarios', config, allScenarios, receiveLogin);
 };
 
+export const runScenario = data => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
+      body: `scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
+  };
+
+  return sendRequestThenDispatch('/api/run-scenario', config, resetCheck, showScenarioModal, storeRecentScenarioInfo);
+};
+
 export const createScenario = data => {
   const config = {
     method: 'POST',
