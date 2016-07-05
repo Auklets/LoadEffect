@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { calculateAverage, percentCompletion } from './results-helpers';
+import { calculateAverage, percentCompletion, errorCounter } from './results-helpers';
 import { storeRecentScenarioInfo } from './scenario-actions';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
@@ -42,12 +42,10 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       console.log('Got data from sockets', data);
       socket.removeAllListeners('receiveResultsData');
 
-      const spawnData = data.spawn;
-      const actionData = data.action;
-      const scenarioData = data.scenario;
-      const elapsedTime = spawnData.series;
-      const spawnLabel = spawnData.labels;
-
+      const { spawnData, actionData, scenarioData } = data;
+      const { elapsedTime, spawnLabel } = spawnData;
+      const { httpVerb } = actionData;
+      
       // TODO DRY - put into one function
       dispatch(storeRecentScenarioInfo(scenarioData));
       dispatch(updateLineChartAction(spawnData));
@@ -58,10 +56,10 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       const { averageElapsedTime, numberActions, numberErrors } = scenarioData;
       const calculated = {
         averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTime) * 100) / 100),
-        numberActions: numberActions || actionData.httpVerb.length,
+        numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: numberErrors || 0, // TODO with httpVerb arrays
+        numberErrors: numberErrors || errorCounter(httpVerb),
       };
       console.log('data from sockets', data);
       dispatch(updateComputedData(
