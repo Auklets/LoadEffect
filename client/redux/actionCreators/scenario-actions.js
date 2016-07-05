@@ -96,7 +96,7 @@ export const rerunScenario = data => {
       body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
 
-  return sendRequestThenDispatch('/api/rerun-scenario', config, storeRecentScenarioInfo);
+  return sendRequestThenDispatch('/api/rerun-scenario', config, showScenarioModal, storeRecentScenarioInfo);
 };
 
 export const createScenario = data => {

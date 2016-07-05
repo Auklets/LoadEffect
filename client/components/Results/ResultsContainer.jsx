@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFromInput, updateLineChartData } from '../../redux/actionCreators/results-actions';
+import { rerunScenario } from '../../redux/actionCreators/scenario-actions';
 import Results from './Results.jsx';
 
 export const ResultsContainer = (props) => (
@@ -30,6 +31,10 @@ const mapDispatchToProps = dispatch => ({
 
   updateLineChartData(totalJobs, currentScenarioID) {
     dispatch(updateLineChartData(totalJobs, currentScenarioID));
+  },
+
+  rerunScenarioTest(creds) {
+    dispatch(rerunScenario(creds));
   },
 
 });
