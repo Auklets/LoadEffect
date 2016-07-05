@@ -1,13 +1,13 @@
 //  parser.js
 //
-const peg = require('pegjs');
+import peg from 'pegjs';
 
 const parserArguments = `
-start 
-  = nl* first:line rest:(nl+ data:line { return data; })* nl* { 
+start
+  = nl* first:line rest:(nl+ data:line { return data; })* nl* {
     rest.unshift(first); return rest;
   }
-    
+
 line = space first:command tail:(" " argument)* {
   var params = [];
   for (var i = 0; i < tail.length; i++) {
@@ -38,10 +38,10 @@ return {type: "value", value:parseInt(num.join(""), 10)};
 }
 comment "comment"
  = "#"+ [^\\n\\r]* { return ''; }
-JSON = head:("{" $[^}]* "}") { 
+JSON = head:("{" $[^}]* "}") {
   return {type:"value", value:head.join("")};
 }
-space "space" 
+space "space"
   = [ ]*
 _ "whitespace"
   = [ \\t\\n\\r]*
@@ -53,7 +53,7 @@ console.log(peg);
 
 const parser = peg.buildParser(parserArguments.trim());
 
-const parseTest = (str) => {
+export const parseTest = (str) => {
   try {
     parser.parse(str.trim());
     return { success: true };
@@ -66,5 +66,3 @@ const parseTest = (str) => {
     };
   }
 };
-
-module.exports = { parseTest };

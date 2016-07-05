@@ -1,7 +1,7 @@
 import { receiveLogin } from './login-actions';
 import { showScenarioModal } from './modal-actions';
 import { sendRequestThenDispatch } from '../../lib/utils.js';
-const parser = require('../../lib/parser.js');
+import { parseTest } from '../../lib/parser.js';
 
 export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
@@ -29,7 +29,7 @@ export const resetCheck = () => ({
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
 
 export const checkValidScript = script => {
-  const parseObject = parser.parseTest(script);
+  const parseObject = parseTest(script);
   const isValidScript = parseObject.success;
   const errorDescription = !isValidScript ? `Error found at at line ${parseObject.line}, column ${parseObject.column}.
   ${parseObject.error}` : '';
