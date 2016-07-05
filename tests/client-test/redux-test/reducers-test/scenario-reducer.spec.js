@@ -77,7 +77,7 @@ describe('Redux Scenario Reducers', () => {
     expect(initialState.currentScenarioID).to.equal(0);
     expect(initialState.currentSpawnsCount).to.equal(0);
     expect(initialState.currentWorkers).to.equal(0);
-    expect(initialState.currentTargetURL).to.equal('LOADING...');
+    expect(initialState.currentTargetURL).to.equal('');
 
     expect(newState.currentScenarioID).to.equal(2);
     expect(newState.currentSpawnsCount).to.equal(1000);
