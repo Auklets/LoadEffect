@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { calculateAverage, percentCompletion } from './results-helpers';
+import { calculateAverage, percentCompletion, errorCounter } from './results-helpers';
 import { storeRecentScenarioInfo } from './scenario-actions';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
@@ -14,8 +14,8 @@ const socket = io({
 /* ******* Update Line Chart Data Actions ******* */
 export const updateLineChartAction = spawnData => ({
   type: UPDATE_LINE_CHART,
-  labels: spawnData.labels,
-  series: spawnData.series,
+  spawnLabel: spawnData.spawnLabel,
+  elapsedTimeSpawn: spawnData.elapsedTimeSpawn,
 });
 
 export const updateCurrentAction = actionData => ({
@@ -23,7 +23,7 @@ export const updateCurrentAction = actionData => ({
   index: actionData.index,
   httpVerb: actionData.httpVerb,
   statusCode: actionData.statusCode,
-  elapsedTime: actionData.elapsedTime,
+  elapsedTimeAction: actionData.elapsedTimeAction,
 });
 
 export const updateComputedData = (averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors) => ({
@@ -42,28 +42,26 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       console.log('Got data from sockets', data);
       socket.removeAllListeners('receiveResultsData');
 
-      const spawnData = data.spawn;
-      const actionData = data.action;
-      const scenarioData = data.scenario;
-      const elapsedTime = spawnData.series;
-      const spawnLabel = spawnData.labels;
+      const { spawn, action, scenario } = data;
+      const { elapsedTimeSpawn, spawnLabel } = spawn;
+      const { httpVerb, statusCode } = action;
 
       // TODO DRY - put into one function
-      dispatch(storeRecentScenarioInfo(scenarioData));
-      dispatch(updateLineChartAction(spawnData));
-      dispatch(updateCurrentAction(actionData));
+
+      dispatch(storeRecentScenarioInfo(scenario));
+      dispatch(updateLineChartAction(spawn));
+      dispatch(updateCurrentAction(action));
 
       // Pull from scenario
-      console.log('Scenario Data', data.scenario);
-      const { averageElapsedTime, numberActions, numberErrors } = scenarioData;
+      // console.log('Scenario ', data.scenario);
+      const { averageElapsedTime, numberActions, numberErrors } = scenario;
       const calculated = {
-        averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTime) * 100) / 100),
-        numberActions: numberActions || actionData.httpVerb.length,
+        averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTimeSpawn) * 100) / 100),
+        numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: numberErrors || 0, // TODO with httpVerb arrays
+        numberErrors: numberErrors === 0 ? errorCounter(statusCode) : numberErrors,
       };
-      console.log('data from sockets', data);
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
         calculated.numberActions,
@@ -73,7 +71,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       ));
 
       // REMOVE COUNTER FOR PRODUCTION
-      if (!scenarioData.completion) {
+      if (!scenario.completion) {
         if (data.spawn.labels.length < jobCount) {
           // REMOVE TEST SCENARIO FOR PRODUCTION
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));

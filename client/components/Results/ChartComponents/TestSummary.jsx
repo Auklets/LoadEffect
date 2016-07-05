@@ -1,20 +1,24 @@
 import React, { PropTypes } from 'react';
-import { panelBackgroundColor, centerItems } from '../ResultsCSS.jsx';
-import { Panel, Col } from 'react-bootstrap';
+import { panelBackgroundColor, centerItems, centerItemsTop } from '../ResultsCSS.jsx';
+import { Panel, Col, Row } from 'react-bootstrap';
 
 const TestSummary = (props) => (
   <Panel bsStyle="primary" style={panelBackgroundColor} header={'Test Summary'}>
     <Col xs={6} md={3}>
-      <p style={centerItems}>Test Name: {props.currentScenarioName}</p>
+      <Row style={centerItemsTop}>{props.currentScenarioName}</Row>
+      <Row style={centerItems}>Test Name</Row>
     </Col>
     <Col xs={6} md={3}>
-      <p style={centerItems}>Number of Workers: {props.currentWorkers}</p>
+      <Row style={centerItemsTop}>{props.currentWorkers}</Row>
+      <Row style={centerItems}>Number of Workers</Row>
     </Col>
     <Col xs={6} md={3}>
-      <p style={centerItems}>Fake Users: {props.currentSpawnsCount}</p>
+      <Row style={centerItemsTop}>{props.currentSpawnsCount}</Row>
+      <Row style={centerItems}>Fake Users</Row>
     </Col>
     <Col xs={6} md={3}>
-      <p style={centerItems}>Target URL: {props.currentTargetURL}</p>
+      <Row style={centerItemsTop}>{props.currentTargetURL ? props.currentTargetURL : 'None' }</Row>
+      <Row style={centerItems}>Target URL</Row>
     </Col>
   </Panel>
 );

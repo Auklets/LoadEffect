@@ -1,12 +1,14 @@
 import { UPDATE_LINE_CHART, UPDATE_CURRENT_ACTION, UPDATE_COMPUTED } from '../actionCreators/results-actions';
 
 const initialStateChart = {
-  labels: [1, 2, 3, 4, 5, 6, 7, 8],
-  series: [1, 9, 7, 8, 5, 3, 5, 4],
+  spawnLabel: [1, 2, 3, 4, 5, 6, 7, 8],
+  elapsedTimeSpawn: [1, 9, 7, 8, 5, 3, 5, 4],
   index: [1, 2, 3, 4, 5, 6, 7, 8],
   httpVerb: ['GET', 'POST', 'GET', 'POST', 'GET', 'POST', 'GET', 'POST'],
+  actionTaken: ['blah', 'blah', 'blah', 'blah', 'blah', 'blah', 'blah', 'blah'],
+  path: ['blah', 'blah', 'blah', 'blah', 'blah', 'blah', 'blah', 'blah'],
   statusCode: [200, 300, 400, 200, 200, 200, 400, 200],
-  elapsedTime: [2, 3, 4, 5, 3, 3, 2, 1],
+  elapsedTimeAction: [2, 3, 4, 5, 3, 3, 2, 1],
   averageElapsedTime: 0,
   numberErrors: 0,
   numberActions: 0,
@@ -18,8 +20,8 @@ export const chartReducer = (state = initialStateChart, action) => {
   switch (action.type) {
     case UPDATE_LINE_CHART:
       return Object.assign({}, state, {
-        labels: action.labels,
-        series: action.series,
+        spawnLabel: action.spawnLabel,
+        elapsedTimeSpawn: action.elapsedTimeSpawn,
       });
 
     case UPDATE_CURRENT_ACTION:
@@ -27,7 +29,9 @@ export const chartReducer = (state = initialStateChart, action) => {
         index: action.index,
         httpVerb: action.httpVerb,
         statusCode: action.statusCode,
-        elapsedTime: action.elapsedTime,
+        elapsedTimeAction: action.elapsedTimeAction,
+        actionTaken: action.elapsedTimeAction,
+        path: action.elapsedTimeAction,
       });
 
     case UPDATE_COMPUTED:

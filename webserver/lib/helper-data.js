@@ -8,10 +8,10 @@ const getFromSpawn = (scenarioID) =>
     .fetchAll()
     .then(data => {
       const cleanedData = JSON.parse(JSON.stringify(data));
-      const dataToSend = { labels: [], series: [] };
+      const dataToSend = { spawnLabel: [], elapsedTimeSpawn: [] };
       for (let i = 0; i < cleanedData.length; i++) {
-        dataToSend.labels.push(i);
-        dataToSend.series.push(cleanedData[i].totalTime);
+        dataToSend.spawnLabel.push(i);
+        dataToSend.elapsedTimeSpawn.push(cleanedData[i].totalTime);
       }
       resolve(dataToSend);
     })
@@ -24,12 +24,15 @@ const getFromActions = (scenarioID) =>
     .fetchAll()
     .then(data => {
       const cleanedData = JSON.parse(JSON.stringify(data));
-      const dataToSend = { index: [], httpVerb: [], statusCode: [], elapsedTime: [] };
+      // console.log('action data', cleanedData);
+      const dataToSend = { index: [], actionTaken: [], path: [], statusCode: [], elapsedTimeAction: [], httpVerb: [] };
       for (let i = 0; i < cleanedData.length; i++) {
-        dataToSend.index.push(i);
-        dataToSend.httpVerb.push(cleanedData[i].httpVerb);
+        dataToSend.index.push(i + 1);
+        dataToSend.actionTaken.push(cleanedData[i].actionTaken);
+        dataToSend.path.push(cleanedData[i].path);
         dataToSend.statusCode.push(cleanedData[i].statusCode);
-        dataToSend.elapsedTime.push(cleanedData[i].elapsedTime);
+        dataToSend.httpVerb.push(cleanedData[i].httpVerb);
+        dataToSend.elapsedTimeAction.push(cleanedData[i].elapsedTimeAction);
       }
       resolve(dataToSend);
     })
@@ -42,7 +45,6 @@ const getFromScenario = (scenarioID) =>
     .fetch()
     .then(data => {
       const dataToSend = JSON.parse(JSON.stringify(data));
-      console.log('Scenario Data format', dataToSend);
       resolve(dataToSend);
     })
     .catch(reject);

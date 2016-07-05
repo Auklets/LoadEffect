@@ -1,29 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import ChartistGraph from 'react-chartist';
 import { Grid, Row, Panel, ProgressBar } from 'react-bootstrap';
-import { panelBackgroundColor } from './ResultsCSS.jsx';
+import { panelBackgroundColor, progressBarHeight } from './ResultsCSS.jsx';
 import TestSummary from './ChartComponents/TestSummary.jsx';
 import GeneralStatistics from './ChartComponents/GeneralStatistics.jsx';
 import ActionsTable from './ChartComponents/ActionsTable.jsx';
+import LineGraph from './ChartComponents/Linegraph.jsx';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
-    // Variable for total jobs
     const totalSpawns = props.currentSpawnsCount;
     const currentScenarioID = props.currentScenarioID;
 
     // console.log('This is props', props);
-    // console.log('Current spawns count', props.currentSpawnsCount);
-    // console.log('Current Scenario ID', props.currentScenarioID);
 
-    // PRODUCTION: UNCOMMENT FOR PRODUCTION
     this.props.updateLineChartData(totalSpawns, currentScenarioID);
-    // PRODUCTION: UNCOMMENT FOR PRODUCTION
-    // TODO - Build so that the click would change the currentScenario ID
-    // props.updateLineChartData(props.currentSpawnsCount, props.currentScenarioID, props.calculated);
   }
 
   // REMOVE CLICK HANDLER FOR PRODUCTION
@@ -33,23 +26,16 @@ class Results extends Component {
     // REMOVE FOR PRODUCTION
     const testScenarioID = 15;
     updateLineChartData(currentSpawnsCount, testScenarioID);
-    // updateLineChartData(currentSpawnsCount, currentScenarioID);
   }
 
   render() {
     const { currentSpawnsCount, charts } = this.props;
-    const { labels, series, elapsedTime, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = charts;
-
+    const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors, actionTaken, path } = charts;
     /* ****** Chartist Configurations ****** */
     const simpleLineChartData = {
-      labels,
-      series: [series],
+      labels: charts.spawnLabel,
+      series: [elapsedTimeSpawn],
     };
-    const lineChartOptions = {
-      low: 0,
-      showArea: true,
-    };
-
     return (
       <Grid>
         <Row className="show-grid">
@@ -67,7 +53,7 @@ class Results extends Component {
         </Row>
         <Row className="show-grid">
           <Panel bsStyle="primary" style={panelBackgroundColor} header={'Test Percent Completion'}>
-            <ProgressBar bStyle="success" now={percentComplete} label={`${percentComplete}%`} />
+            <ProgressBar bStyle="success" now={percentComplete} label={`${percentComplete}%`} style={progressBarHeight} />
           </Panel>
         </Row>
         <Row className="show-grid">
@@ -79,18 +65,16 @@ class Results extends Component {
           />
         </Row>
         <Row className="show-grid">
-          <Panel bsStyle="primary" style={panelBackgroundColor}>
-            <div style={{ backgroundColor: 'white' }}>
-              <ChartistGraph data={simpleLineChartData} options={lineChartOptions} type={'Line'} />
-            </div>
-          </Panel>
+          <LineGraph simpleLineChartData={simpleLineChartData} />
         </Row>
         <Row className="show-grid">
           <ActionsTable
             index={index}
             httpVerb={httpVerb}
             statusCode={statusCode}
-            elapsedTime={elapsedTime}
+            elapsedTimeAction={elapsedTimeAction}
+            actionTaken={actionTaken}
+            path={path}
           />
         </Row>
       </Grid>
