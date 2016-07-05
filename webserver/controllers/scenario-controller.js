@@ -48,39 +48,20 @@ const createScenario = (req, res) => {
       console.log('Sent data from scenario controller back to client');
     })
     .catch(err => sendJSON(res, 400, err));
-
-  // if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
-  //   // create Master to execute new scenario
-  //   dockerController.createMaster(
-  //     (masterName) => {
-  //       console.log('masterName', masterName);
-  //       // send data to master
-  //       setTimeout(() => {
-  //         dockerController.getMasterIP(masterName, (masterIP) => {
-  //           console.log('Master IP received:', masterIP);
-  //           const masterUrl = `${masterProtocol}${masterIP}:${masterPort}${masterRoute}`;
-  //           console.log('sending data to', masterUrl);
-  //           data.masterName = masterName;
-  //           request.post({
-  //             url: masterUrl,
-  //             json: true,
-  //             body: data,
-  //           },
-  //           (err, response, body) => {
-  //             if (err) {
-  //               console.log('Error while sending data to master', err);
-  //             } else {
-  //               console.log('Successfully sent data to master');
-  //               console.log('body', body);
-  //             }
-  //           });
-  //         });
-  //       }, 7000);
-  //     });
-  // }
 };
 
 const runScenarioTest = (req, res) => {
+  const data = {
+    scenarioName: req.body.scenarioName,
+    scenarioID: req.body.scenarioID,
+    spawnsCount: req.body.spawnsCount,
+    workers: req.body.workers,
+    targetURL: req.body.targetURL,
+    script: req.body.script,
+    id_user: req.user._id,
+  };
+  sendJSON(res, 201, data);
+
   if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
     // create Master to execute new scenario
     dockerController.createMaster(

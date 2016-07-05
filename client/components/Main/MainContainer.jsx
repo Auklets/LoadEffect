@@ -44,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
 
   runVerifiedScenario(creds) {
     dispatch(runScenario(creds));
+    history.push('/results');
   },
 });
 

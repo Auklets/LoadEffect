@@ -81,10 +81,10 @@ export const runScenario = data => {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
-      body: `scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
+      body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
-
-  return sendRequestThenDispatch('/api/run-scenario', config, resetCheck, showScenarioModal, storeRecentScenarioInfo);
+  console.log(data, 'data dude');
+  return sendRequestThenDispatch('/api/run-scenario', config, storeRecentScenarioInfo);
 };
 
 export const createScenario = data => {

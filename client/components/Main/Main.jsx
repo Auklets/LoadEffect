@@ -18,6 +18,7 @@ const Main = (props) => {
           <th className="text-center">Average Elapsed Time</th>
           <th className="text-center">Target URL</th>
           <th className="text-center">Status</th>
+          <th className="text-center">Run Test Anyway</th>
         </tr>
       </thead>
       <tbody>
@@ -38,8 +39,8 @@ const Main = (props) => {
               <td className="text-center">{item.workers}</td>
               <td className="text-center">{item.averageActionTime}</td>
               <td className="text-center">{item.targetURL}</td>
-              <td className="text-center">{status}
-              </td>
+              <td className="text-center">{status}</td>
+              <td className="text-center"><Button onClick={handleRunTestClick(item)} bsStyle="primary" bsSize="xsmall">Danger Danger</Button></td>
             </tr>
             );
         })}
