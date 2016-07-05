@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Panel, Table } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 
@@ -223,8 +223,15 @@ import { panelBackgroundColor } from '../ResultsCSS.jsx';
 const lineChartOptions = {
   low: 0,
   showArea: true,
+  height: 250,
   chartPadding: {
-    bottom: 30,
+    bottom: 25,
+  },
+  // Build so that there will always only be 5 labels
+  axisX: {
+    labelInterpolationFnc: function(value, index) {
+      return index % 2 === 0 ? value : null;
+    },
   },
   plugins: [
     Chartist.plugins.ctAxisTitle({
@@ -249,14 +256,14 @@ const lineChartOptions = {
       },
     }),
     Chartist.plugins.ctThreshold({
-      threshold: 20,
+      threshold: 4,
     }),
   ],
 };
 
 const LineGraph = (props) => (
   <div>
-    <Panel bsStyle="primary" style={panelBackgroundColor} header={'Spawn Elapsed Time Over Time'}>
+    <Panel bsStyle="primary" style={panelBackgroundColor} header={'Spawn Elapsed Time'}>
       <div style={{ backgroundColor: 'white' }}>
         <ChartistGraph data={props.simpleLineChartData} options={lineChartOptions} type={'Line'} />
       </div>

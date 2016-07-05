@@ -8,6 +8,8 @@ const ActionsTable = (props) => (
         <tr>
           <th>Index</th>
           <th>Type</th>
+          <th>Action Taken</th>
+          <th>Path</th>
           <th>Status Code</th>
           <th>Elapsed Time</th>
         </tr>
@@ -18,6 +20,8 @@ const ActionsTable = (props) => (
             <tr key={i}>
               <td>{item}</td>
               <td>{props.httpVerb[i]}</td>
+              <td>{props.actionTaken[i]}</td>
+              <td>{props.path[i]}</td>
               <td>{props.statusCode[i]}</td>
               <td>{props.elapsedTimeAction[i]}</td>
             </tr>
@@ -31,6 +35,8 @@ const ActionsTable = (props) => (
 ActionsTable.propTypes = {
   index: PropTypes.array.isRequired,
   httpVerb: PropTypes.array.isRequired,
+  actionTaken: PropTypes.array.isRequired,
+  path: PropTypes.array.isRequired,
   statusCode: PropTypes.array.isRequired,
   elapsedTimeAction: PropTypes.array.isRequired,
 };

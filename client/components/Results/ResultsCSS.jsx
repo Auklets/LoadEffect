@@ -13,3 +13,10 @@ export const centerItemsTop = {
   justifyContent: 'center',
   'fontSize': '200%',
 };
+
+export const progressBarHeight = {
+  height: 40,
+  'line-height': 40,
+  fontSize: 15,
+  'margin-bottom': 0,
+};
