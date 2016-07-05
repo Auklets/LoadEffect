@@ -38,11 +38,9 @@ class Results extends Component {
 
   render() {
     const { currentSpawnsCount, charts } = this.props;
-    console.log('Charts', charts);
     const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = charts;
 
     /* ****** Chartist Configurations ****** */
-    console.log('elapsedTime', elapsedTimeSpawn);
     const simpleLineChartData = {
       index,
       series: [elapsedTimeSpawn],

@@ -17,10 +17,11 @@ export const sumArray = (array) => {
 export const percentCompletion = (totalUsers, currentUsers) =>
   currentUsers / totalUsers * 100;
 
-export const errorCounter = (httpVerbsArray) => {
+export const errorCounter = (statusCodeArray) => {
+  console.log(statusCodeArray);
   let count = 0;
-  for (let i = 0; i < httpVerbsArray.length; i++) {
-    if (httpVerbsArray[i] >= 400 && httpVerbsArray[i] < 600) {
+  for (let i = 0; i < statusCodeArray.length; i++) {
+    if (statusCodeArray[i] >= 400 && statusCodeArray[i] < 600) {
       count++;
     }
   }

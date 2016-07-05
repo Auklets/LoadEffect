@@ -37,7 +37,6 @@ export const updateComputedData = (averageElapsedTime, numberActions, currentSpa
 
 export const updateLineChartData = (jobCount, scenarioID) =>
   dispatch => {
-    console.log('scenarioID', scenarioID);
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
@@ -45,7 +44,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
 
       const { spawn, action, scenario } = data;
       const { elapsedTimeSpawn, spawnLabel } = spawn;
-      const { httpVerb } = action;
+      const { httpVerb, statusCode } = action;
 
       // TODO DRY - put into one function
 
@@ -61,9 +60,8 @@ export const updateLineChartData = (jobCount, scenarioID) =>
         numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: numberErrors || errorCounter(httpVerb),
+        numberErrors: numberErrors === 0 ? errorCounter(statusCode) : numberErrors,
       };
-      console.log('data from sockets', data);
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
         calculated.numberActions,

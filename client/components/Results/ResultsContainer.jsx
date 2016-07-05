@@ -9,7 +9,6 @@ export const ResultsContainer = (props) => (
 
 const mapStateToProps = (state) => {
   const { charts, scenario } = state;
-  console.log('charts', charts);
   const { allScenarios, currentScenarioID, currentSpawnsCount, currentTargetURL, currentWorkers, currentScenarioName } = scenario;
 
   return {
