@@ -7,10 +7,10 @@ describe('Redux Scenario Reducers', () => {
   const initialState = {
     allScenarios: [],
     currentScenarioID: 0,
-    currentSpawnsCount: 10,
+    currentSpawnsCount: 0,
     currentWorkers: 0,
-    currentTargetURL: 'LOADING...',
-    currentScenarioName: 'LOADING...',
+    currentTargetURL: '',
+    currentScenarioName: '',
     isValidScript: false,
     attemptedCheck: false,
   };
@@ -75,7 +75,7 @@ describe('Redux Scenario Reducers', () => {
     const newState = scenarioReducer(initialState, scenarioAction.storeRecentScenarioInfo(fakeData));
 
     expect(initialState.currentScenarioID).to.equal(0);
-    expect(initialState.currentSpawnsCount).to.equal(10);
+    expect(initialState.currentSpawnsCount).to.equal(0);
     expect(initialState.currentWorkers).to.equal(0);
     expect(initialState.currentTargetURL).to.equal('LOADING...');
 
