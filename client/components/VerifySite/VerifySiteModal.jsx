@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button, Modal, Well } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 const VerifySiteModal = props => {
   const { isVerifyModalOpen, hideVerifyModal, siteToken } = props;
@@ -8,7 +8,7 @@ const VerifySiteModal = props => {
     <Modal show={isVerifyModalOpen} onHide={hideVerifyModal} closeButton>
       <Modal.Header>
         <Modal.Title className="text-center">
-          <h2>Your Special DDoS Token</h2>
+          Your Special DDoS Token
         </Modal.Title>
       </Modal.Header>
 

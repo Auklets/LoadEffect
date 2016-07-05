@@ -83,8 +83,20 @@ export const runScenario = data => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
-  console.log(data, 'data dude');
+
   return sendRequestThenDispatch('/api/run-scenario', config, storeRecentScenarioInfo);
+};
+
+export const rerunScenario = data => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
+      body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
+  };
+
+  return sendRequestThenDispatch('/api/rerun-scenario', config, storeRecentScenarioInfo);
 };
 
 export const createScenario = data => {
