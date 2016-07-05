@@ -13,6 +13,8 @@ describe('Redux Scenario Reducers', () => {
     currentScenarioName: '',
     isValidScript: false,
     attemptedCheck: false,
+    completion: false,
+    isVerifiedOwner: false,
   };
 
   it('should return an initial state ', () => {

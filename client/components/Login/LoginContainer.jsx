@@ -12,13 +12,11 @@ export const LoginContainer = props => (
 
 const mapStateToProps = state => {
   const { auth, modal } = state;
-  const { isAuthenticated, errorMessage } = auth;
-  const { isLoginOpen, isSignupOpen } = modal;
+  const { errorMessage } = auth;
+  const { isLoginOpen } = modal;
 
   return {
     isLoginOpen,
-    isSignupOpen,
-    isAuthenticated,
     errorMessage,
   };
 };
