@@ -27,4 +27,3 @@ export const errorCounter = (httpVerbsArray) => {
   return count;
 };
 
-console.log(errorCounter([400, 450, 600]));

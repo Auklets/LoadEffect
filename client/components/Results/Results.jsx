@@ -38,12 +38,14 @@ class Results extends Component {
 
   render() {
     const { currentSpawnsCount, charts } = this.props;
-    const { labels, series, elapsedTime, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = charts;
+    console.log('Charts', charts);
+    const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors } = charts;
 
     /* ****** Chartist Configurations ****** */
+    console.log('elapsedTime', elapsedTimeSpawn);
     const simpleLineChartData = {
-      labels,
-      series: [series],
+      index,
+      series: [elapsedTimeSpawn],
     };
     const lineChartOptions = {
       low: 0,
@@ -90,7 +92,7 @@ class Results extends Component {
             index={index}
             httpVerb={httpVerb}
             statusCode={statusCode}
-            elapsedTime={elapsedTime}
+            elapsedTimeAction={elapsedTimeAction}
           />
         </Row>
       </Grid>
