@@ -21,11 +21,6 @@ class Results extends Component {
     const { currentSpawnsCount, currentScenarioName, currentTargetURL, currentWorkers } = scenario;
     const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors, actionTaken, path } = charts;
 
-    const simpleLineChartData = {
-      labels: charts.spawnLabel,
-      series: [elapsedTimeSpawn],
-    };
-
     return (
       <Grid>
         <Row className="show-grid">
@@ -50,7 +45,7 @@ class Results extends Component {
           />
         </Row>
         <Row className="show-grid">
-          <LineGraph simpleLineChartData={simpleLineChartData} />
+          <LineGraph labels={charts.spawnLabel} series={elapsedTimeSpawn} />
         </Row>
         <Row className="show-grid">
           <ActionsTable
