@@ -50,7 +50,9 @@ const Main = props => {
         </tr>
       </thead>
       <tbody>
-        {allScenarios.map((item, i) => (
+        {allScenarios.map((item, i) => {
+          item.completion = 1;
+          return (
           <tr key={item.id}>
             <td className="text-center">{i + 1}</td>
             <td className="text-center">{item.scenarioName}</td>
@@ -61,7 +63,7 @@ const Main = props => {
             <td className="text-center">{showButtonStatus(item)}</td>
             <td className="text-center"><Button onClick={handleRunTest(item)} bsStyle="primary" bsSize="xsmall">Danger Danger</Button></td>
           </tr>
-          )
+          )}
         )}
       </tbody>
     </Table>
