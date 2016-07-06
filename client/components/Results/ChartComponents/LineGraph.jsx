@@ -79,7 +79,6 @@ const LineGraph = (props) => {
 };
 
 LineGraph.propTypes = {
-  simpleLineChartData: PropTypes.object.isRequired,
   labels: PropTypes.array.isRequired,
   series: PropTypes.array.isRequired,
 };
