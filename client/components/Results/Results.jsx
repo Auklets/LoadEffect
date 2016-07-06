@@ -9,22 +9,11 @@ import LineGraph from './ChartComponents/LineGraph.jsx';
 class Results extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
 
     const totalSpawns = props.scenario.currentSpawnsCount;
     const currentScenarioID = props.scenario.currentScenarioID;
 
     this.props.updateLineChartData(totalSpawns, currentScenarioID);
-  }
-
-  // REMOVE CLICK HANDLER FOR PRODUCTION
-  handleClick(e) {
-    e.preventDefault();
-    const { updateLineChartData } = this.props;
-    const { currentSpawnsCount } = this.props.scenario;
-    // REMOVE FOR PRODUCTIONs
-    const testScenarioID = 15;
-    updateLineChartData(currentSpawnsCount, testScenarioID);
   }
 
   render() {
@@ -39,11 +28,6 @@ class Results extends Component {
 
     return (
       <Grid>
-        <Row className="show-grid">
-          <Panel bsStyle="primary" style={panelBackgroundColor}>
-            <button onClick={this.handleClick}>Click to Test Fetching Data!</button>
-          </Panel>
-        </Row>
         <Row className="show-grid">
           <TestSummary
             currentScenarioName={currentScenarioName}
