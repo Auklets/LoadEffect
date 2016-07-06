@@ -4,10 +4,11 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import Plugin from './ChartistPlugin';
 Plugin();
+import createBarChart from './ChartHelper';
 
 import { panelBackgroundColor, GraphsPadding } from '../ResultsCSS.jsx';
 
-const lineChartOptions = {
+const lineChartOptions1 = {
   low: 0,
   showArea: true,
   chartPadding: {
@@ -89,8 +90,6 @@ const DetailedGraphs = (props) => {
   const barChartByAction = createBarChart(actionTaken, elapsedTimeAction);
   const barChartByPath = createBarChart(path, elapsedTimeAction);
 
-};
-
   return (
   <div>
     <Row>
@@ -101,7 +100,7 @@ const DetailedGraphs = (props) => {
       </Col>
       <Col xs={6} md={6}>
         <Panel bsStyle="primary" style={panelBackgroundColor} header={'Average Elapsed Time By Path'}>
-            <ChartistGraph data={simpleLineChartData} style={GraphsPadding} options={lineChartOptions} type={'Bar'} />
+            <ChartistGraph data={barChartByPath} style={GraphsPadding} options={lineChartOptions2} type={'Bar'} />
         </Panel>
       </Col>
     </Row>

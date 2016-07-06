@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { calculateAverage, percentCompletion, errorCounter } from './results-helpers';
+import { calculateAverage, percentCompletion, errorCounter } from '../../lib/results-helpers';
 import { storeRecentScenarioInfo } from './scenario-actions';
 
 export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
