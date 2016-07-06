@@ -30,6 +30,7 @@ class SignupModal extends Component {
         (<p style={{ color: 'red' }}>Password length must be 8 or more characters.</p>) :
         (<p style={{ color: 'red' }}>Passwords do not match.</p>);
     }
+    return null;
   }
 
   resetStateOnType() {
@@ -62,7 +63,7 @@ class SignupModal extends Component {
   }
 
   render() {
-    const { errorMessage, isSignupOpen, hideSignup } = this.props;
+    const { isSignupOpen, hideSignup } = this.props;
 
     return (
       <Modal show={isSignupOpen} onHide={hideSignup} closeButton>
@@ -150,7 +151,6 @@ class SignupModal extends Component {
 SignupModal.propTypes = {
   sendSignup: PropTypes.func,
   hideSignup: PropTypes.func,
-  errorMessage: PropTypes.string,
   isSignupOpen: PropTypes.bool,
 };
 

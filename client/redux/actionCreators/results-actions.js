@@ -12,6 +12,7 @@ const socket = io({
 });
 
 /* ******* Update Line Chart Data Actions ******* */
+
 export const updateLineChartAction = spawnData => ({
   type: UPDATE_LINE_CHART,
   spawnLabel: spawnData.spawnLabel,
@@ -77,7 +78,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {
           // Get all computed data and send over
-          socket.emit('saveComplete', { calculated, scenarioID: scenarioID });
+          socket.emit('saveComplete', { calculated, scenarioID });
         }
       }
     });

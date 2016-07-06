@@ -13,19 +13,16 @@ export const NavigationContainer = (props) => (
 );
 
 const mapStateToProps = (state) => {
-  const { auth, scenario } = state;
-  const { isAuthenticated, errorMessage, siteToken } = auth;
+  const { auth, scenario, isLoginOpen, isSignupOpen, isScenarioOpen } = state;
+  const { isAuthenticated } = auth;
   const { allScenarios } = scenario;
 
   return {
-    isLoginOpen: state.isLoginOpen,
-    isSignupOpen: state.isSignupOpen,
-    isScenarioOpen: state.isScenarioOpen,
+    isLoginOpen,
+    isSignupOpen,
+    isScenarioOpen,
     allScenarios,
     isAuthenticated,
-    errorMessage,
-    siteToken,
-    state,
   };
 };
 
