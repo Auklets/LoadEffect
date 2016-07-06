@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Dispatched actions
-import { openLoginModal, openSignupModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
+import { openVerifyModal } from '../../redux/actionCreators/modal-actions';
 import { logoutUser } from '../../redux/actionCreators/logout-actions';
 
 import Navigation from './Navigation.jsx';
@@ -27,14 +27,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  showLogin() {
-    dispatch(openLoginModal());
-  },
-
-  showSignup() {
-    dispatch(openSignupModal());
-  },
-
   handleClick() {
     dispatch(logoutUser());
   },

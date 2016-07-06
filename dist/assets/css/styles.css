@@ -1,0 +1,134 @@
+.ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
+  stroke: #f05b4f;
+}
+
+.ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+  stroke: #59922b;
+}
+
+.ct-area.ct-threshold-above {
+  fill: #f05b4f;
+}
+
+.ct-area.ct-threshold-below {
+  fill: #59922b;
+}
+
+.splash-jumbo {
+  background: url('../bg.jpg');
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.splash-benefits, .splash-developers, .splash-get-started {
+  margin: 0;
+  border: 0;
+  color: black;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  background: #FFF7FB;
+  opacity: 7;
+}
+
+.splash-developers {
+  background: #CCDBEB;
+}
+
+.fa-line-chart, .fa-users, .fa-file-code-o {
+  font-size: 3.5em;
+  border: solid black;
+  padding: 23px;
+  border-radius: 100%;
+  margin-bottom: 10px;
+}
+
+.get-started {
+  margin: 0;
+  border: 0;
+  display: flex;
+  background: #454344;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+#site-token {
+  background-color: #2E3338;
+  border: 0;
+  font-size: 1.6em;
+}
+
+.scenario-documentation {
+  overflow: hidden;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.scenario-view .well {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 20px;
+  background-color: #00120b;
+  background-image: url("https://www.transparenttextures.com/patterns/type.png");
+}
+
+.splash-developers img {
+  width: 80%;
+  height: auto;
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.splash-get-started img {
+  width: 90%;
+  height: auto;
+  display: flex;
+  padding: 30px;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  padding-top: 40px;
+  padding-bottom: 25px;
+}
+
+.hr-blurb {
+  font-size: 1.2em;
+}
+
+.glyphicon-heart {
+  color: pink;
+}
+
+.splash-developers .fa {
+  margin: 10px;
+  color: black;
+  font-size: 2.8em;
+}
+
+.fa-linkedin-square {
+  color: #1D87BE !important;
+}
+
+.fa-twitter {
+  color: #55ACEE !important;
+}
+
+.splash-developers .fa:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 0.5s ease;
+}

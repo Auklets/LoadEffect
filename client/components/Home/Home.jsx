@@ -1,35 +1,27 @@
 import React, { PropTypes } from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import LoginContainer from '../Login/LoginContainer.jsx';
+import SignupContainer from '../Signup/SignupContainer.jsx';
 
-const Home = (props) => {
-  const { showLogin, showSignup, isAuthenticated } = props;
-  return (
-    <div className="container">
-      <Jumbotron>
-        <h1>LoadEffect</h1>
-        <p>
-        This is going to be our main info Jumbotron. All visitors will hit this page first.
-        We can figure out the exact design later if we want.
-        </p>
-        {!isAuthenticated ? (
-          <p>
-            <Button onClick={showLogin} bsSize="large" bsStyle="info">
-              Login
-            </Button>
-            <Button onClick={showSignup} bsSize="large" bsStyle="primary">
-              Signup
-            </Button>
-          </p>
-        ) : null}
-      </Jumbotron>
-    </div>
-  );
-};
+import Jumbo from './Jumbo.jsx';
+import Benefits from './Benefits.jsx';
+import CarouselPictures from './CarouselPictures.jsx';
+import Developers from './Developers.jsx';
+import GetStarted from './GetStarted.jsx';
+import Footer from './Footer.jsx';
 
-Home.propTypes = {
-  showLogin: PropTypes.func,
-  isAuthenticated: PropTypes.bool,
-  showSignup: PropTypes.func,
-};
+const Home = props => (
+  <div>
+    <LoginContainer />
+    <SignupContainer />
+    <Jumbo />
+    <Benefits />
+    <CarouselPictures />
+    <Developers />
+    <GetStarted {...props} />
+    <Footer />
+  </div>
+);
+
 
 export default Home;
