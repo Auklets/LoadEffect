@@ -25,7 +25,7 @@ command = space first:CallExpression tail:(" " argument)* {
   }
   return {type:'CallExpression', operator:first, params: params}
 }
-argument "argument" = subexpression / variable / primitive 
+argument "argument" = string / subexpression / variable / primitive
 subexpression = "(" space command:command space ")" {
   return command;
 }
@@ -42,13 +42,20 @@ functionargs = first:$[^),]* tail:("," space each:$[^),]* { return each;} )* {
 variable = "$" variable:$ns+ {
   return {type:'variable', name:variable}
 } 
+//$ns+
 CallExpression = $ns+
+
+string = "'" str:$notquote* "'" {
+  return {type:'primitive', value:str}
+}
+
 primitive = primitive:$ns+ {
   return {type:'primitive', value:primitive}
 }
 text = $ns*
 _ "whitespace" = [ \\t\\n\\r]*
 ns "non-special" = [^\\t\\n\\r(){} #]
+notquote "not a single quote" = [^\\t\\n\\r(){}#']
 nl "newline" = [\\n\\r\\t]
 space "space" = [ ]*
 `;
@@ -69,6 +76,7 @@ const globalEnv = {
   get: (path, env) => true,
   fill: (selector, value, env) => true,
   pressButton: (selector, env) => true,
+  randomstring: (length, env) => true,
 };
 
 
