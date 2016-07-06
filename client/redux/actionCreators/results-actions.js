@@ -71,10 +71,8 @@ export const updateLineChartData = (jobCount, scenarioID) =>
         calculated.numberErrors,
       ));
 
-      // REMOVE COUNTER FOR PRODUCTION
       if (!scenario.completion) {
-        if (data.spawn.labels.length < jobCount) {
-          // REMOVE TEST SCENARIO FOR PRODUCTION
+        if (elapsedTimeSpawn.length < jobCount) {
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {
           // Get all computed data and send over
