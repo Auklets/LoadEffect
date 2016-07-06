@@ -22,7 +22,7 @@ class Results extends Component {
     e.preventDefault();
     const { updateLineChartData } = this.props;
     const { currentSpawnsCount } = this.props.scenario;
-    // REMOVE FOR PRODUCTION
+    // REMOVE FOR PRODUCTIONs
     const testScenarioID = 15;
     updateLineChartData(currentSpawnsCount, testScenarioID);
   }
