@@ -17,16 +17,6 @@ class Results extends Component {
     this.props.updateLineChartData(totalSpawns, currentScenarioID);
   }
 
-  // REMOVE CLICK HANDLER FOR PRODUCTION
-  handleClick(e) {
-    e.preventDefault();
-    const { updateLineChartData } = this.props;
-    const { currentSpawnsCount } = this.props.scenario;
-    // REMOVE FOR PRODUCTIONs
-    const testScenarioID = 15;
-    updateLineChartData(currentSpawnsCount, testScenarioID);
-  }
-
   render() {
     const { scenario, charts } = this.props;
     const { currentSpawnsCount, currentScenarioName, currentTargetURL, currentWorkers } = scenario;
@@ -39,11 +29,6 @@ class Results extends Component {
 
     return (
       <Grid>
-        <Row className="show-grid">
-          <Panel bsStyle="primary" style={panelBackgroundColor}>
-            <button onClick={this.handleClick}>Click to Test Fetching Data!</button>
-          </Panel>
-        </Row>
         <Row className="show-grid">
           <TestSummary
             currentScenarioName={currentScenarioName}
