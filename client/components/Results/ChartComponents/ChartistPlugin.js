@@ -301,6 +301,7 @@ const ToExportPlugin = () => {
     return Chartist.plugins.tooltips;
 
   }));
+  
 }
 
 module.exports = ToExportPlugin;

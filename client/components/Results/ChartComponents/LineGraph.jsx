@@ -20,6 +20,9 @@ const lineChartOptions = {
       return index % 2 === 0 ? value : null;
     },
   },
+  axisY: {
+    onlyInteger: true
+  },
   plugins: [
     Chartist.plugins.ctAxisTitle({
       axisX: {
@@ -42,7 +45,7 @@ const lineChartOptions = {
         flipTitle: false,
       },
     }),
-  Chartist.plugins.tooltip()
+    Chartist.plugins.tooltip(),
   ],
 };
 
