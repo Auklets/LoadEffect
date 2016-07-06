@@ -11,6 +11,7 @@ const socket = io({
   query: `token=${token}`,
 });
 
+let maxRecurse = 0;
 /* ******* Update Line Chart Data Actions ******* */
 
 export const updateLineChartAction = spawnData => ({
@@ -72,10 +73,12 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       ));
 
       if (!scenario.completion) {
-        if (elapsedTimeSpawn.length < jobCount) {
+        if (elapsedTimeSpawn.length < jobCount && maxRecurse < 1000) {
+          maxRecurse++;
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {
           // Get all computed data and send over
+          maxRecurse = 0;
           socket.emit('saveComplete', { calculated, scenarioID });
         }
       }
