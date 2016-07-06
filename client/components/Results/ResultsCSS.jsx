@@ -21,3 +21,7 @@ export const progressBarHeight = {
   fontSize: 15,
   'margin-bottom': 0,
 };
+
+export const GraphsPadding = {
+  'margin-bottom': 0,
+};

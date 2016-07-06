@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Panel, Table } from 'react-bootstrap';
 
 const ActionsTable = (props) => (
-  <Panel bsStyle="primary" header={'Actions Summary'}>
+  <Panel collapsible bsStyle="primary" header={'Actions Summary [Click to Expand / Collapse]'}>
     <Table striped bordered condensed hover>
       <thead>
         <tr>
