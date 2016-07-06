@@ -1,3 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+
+body {
+  font-family: Quicksand, sans-serif;
+  background-color: #00120b;
+  background-image: url("https://www.transparenttextures.com/patterns/type.png");
+}
+
 .ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
   stroke: #f05b4f;
 }
@@ -15,13 +23,33 @@
 }
 
 .splash-jumbo {
-  background: url('../bg.jpg');
-  opacity: 0.9;
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+  opacity: 0.75;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+}
+
+.navbar, .navbar-collapse, .nav, nav {
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+}
+
+.splash-jumbo h1 {
+  font-family: Quicksand, sans-serif;
+  font-size: 7em;
+  font-style: italic;
+  font-weight: bolder;
+  color: #DB5045;
+}
+
+.splash-jumbo p {
+  font-family: Quicksand, sans-serif;
+  font-style: italic;
+  color: #DB5045;
 }
 
 .splash-benefits, .splash-developers, .splash-get-started {
@@ -99,7 +127,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: black;
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
   padding-top: 40px;
   padding-bottom: 25px;
 }
