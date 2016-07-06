@@ -9,7 +9,6 @@ import LineGraph from './ChartComponents/LineGraph.jsx';
 class Results extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
 
     const totalSpawns = props.scenario.currentSpawnsCount;
     const currentScenarioID = props.scenario.currentScenarioID;
