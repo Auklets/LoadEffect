@@ -25,6 +25,7 @@ const createScenario = (req, res) => {
   newScenario.save()
     .then(() => {
       data.scenarioID = newScenario.get('id');
+
       data.message = 'New scenario has been saved!';
       sendJSON(res, 201, data);
     })
