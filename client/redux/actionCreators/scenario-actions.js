@@ -31,8 +31,7 @@ export const resetAttempt = () => dispatch => dispatch(resetCheck());
 export const checkValidScript = script => {
   const parseObject = parseTest(script);
   const isValidScript = parseObject.success;
-  const errorDescription = !isValidScript ? `Error found at at line ${parseObject.line}, column ${parseObject.column}.
-  ${parseObject.error}` : '';
+  const errorDescription = !isValidScript ? `${parseObject.message}` : '';
 
   return dispatch => {
     if (isValidScript) {
