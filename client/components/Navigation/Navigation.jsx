@@ -28,7 +28,7 @@ const Navigation = props => {
   );
 
   return (
-    <Navbar fluid inverse>
+    <Navbar fluid>
       <Navbar.Header>
         <Navbar.Brand>
           <Link to="/">LoadEffect</Link>
