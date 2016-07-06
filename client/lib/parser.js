@@ -3,66 +3,117 @@
 import peg from 'pegjs';
 
 const parserArguments = `
-start
-  = nl* first:line rest:(nl+ data:line { return data; })* nl* {
-    rest.unshift(first); return rest;
-  }
+start = line
 
-line = space first:command tail:(" " argument)* {
+line = nl* first:linetype rest:(nl+ data:linetype { return data; })* {
+  rest.unshift(first); return rest;
+}
+
+linetype = ifwhile / function / command / comment 
+
+comment "comment"
+ = "#" text
+
+ifwhile "if/while" = type:("if" / "while") "(" head:command ")" _ "{" _ data:line _ "}" {
+  return {type:type, operator:head, params: data}
+}
+
+command = space first:CallExpression tail:(" " argument)* {
   var params = [];
   for (var i = 0; i < tail.length; i++) {
     params.push(tail[i][1]);
   }
   return {type:'CallExpression', operator:first, params: params}
 }
-//
-argument "argument"
-  = func / JSON / number / string
-command "command"
-= head:[^\\t\\n\\r )]* {
-  return {type:"word", name:head.join("")};
+argument "argument" = subexpression / variable / primitive 
+subexpression = "(" space command:command space ")" {
+  return command;
 }
-func = "(" space space first:command tail:(" " argument)* space ")" {
-  var params = [];
-  for (var i = 0; i < tail.length; i++) {
-    params.push(tail[i][1]);
-  }
-  return {type:'DelayExpression', operator:first, params: params}
 
- }
-string "string" = s:[^\\t\\n\\r() ]+ {
-  return {type:"value", value:s.join("")};
+function "function"
+ = "func " head:text "(" args:functionargs ")" _ "{" _ data:line _ "}"  {
+  return {type:'function', operator:head, args: args, params: data}
 }
-number "number" = num:[0-9]+ {
-return {type: "value", value:parseInt(num.join(""), 10)};
+functionargs = first:$[^),]* tail:("," space each:$[^),]* { return each;} )* {
+  if (first === "") { return [];}
+  tail.unshift(first); return tail;
 }
-comment "comment"
- = "#"+ [^\\n\\r]* { return ''; }
-JSON = head:("{" $[^}]* "}") {
-  return {type:"value", value:head.join("")};
+
+variable = "$" variable:$ns+ {
+  return {type:'variable', name:variable}
+} 
+CallExpression = $ns+
+primitive = primitive:$ns+ {
+  return {type:'primitive', value:primitive}
 }
-space "space"
-  = [ ]*
-_ "whitespace"
-  = [ \\t\\n\\r]*
-nl "newline"
- = [\\n\\r]
+text = $ns*
+_ "whitespace" = [ \\t\\n\\r]*
+ns "non-special" = [^\\t\\n\\r(){} #]
+nl "newline" = [\\n\\r\\t]
+space "space" = [ ]*
 `;
 
-console.log(peg);
+// console.log(peg);
+
+// Function holder until we get this in an npm.  For static analysis
+const globalEnv = {
+  mult: (arg1, arg2, env) => true,
+  add: (arg1, arg2, env) => true,
+  eq: (arg1, arg2, env) => true,
+  lt: (arg1, arg2, env) => true,
+  gt: (arg1, arg2, env) => true,
+  lte: (arg1, arg2, env) => true,
+  gte: (arg1, arg2, env) => true,
+  log: (arg1, env) => true,
+  set: (variableName, primitiveValue, env) => true,
+  get: (path, env) => true,
+  fill: (selector, value, env) => true,
+  pressButton: (selector, env) => true,
+};
+
 
 const parser = peg.buildParser(parserArguments.trim());
 
+const validityCheck = (actionList, gEnv) => {
+  const isValid = (tree, errors, env) => {
+    for (let i = 0; i < tree.length; i++) {
+      const action = tree[i];
+      if (action.type === 'CallExpression') {
+        if (env[action.operator] === undefined || typeof env[action.operator] !== 'function') {
+          errors.push(`${action.operator} is not a function`);
+        }
+      } else if (action.type === 'function') {
+        // dummy action to assist in analysis.
+        env[action.operator] = () => true;
+      }
+      if (action.params) {
+        isValid(action.params, errors, env);
+      }
+    }
+    return errors;
+  };
+  //  create a sub env because we will mutate the env to add functions defined in the tree.
+  const subEnv = Object.create(gEnv);
+  return isValid(actionList, [], subEnv);
+};
+
+//
+// Test the parse of the string.  Returns an object with
+// {success: true || false }
+// If there is a failure, inlcude error, line and column in return object
 export const parseTest = (str) => {
+  let actions = [];
   try {
-    parser.parse(str.trim());
-    return { success: true };
+    actions = parser.parse(str.trim());
   } catch (err) {
-    return {
-      success: false,
-      error: err.message,
-      line: err.location.start.line,
-      column: err.location.start.column,
-    };
+    return { success: false, message: `${err.message} at 
+      line ${err.location.start.line} 
+      and column ${err.location.start.column}` };
   }
+  const errors = validityCheck(actions, globalEnv);
+  if (errors.length > 0) {
+    return { success: false, message: `${errors.toString()}` };
+  }
+
+  return { success: true };
 };
