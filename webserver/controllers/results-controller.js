@@ -12,7 +12,7 @@ const Promise = require('bluebird');
 
 const getResultsDataHandler = (socket) =>
   (req) => {
-    console.log('Received request in results controller get data!', req);
+    // console.log('Received request in results controller get data!', req);
     const scenarioID = req.currentScenarioID;
 
     Promise.all([getFromActions(scenarioID), getFromSpawn(scenarioID), getFromScenario(scenarioID)])
