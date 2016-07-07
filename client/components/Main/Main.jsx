@@ -45,7 +45,7 @@ const Main = props => {
   };
 
   const tableInstance = (
-    <Table responsive striped hover bordered>
+    <Table striped hover bordered className="summary-table">
       <thead>
         <tr>
           <th className="text-center">#</th>
@@ -80,14 +80,7 @@ const Main = props => {
 
   return (
     <div className="container-fluid summary-view">
-      <Jumbotron>
-        <h1>Summary</h1>
-        <p>
-          This is going to be the main page, the protected route that the user should
-          be able to get to after successfully logging in.
-          See below for summary of scenarios that have been ran in the past.
-        </p>
-        <hr />
+      <Jumbotron className="jumbo-table">
         <Well>
           {tableInstance}
         </Well>

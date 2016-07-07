@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Col, Button, Modal, FormControl } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, Col, Button, Modal, FormControl, Row } from 'react-bootstrap';
 
 class SignupModal extends Component {
   constructor(props) {
@@ -72,75 +72,87 @@ class SignupModal extends Component {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleClick}>
-            <Col sm={6}>
-              <FormGroup controlId="formInlineFirstName">
-                <ControlLabel>First Name:</ControlLabel>
-                <input
-                  className="form-control"
-                  ref="first"
-                  type="text"
-                  placeholder="Enter first name"
-                />
-              </FormGroup>
-            </Col>
+            <Row>
+              <Col sm={6}>
+                <FormGroup controlId="formInlineFirstName">
+                  <ControlLabel>First Name:</ControlLabel>
+                  <input
+                    className="form-control"
+                    ref="first"
+                    type="text"
+                    placeholder="Enter first name"
+                  />
+                </FormGroup>
+              </Col>
 
-            <Col sm={6}>
-              <FormGroup controlId="formInlineLastName">
-                <ControlLabel>Last Name:</ControlLabel>
-                <input
-                  className="form-control"
-                  ref="last"
-                  type="text"
-                  placeholder="Enter last name"
-                />
-              </FormGroup>
-            </Col>
+              <Col sm={6}>
+                <FormGroup controlId="formInlineLastName">
+                  <ControlLabel>Last Name:</ControlLabel>
+                  <input
+                    className="form-control"
+                    ref="last"
+                    type="text"
+                    placeholder="Enter last name"
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
 
-            <Col sm={6}>
-              <FormGroup controlId="formInlineLastName" validationState={this.setValidationState()}>
-                <ControlLabel>Create a password:</ControlLabel>
-                <input
-                  onChange={this.resetStateOnType}
-                  className="form-control"
-                  ref="password"
-                  type="password"
-                  placeholder="Enter password"
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
+            <Row>
+              <Col sm={6}>
+                <FormGroup controlId="formInlineLastName" validationState={this.setValidationState()}>
+                  <ControlLabel>Create a password:</ControlLabel>
+                  <input
+                    onChange={this.resetStateOnType}
+                    className="form-control"
+                    ref="password"
+                    type="password"
+                    placeholder="Enter password"
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
+              </Col>
 
-            <Col sm={6}>
-              <FormGroup controlId="formInlineLastName" validationState={this.setValidationState()}>
-                <ControlLabel>Confirm your password:</ControlLabel>
-                <input
-                  onChange={this.resetStateOnType}
-                  className="form-control"
-                  ref="passwordagain"
-                  type="password"
-                  placeholder="Enter password again"
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
+              <Col sm={6}>
+                <FormGroup controlId="formInlineLastName" validationState={this.setValidationState()}>
+                  <ControlLabel>Confirm your password:</ControlLabel>
+                  <input
+                    onChange={this.resetStateOnType}
+                    className="form-control"
+                    ref="passwordagain"
+                    type="password"
+                    placeholder="Enter password again"
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
+              </Col>
+            </Row>
 
-            <Col sm={12}>
-              <FormGroup controlId="formInlineEmail">
-                <ControlLabel>Email:</ControlLabel>
-                <input
-                  className="form-control"
-                  ref="email"
-                  type="email"
-                  placeholder="Enter a valid email address"
-                />
-              </FormGroup>
-            </Col>
-            <Col smOffset={5}>
-              <Button bStyle="primary" type="submit">
-                Sign Up
-              </Button>
-            </Col>
-            {this.setErrorMessage()}
+            <Row>
+              <Col sm={12}>
+                <FormGroup controlId="formInlineEmail">
+                  <ControlLabel>Email:</ControlLabel>
+                  <input
+                    className="form-control"
+                    ref="email"
+                    type="email"
+                    placeholder="Enter a valid email address"
+                  />
+                </FormGroup>
+              </Col>
+              <Col smOffset={5}>
+                <Button bStyle="primary" type="submit">
+                  Sign Up
+                </Button>
+              </Col>
+            </Row>
+            <br />
+            <Row className="text-center">
+              <Col sm={12}>
+                {this.setErrorMessage()}
+              </Col>
+            </Row>
+
           </Form>
         </Modal.Body>
       </Modal>

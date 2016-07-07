@@ -11,7 +11,7 @@ import Footer from './Footer.jsx';
 
 const Home = props => (
   <div>
-    <Jumbo />
+    <Jumbo {...props} />
     <Benefits />
     <CarouselPictures />
     <Developers />
