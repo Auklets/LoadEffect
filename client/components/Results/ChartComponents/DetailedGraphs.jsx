@@ -15,7 +15,7 @@ const lineChartOptions1 = {
     bottom: 25,
   },
   axisY: {
-    onlyInteger: true
+    onlyInteger: true,
   },
   plugins: [
     Chartist.plugins.ctAxisTitle({
@@ -76,15 +76,15 @@ const lineChartOptions2 = {
   ],
 };
 
-var options_responsive = [
-  ["screen and (max-width: 640px)", {
+const optionsResponsive = [
+  ['screen and (max-width: 640px)', {
     showLine: false,
-    showArea: true
-  }]
-]
+    showArea: true,
+  }],
+];
 
 const DetailedGraphs = (props) => {
-  const { actionTaken, path, elapsedTimeAction} = props;
+  const { actionTaken, path, elapsedTimeAction } = props;
 
   // Generate bar chart data
   const barChartByAction = createBarChart(actionTaken, elapsedTimeAction);
@@ -95,7 +95,7 @@ const DetailedGraphs = (props) => {
     <Row>
       <Col xs={6} md={6}>
         <Panel bsStyle="primary" style={panelBackgroundColor} header={'Average Elapsed Time By Action'}>
-            <ChartistGraph data={barChartByAction} style={GraphsPadding} options={lineChartOptions1}  type={'Bar'} responsive-options={options_responsive} />
+            <ChartistGraph data={barChartByAction} style={GraphsPadding} options={lineChartOptions1} type={'Bar'} responsive-options={optionsResponsive} />
         </Panel>
       </Col>
       <Col xs={6} md={6}>

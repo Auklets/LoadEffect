@@ -26,6 +26,8 @@ export const updateCurrentAction = actionData => ({
   httpVerb: actionData.httpVerb,
   statusCode: actionData.statusCode,
   elapsedTimeAction: actionData.elapsedTimeAction,
+  actionTaken: actionData.actionTaken,
+  path: actionData.path,
 });
 
 export const updateComputedData = (averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors) => ({
@@ -40,6 +42,7 @@ export const updateComputedData = (averageElapsedTime, numberActions, currentSpa
 export const updateLineChartData = (jobCount, scenarioID) =>
   dispatch => {
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
+    console.log('Making an emit to web server');
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
       socket.removeAllListeners('receiveResultsData');
@@ -48,21 +51,17 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       const { elapsedTimeSpawn, spawnLabel } = spawn;
       const { httpVerb, statusCode } = action;
 
-      // TODO DRY - put into one function
-
       dispatch(storeRecentScenarioInfo(scenario));
       dispatch(updateLineChartAction(spawn));
       dispatch(updateCurrentAction(action));
 
-      // Pull from scenario
-      // console.log('Scenario ', data.scenario);
-      const { averageElapsedTime, numberActions, numberErrors } = scenario;
+      const { averageElapsedTime, numberActions } = scenario;
       const calculated = {
         averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTimeSpawn) * 100) / 100),
         numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: numberErrors === 0 ? errorCounter(statusCode) : numberErrors,
+        numberErrors: errorCounter(statusCode),
       };
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
@@ -73,7 +72,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       ));
 
       if (!scenario.completion) {
-        if (elapsedTimeSpawn.length < jobCount && maxRecurse < 1000) {
+        if (elapsedTimeSpawn.length < jobCount && maxRecurse < 500) {
           maxRecurse++;
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {
