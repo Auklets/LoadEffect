@@ -240,3 +240,7 @@ body {
   font-weight: bolder;
   color: #DB5045;
 }
+.commandtext {
+  white-space: nowrap;
+  padding-right: 5px;
+}
