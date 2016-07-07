@@ -1,3 +1,5 @@
+const request = require('request');
+
 const sendJSON = (res, status, content) => {
   res.status(status);
   res.json(content);
@@ -45,4 +47,20 @@ const checkContainer = (dockerConnection, containerName, callback) => {
   });
 };
 
-module.exports = { sendJSON, createContainer, checkContainer };
+const sendDataToMaster = data => {
+  const masterUrl = `http://${process.env.MASTER_HOST}:${process.env.MASTER_PORT}/api/master`;
+  request.post({
+    url: masterUrl,
+    json: true,
+    body: data,
+  },
+  (err, response, body) => {
+    if (err) {
+      console.log('Error while sending data to master ==>', err);
+    } else {
+      console.log('Successfully sent data to master! Response body ==>', body);
+    }
+  });
+};
+
+module.exports = { sendJSON, createContainer, checkContainer, sendDataToMaster };
