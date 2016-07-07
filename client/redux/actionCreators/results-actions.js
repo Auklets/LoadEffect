@@ -10,7 +10,6 @@ const socket = io({
 });
 
 let maxRecurse = 0;
-let emitCount = 0;
 /* ******* Update Line Chart Data Actions ******* */
 
 export const updateAllChart = (spawnData, actionData, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors) => ({
@@ -32,13 +31,8 @@ export const updateAllChart = (spawnData, actionData, averageElapsedTime, number
 
 export const updateLineChartData = (jobCount, scenarioID) =>
   dispatch => {
-    if (emitCount > 10) {
-      return;
-    }
-
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
-    emitCount++;
-    console.log('Making an emit to web server', emitCount);
+    console.log('Making an emit to web server');
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
       socket.removeAllListeners('receiveResultsData');
@@ -56,7 +50,6 @@ export const updateLineChartData = (jobCount, scenarioID) =>
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
         numberErrors: errorCounter(statusCode),
       };
-      console.log('receive statusCode from socket', statusCode);
       dispatch(updateAllChart(
         spawn,
         action,
@@ -70,7 +63,6 @@ export const updateLineChartData = (jobCount, scenarioID) =>
 
       if (!scenario.completion) {
         if (elapsedTimeSpawn.length < jobCount && maxRecurse < 3) {
-          console.log('maxRecurse', maxRecurse);
           maxRecurse++;
           dispatch(updateLineChartData(jobCount, scenarioID, calculated));
         } else {
