@@ -12,10 +12,7 @@ const Results = props => {
   const { currentSpawnsCount, currentScenarioID, currentScenarioName, currentTargetURL, currentWorkers, completion } = scenario;
   const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors, actionTaken, path } = charts;
   const totalSpawns = currentSpawnsCount;
-  console.log('scenario', scenario);
   const loaderToggle = completion || elapsedTimeAction.length;
-  console.log('loadToggle', loaderToggle);
-  // console.log('loadToggle', loaderToggle);
   updateLineChartData(totalSpawns, currentScenarioID);
 
   // const testScenarioID = 15;
