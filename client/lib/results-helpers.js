@@ -15,7 +15,7 @@ export const sumArray = (array) => {
 };
 
 export const percentCompletion = (totalUsers, currentUsers) =>
-  Math.round(currentUsers / totalUsers * 100) / 10;
+  Math.round(currentUsers / totalUsers * 1000) / 10;
 
 export const errorCounter = (statusCodeArray) => {
   let count = 0;
@@ -26,4 +26,3 @@ export const errorCounter = (statusCodeArray) => {
   }
   return count;
 };
-

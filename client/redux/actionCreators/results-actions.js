@@ -40,6 +40,7 @@ export const updateComputedData = (averageElapsedTime, numberActions, currentSpa
 export const updateLineChartData = (jobCount, scenarioID) =>
   dispatch => {
     socket.emit('getResultsData', { currentScenarioID: scenarioID });
+    console.log('Making an emit to web server');
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
       socket.removeAllListeners('receiveResultsData');
@@ -62,7 +63,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
         numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
         percentComplete: percentCompletion(jobCount, spawnLabel.length),
-        numberErrors: numberErrors === 0 ? errorCounter(statusCode) : numberErrors,
+        numberErrors: errorCounter(statusCode),
       };
       dispatch(updateComputedData(
         calculated.averageElapsedTime,
