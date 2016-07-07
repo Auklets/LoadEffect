@@ -68,7 +68,7 @@ class SignupModal extends Component {
     return (
       <Modal show={isSignupOpen} onHide={hideSignup} closeButton>
         <Modal.Header>
-          <Modal.Title>Signup for a new Account</Modal.Title>
+          <Modal.Title className="text-center">Signup for a new Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleClick}>

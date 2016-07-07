@@ -6,6 +6,8 @@ body {
   background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
 }
 
+/****** CHARTS / GRAPHS STYLING ******/
+
 .ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
   stroke: #f05b4f;
 }
@@ -22,6 +24,13 @@ body {
   fill: #59922b;
 }
 
+.navbar, .nav, .navbar-header, nav {
+  color: white;
+  opacity: .73
+}
+
+/****** HOME/SPLASH PAGE STYLING ******/
+
 .splash-jumbo {
   background-color: #1a0a00;
   background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
@@ -33,11 +42,6 @@ body {
   border: 0;
   margin: 0;
   padding: 0;
-}
-
-.navbar, .nav, .navbar-header, nav {
-  color: white;
-  opacity: .73
 }
 
 .splash-jumbo h1 {
@@ -84,28 +88,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 50px;
-}
-
-#site-token {
-  background-color: #2E3338;
-  border: 0;
-  font-size: 1.4em;
-}
-
-.scenario-documentation {
-  overflow: hidden;
-  height: 90vh;
-  overflow-y: scroll;
-}
-
-.scenario-view .well {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 7px;
-  padding-bottom: 20px;
-  background-color: #00120b;
-  background-image: url("https://www.transparenttextures.com/patterns/type.png");
 }
 
 .splash-developers img {
@@ -163,6 +145,48 @@ body {
   transform: scale(1.1);
   transition: 0.5s ease;
 }
+
+
+/****** All MODAL STYLING ******/
+
+#site-token {
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+  border: 0;
+  font-size: 1.4em;
+}
+
+.scenario-documentation {
+  overflow: hidden;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+}
+
+.modal-header {
+  background-color: black;
+  color: #DB5045;
+  opacity: .90;
+}
+
+
+/****** All CREATE SCENARIO STYLING ******/
+
+.scenario-view .well {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 20px;
+  background-color: #00120b;
+  background-image: url("https://www.transparenttextures.com/patterns/type.png");
+}
+
+/****** MAIN SUMMARY STYLING ******/
 
 .summary-view {
   opacity: .75

@@ -9,7 +9,7 @@ import { closeScenarioModal } from '../../redux/actionCreators/modal-actions';
 import ScenarioModal from './ScenarioModal.jsx';
 
 export const ScenarioModalContainer = (props) => (
-  <ScenarioModal {...props} />
+  <ScenarioModal className="scenario-modal" {...props} />
 );
 
 const mapStateToProps = (state) => {

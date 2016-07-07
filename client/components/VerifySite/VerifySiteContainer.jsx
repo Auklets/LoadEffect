@@ -5,9 +5,7 @@ import { closeVerifyModal } from '../../redux/actionCreators/modal-actions';
 import VerifySiteModal from './VerifySiteModal.jsx';
 
 export const VerifySiteContainer = props => (
-  <div>
-    <VerifySiteModal {...props} />
-  </div>
+  <VerifySiteModal className="verify-modal" {...props} />
 );
 
 const mapStateToProps = state => {
