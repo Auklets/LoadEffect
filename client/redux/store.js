@@ -23,7 +23,7 @@ const reducers = combineReducers({
 });
 
 const createStoreWithMiddleWare = applyMiddleware(thunkMiddleware, api)(createStore);
-const store = createStoreWithMiddleWare(reducers);
+const store = createStoreWithMiddleWare(reducers, window.devToolsExtension ? window.devToolsExtension() : f => f);
 
 export const history = syncHistoryWithStore(browserHistory, store);
 export default store;

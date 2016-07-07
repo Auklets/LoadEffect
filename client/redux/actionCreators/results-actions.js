@@ -1,10 +1,9 @@
 import io from 'socket.io-client';
 import { calculateAverage, percentCompletion, errorCounter } from '../../lib/results-helpers';
 import { storeRecentScenarioInfo } from './scenario-actions';
+import _ from 'underscore';
 
-export const UPDATE_LINE_CHART = 'UPDATE_LINE_CHART';
-export const UPDATE_CURRENT_ACTION = 'UPDATE_CURRENT_ACTION';
-export const UPDATE_COMPUTED = 'UPDATE_COMPUTED';
+export const UPDATE_ALL_CHART = 'UPDATE_ALL_CHART';
 
 const token = localStorage.getItem('id_token');
 const socket = io({
@@ -12,31 +11,24 @@ const socket = io({
 });
 
 let maxRecurse = 0;
+let setScenario = false;
 /* ******* Update Line Chart Data Actions ******* */
 
-export const updateLineChartAction = spawnData => ({
-  type: UPDATE_LINE_CHART,
-  spawnLabel: spawnData.spawnLabel,
-  elapsedTimeSpawn: spawnData.elapsedTimeSpawn,
-});
-
-export const updateCurrentAction = actionData => ({
-  type: UPDATE_CURRENT_ACTION,
+export const updateAllChart = (spawnData, actionData, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors) => ({
+  type: UPDATE_ALL_CHART,
+  averageElapsedTime,
+  numberErrors,
+  numberActions,
+  currentSpawns,
+  percentComplete,
   index: actionData.index,
   httpVerb: actionData.httpVerb,
   statusCode: actionData.statusCode,
   elapsedTimeAction: actionData.elapsedTimeAction,
   actionTaken: actionData.actionTaken,
   path: actionData.path,
-});
-
-export const updateComputedData = (averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors) => ({
-  type: UPDATE_COMPUTED,
-  averageElapsedTime,
-  numberErrors,
-  numberActions,
-  currentSpawns,
-  percentComplete,
+  spawnLabel: spawnData.spawnLabel,
+  elapsedTimeSpawn: spawnData.elapsedTimeSpawn,
 });
 
 export const updateLineChartData = (jobCount, scenarioID) =>
@@ -51,33 +43,49 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       const { elapsedTimeSpawn, spawnLabel } = spawn;
       const { httpVerb, statusCode } = action;
 
-      dispatch(storeRecentScenarioInfo(scenario));
-      dispatch(updateLineChartAction(spawn));
-      dispatch(updateCurrentAction(action));
 
-      const { averageElapsedTime, numberActions } = scenario;
+      const { averageElapsedTime, numberActions, completion } = scenario;
       const calculated = {
         averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTimeSpawn) * 100) / 100),
         numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
-        percentComplete: percentCompletion(jobCount, spawnLabel.length),
+        percentComplete: completion ? 100 : percentCompletion(jobCount, spawnLabel.length),
         numberErrors: errorCounter(statusCode),
       };
-      dispatch(updateComputedData(
-        calculated.averageElapsedTime,
-        calculated.numberActions,
-        calculated.currentSpawns,
-        calculated.percentComplete,
-        calculated.numberErrors,
-      ));
 
-      if (!scenario.completion) {
+      // Maybe this doesn't work...? It doesnt lol
+      if (!setScenario) {
+        maxRecurse = 0;
+        setScenario = true;
+        dispatch(storeRecentScenarioInfo(scenario));
+        dispatch(updateAllChart(
+          spawn,
+          action,
+          calculated.averageElapsedTime,
+          calculated.numberActions,
+          calculated.currentSpawns,
+          calculated.percentComplete,
+          calculated.numberErrors
+        ));
+      }
+
+      if (!completion) {
         if (elapsedTimeSpawn.length < jobCount && maxRecurse < 500) {
           maxRecurse++;
-          dispatch(updateLineChartData(jobCount, scenarioID, calculated));
+          dispatch(updateAllChart(
+            spawn,
+            action,
+            calculated.averageElapsedTime,
+            calculated.numberActions,
+            calculated.currentSpawns,
+            calculated.percentComplete,
+            calculated.numberErrors
+          ));
+          dispatch(updateLineChartData(jobCount, scenarioID));
         } else {
           // Get all computed data and send over
           maxRecurse = 0;
+          // Saving data to database
           socket.emit('saveComplete', { calculated, scenarioID });
         }
       }
