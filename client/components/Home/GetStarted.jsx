@@ -5,7 +5,7 @@ const GetStarted = (props) => {
   const { showLogin, showSignup, isAuthenticated } = props;
 
   return (
-    <div className="container-fluid splash-get-started">
+    <div id="get-started-id" className="container-fluid splash-get-started">
       <Grid className="text-center" fluid>
         <Row className="show-grid">
           <Col sm={12}>
@@ -17,18 +17,18 @@ const GetStarted = (props) => {
           <Col sm={6}>
             <Row>
               <Col sm={6}>
-                <Image src="/assets/hr.png" />
+                <Image src="/assets/images/hr.png" />
               </Col>
               <Col sm={6}>
-                <Image src="/assets/ms.png" />
+                <Image src="/assets/images/ms.png" />
               </Col>
             </Row>
             <Row>
               <Col sm={6}>
-                <Image src="/assets/tg.png" />
+                <Image src="/assets/images/tg.png" />
               </Col>
               <Col sm={6}>
-                <Image src="/assets/mm.png" />
+                <Image src="/assets/images/mm.png" />
               </Col>
             </Row>
           </Col>

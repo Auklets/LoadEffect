@@ -3,28 +3,28 @@ import { Col, Grid, Row, Image } from 'react-bootstrap';
 
 const developers = [
   {
-    image: '/assets/B.gif',
+    image: '/assets/images/B.gif',
     name: 'Bill "The Wardlord" Ramsey',
     github: 'billramsey',
     linkedIn: 'bill-ramsey-9554536a',
     twitter: 'bill-ramsey-hr',
   },
   {
-    image: '/assets/F.gif',
+    image: '/assets/images/F.gif',
     name: 'Felix "Bitcoin Master" Feng',
     github: 'felix2feng',
     linkedIn: 'felix-feng-86558627',
     twitter: 'felix2feng',
   },
   {
-    image: '/assets/C.gif',
+    image: '/assets/images/C.gif',
     name: 'Chris "Chrizzzer" Haug',
     github: 'cshg',
     linkedIn: 'christianshaug',
     twitter: 'christianshaug',
   },
   {
-    image: '/assets/A.gif',
+    image: '/assets/images/A.gif',
     name: 'Tai "The Machine" Huynh',
     github: 'anhtaiH',
     linkedIn: 'taihuynh',
@@ -33,7 +33,7 @@ const developers = [
 ];
 
 const Developers = () => (
-  <div className="container-fluid splash-developers">
+  <div id="developers-id" className="container-fluid splash-developers">
     <Grid className="text-center" fluid>
       <Row className="show-grid">
         <Col sm={12}>
