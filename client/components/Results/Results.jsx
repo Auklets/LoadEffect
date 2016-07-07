@@ -12,9 +12,11 @@ class Results extends Component {
     super(props);
 
     const totalSpawns = props.scenario.currentSpawnsCount;
-    const currentScenarioID = props.scenario.currentScenarioID;
+    // const currentScenarioID = props.scenario.currentScenarioID;
+    // this.props.updateLineChartData(totalSpawns, currentScenarioID);
 
-    this.props.updateLineChartData(totalSpawns, currentScenarioID);
+    const testScenarioID = 15;
+    this.props.updateLineChartData(totalSpawns, testScenarioID);
   }
 
   render() {

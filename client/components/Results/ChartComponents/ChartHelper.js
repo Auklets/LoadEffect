@@ -16,7 +16,6 @@ const createBarChartData = (xAxisData, yAxisData) => {
     }
     categorized[xDataPoint].push(yDataPoint);
   }
-
   // Calculate average of each property and push into results
   for (const key in categorized) {
     if (!categorized.hasOwnProperty(key)) {

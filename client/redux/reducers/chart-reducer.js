@@ -30,8 +30,8 @@ export const chartReducer = (state = initialStateChart, action) => {
         httpVerb: action.httpVerb,
         statusCode: action.statusCode,
         elapsedTimeAction: action.elapsedTimeAction,
-        actionTaken: action.elapsedTimeAction,
-        path: action.elapsedTimeAction,
+        actionTaken: action.actionTaken,
+        path: action.path,
       });
 
     case UPDATE_COMPUTED:
