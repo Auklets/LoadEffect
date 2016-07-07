@@ -32,6 +32,7 @@ const createScenario = (req, res) => {
 
 const runScenarioTest = (req, res) => {
   const data = {
+    masterName: 'm1',
     scenarioName: req.body.scenarioName,
     scenarioID: req.body.scenarioID,
     spawnsCount: req.body.spawnsCount,
@@ -65,6 +66,7 @@ const deleteScenario = (req, res) => {
 
 const rerunScenarioTest = (req, res) => {
   const data = {
+    masterName: 'm1',
     scenarioName: req.body.scenarioName,
     spawnsCount: +req.body.spawnsCount,
     workers: +req.body.workers,
