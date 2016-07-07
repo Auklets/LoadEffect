@@ -8,18 +8,16 @@ import LineGraph from './ChartComponents/LineGraph.jsx';
 import DetailedGraphs from './ChartComponents/DetailedGraphs.jsx';
 
 const Results = props => {
-  console.log('this is the props from results', props);
   const { scenario, charts, updateLineChartData } = props;
   const { currentSpawnsCount, currentScenarioID, currentScenarioName, currentTargetURL, currentWorkers } = scenario;
   const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors, actionTaken, path } = charts;
   const totalSpawns = currentSpawnsCount;
-  console.log('statusCode in Results', statusCode);
-  // const loaderToggle = elapsedTimeAction.length;
-  // updateLineChartData(totalSpawns, currentScenarioID);
+  const loaderToggle = elapsedTimeAction.length;
+  updateLineChartData(totalSpawns, currentScenarioID);
 
-  const testScenarioID = 15;
-  updateLineChartData(totalSpawns, testScenarioID);
-  const loaderToggle = true; // USE FOR TESTING
+  // const testScenarioID = 15;
+  // updateLineChartData(totalSpawns, testScenarioID);
+  // const loaderToggle = true; // USE FOR TESTING
 
   return (
     <div className="container">
