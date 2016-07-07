@@ -9,10 +9,10 @@ import DetailedGraphs from './ChartComponents/DetailedGraphs.jsx';
 
 const Results = props => {
   const { scenario, charts, updateLineChartData } = props;
-  const { currentSpawnsCount, currentScenarioID, currentScenarioName, currentTargetURL, currentWorkers } = scenario;
+  const { currentSpawnsCount, currentScenarioID, currentScenarioName, currentTargetURL, currentWorkers, completion } = scenario;
   const { elapsedTimeSpawn, elapsedTimeAction, httpVerb, index, statusCode, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors, actionTaken, path } = charts;
   const totalSpawns = currentSpawnsCount;
-  const loaderToggle = elapsedTimeAction.length;
+  const loaderToggle = completion || elapsedTimeAction.length;
   updateLineChartData(totalSpawns, currentScenarioID);
 
   // const testScenarioID = 15;

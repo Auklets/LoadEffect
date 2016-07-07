@@ -21,7 +21,7 @@ const lineChartOptions = {
     },
   },
   axisY: {
-    onlyInteger: true
+    onlyInteger: true,
   },
   plugins: [
     Chartist.plugins.ctAxisTitle({
@@ -52,30 +52,29 @@ const lineChartOptions = {
 const LineGraph = (props) => {
   const toolTipSeries = (labels, series) => {
     const result = [];
-    for (var i = 0; i < labels.length; i++) {
+    for (let i = 0; i < labels.length; i++) {
       const item = {};
       item.meta = `User Count ${labels[i]}:`;
       item.value = series[i];
       result.push(item);
     }
     return result;
-  }
+  };
 
   const simpleLineChartData = {
     labels: props.labels,
     series: [toolTipSeries(props.labels, props.series)],
   };
-  console.log(simpleLineChartData);
 
   return (
-  <div>
-    <Panel bsStyle="primary" style={panelBackgroundColor} header={'Spawn Elapsed Time'}>
-      <div style={{ backgroundColor: 'white' }}>
-        <ChartistGraph data={simpleLineChartData} options={lineChartOptions} type={'Line'} />
-      </div>
-    </Panel>
-  </div>
-  )
+    <div>
+      <Panel bsStyle="primary" style={panelBackgroundColor} header={'Spawn Elapsed Time'}>
+        <div style={{ backgroundColor: 'white' }}>
+          <ChartistGraph data={simpleLineChartData} options={lineChartOptions} type={'Line'} />
+        </div>
+      </Panel>
+    </div>
+  );
 };
 
 LineGraph.propTypes = {
