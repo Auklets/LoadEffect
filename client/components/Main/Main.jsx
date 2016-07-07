@@ -60,7 +60,6 @@ const Main = props => {
       </thead>
       <tbody>
         {allScenarios.map((item, i) => {
-          item.completion = 1;
           return (
           <tr key={item.id}>
             <td className="text-center">{i + 1}</td>
