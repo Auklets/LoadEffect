@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Form, FormGroup, ControlLabel, Col, Button, Well, Grid } from 'react-bootstrap';
+import ApiReference from '../ApiReference/ApiReference.jsx';
+
 
 class NewScenario extends Component {
   constructor(props) {
@@ -143,55 +145,7 @@ class NewScenario extends Component {
         </Col>
 
         <Col sm={6}>
-          <Grid fluid className="scenario-documentation">
-            <Col sm={12}>
-              <Well bsSize="small" className="text-center">
-                <h1>API Reference</h1>
-              </Well>
-            </Col>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-            <p> lol</p>
-          </Grid>
+          <ApiReference />
         </Col>
       </div>
     );
