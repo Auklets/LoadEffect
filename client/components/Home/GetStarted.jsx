@@ -43,7 +43,7 @@ const GetStarted = (props) => {
                   </Button>
                   {' '}
                   <Button onClick={showSignup} bsSize="large" bsStyle="primary">
-                    Signup
+                    Sign Up
                   </Button>
                 </p>
               ) : null}
@@ -54,7 +54,7 @@ const GetStarted = (props) => {
       </Grid>
     </div>
   );
-}
+};
 
 GetStarted.propTypes = {
   showLogin: PropTypes.func,

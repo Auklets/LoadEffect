@@ -31,7 +31,7 @@ const Navigation = props => {
     <Navbar fluid>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">LoadEffect</Link>
+          <Link to="/"><span className="nav-brand-text">Load Effect</span></Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>

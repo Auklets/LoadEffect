@@ -5,6 +5,7 @@ import { history } from '../../redux/store';
 
 // Dispatched actions
 import { closeScenarioModal } from '../../redux/actionCreators/modal-actions';
+import { getScenarios } from '../../redux/actionCreators/scenario-actions';
 
 import ScenarioModal from './ScenarioModal.jsx';
 
@@ -25,9 +26,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   hideScenarioSuccessModal() {
     dispatch(closeScenarioModal());
+    dispatch(getScenarios());
   },
 
   routeToMain() {

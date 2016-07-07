@@ -137,7 +137,7 @@ class SignupModal extends Component {
             </Col>
             <Col smOffset={5}>
               <Button bStyle="primary" type="submit">
-                SignUp
+                Sign Up
               </Button>
             </Col>
             {this.setErrorMessage()}

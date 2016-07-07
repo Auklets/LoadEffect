@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Main from './Main.jsx';
 import { history } from '../../redux/store';
-import { runScenario, changeCurrentScenarioId, checkForValidUrl, rerunScenario } from '../../redux/actionCreators/scenario-actions';
+import { deleteScenario, getScenarios, runScenario, changeCurrentScenarioId, checkForValidUrl, rerunScenario } from '../../redux/actionCreators/scenario-actions';
 
 export const MainContainer = (props) => (
   <div>
@@ -11,7 +11,7 @@ export const MainContainer = (props) => (
 );
 
 const mapStateToProps = state => {
-  const { scenario, auth } = state;
+  const { scenario } = state;
   const { allScenarios } = scenario;
 
   return {
@@ -38,6 +38,12 @@ const mapDispatchToProps = dispatch => ({
   rerunScenarioTest(creds) {
     dispatch(rerunScenario(creds));
   },
+
+  removeScenario(id) {
+    dispatch(deleteScenario(id));
+    dispatch(getScenarios());
+  },
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

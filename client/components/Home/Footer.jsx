@@ -13,7 +13,8 @@ const Footer = () => (
           <li><a target="_blank" href="http://bit.ly/29lcage">API Documentation</a></li>
         </ul>
         <Col sm={12}>
-          <p className="hr-blurb">Made with <span className="glyphicon glyphicon-heart" aria-hidden="true" /> at <a target="_blank" href="http://www.hackreactor.com">Hack Reactor</a> in San Francisco, CA
+          <p className="hr-blurb">
+            Made with <span className="glyphicon glyphicon-heart" aria-hidden="true" /> at <a target="_blank" href="http://www.hackreactor.com">Hack Reactor</a> in San Francisco, CA.
           </p>
         </Col>
       </Row>
