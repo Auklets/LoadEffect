@@ -21,7 +21,7 @@ class LoginModal extends Component {
     return (
       <Modal show={isLoginOpen} onHide={hideLogin} closeButton>
         <Modal.Header>
-          <Modal.Title>Login To Your Account</Modal.Title>
+          <Modal.Title className="text-center">Login To Your Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleClick}>

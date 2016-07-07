@@ -1,3 +1,52 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+
+body {
+  font-family: Quicksand, sans-serif;
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+}
+
+/****** CHARTS / GRAPHS STYLING ******/
+
+.chartist-tooltip {
+  position: absolute;
+  display: inline-block;
+  opacity: 0;
+  min-width: 5em;
+  padding: .5em;
+  background: #F4C63D;
+  color: #453D3F;
+  font-family: Oxygen,Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+  -webkit-transition: opacity .2s linear;
+  -moz-transition: opacity .2s linear;
+  -o-transition: opacity .2s linear;
+  transition: opacity .2s linear;
+}
+
+.chartist-tooltip:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top-color: #F4C63D;
+}
+
+.chartist-tooltip.tooltip-show {
+  opacity: 1;
+}
+
+.ct-label {
+  font-size: 1.3rem;
+}
+
 .ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
   stroke: #f05b4f;
 }
@@ -14,14 +63,38 @@
   fill: #59922b;
 }
 
+.navbar, .nav, .navbar-header, nav {
+  color: white;
+  opacity: .73
+}
+
+/****** HOME/SPLASH PAGE STYLING ******/
+
 .splash-jumbo {
-  background: url('../bg.jpg');
-  opacity: 0.9;
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+  opacity: 0.75;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  border: 0;
   margin: 0;
+  padding: 0;
+}
+
+.splash-jumbo h1 {
+  font-family: Quicksand, sans-serif;
+  font-size: 7em;
+  font-style: italic;
+  font-weight: bolder;
+  color: #DB5045;
+}
+
+.splash-jumbo p {
+  font-family: Quicksand, sans-serif;
+  font-style: italic;
+  color: #DB5045;
 }
 
 .splash-benefits, .splash-developers, .splash-get-started {
@@ -56,28 +129,6 @@
   padding: 50px;
 }
 
-#site-token {
-  background-color: #2E3338;
-  border: 0;
-  font-size: 1.6em;
-}
-
-.scenario-documentation {
-  overflow: hidden;
-  height: 90vh;
-  overflow-y: scroll;
-}
-
-.scenario-view .well {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 7px;
-  padding-bottom: 20px;
-  background-color: #00120b;
-  background-image: url("https://www.transparenttextures.com/patterns/type.png");
-}
-
 .splash-developers img {
   width: 80%;
   height: auto;
@@ -99,7 +150,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: black;
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
   padding-top: 40px;
   padding-bottom: 25px;
 }
@@ -131,4 +183,60 @@
   -ms-transform: scale(1.1);
   transform: scale(1.1);
   transition: 0.5s ease;
+}
+
+
+/****** All MODAL STYLING ******/
+
+#site-token {
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+  border: 0;
+  font-size: 1.4em;
+}
+
+.scenario-documentation {
+  overflow: hidden;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+}
+
+.modal-header {
+  color: #DB5045;
+  text-decoration: underline;
+  text
+}
+
+
+/****** All CREATE SCENARIO STYLING ******/
+
+.scenario-view .well {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 20px;
+  background-color: #00120b;
+  background-image: url("https://www.transparenttextures.com/patterns/type.png");
+}
+
+/****** MAIN SUMMARY STYLING ******/
+
+.summary-view {
+  opacity: .75
+}
+
+/****** NAVIGATION BAR STYLING ******/
+
+.nav-brand-text {
+  font-family: Quicksand, sans-serif;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: bolder;
+  color: #DB5045;
 }

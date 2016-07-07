@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react';
 import { Button, Table, Jumbotron, Well, DropdownButton, MenuItem } from 'react-bootstrap';
 
 const Main = props => {
-  const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest } = props;
+  const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest, removeScenario } = props;
   const handleViewResults = item => () => showResultsPage(item.id);
   const handleValidation = (url, id) => () => validateUrl(url, id);
   const handleRunTest = creds => () => runVerifiedScenario(creds);
   const handleRerunTest = creds => () => rerunScenarioTest(creds);
+  const handleDeleteTest = id => () => removeScenario(id);
 
   const showButtonStatus = item => {
     if (item.isVerifiedOwner) {
@@ -24,14 +25,22 @@ const Main = props => {
           <MenuItem onClick={handleRerunTest(item)} eventKey="2">
             Run Test Again
           </MenuItem>
+          <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
+            Delete Test
+          </MenuItem>
         </DropdownButton>
       );
     }
 
     return (
-      <Button onClick={handleValidation(item.targetURL, item.id)} bsSize="xsmall" bsStyle="danger">
-        Validate Site
-      </Button>
+      <DropdownButton bsSize="xsmall" bsStyle="danger" title="Unverified">
+        <MenuItem onClick={handleValidation(item.targetURL, item.id)} eventKey="1">
+          Validate Site
+        </MenuItem>
+        <MenuItem onClick={handleDeleteTest(item.id)} eventKey="1">
+          Delete Test
+        </MenuItem>
+      </DropdownButton>
    );
   };
 
@@ -70,7 +79,7 @@ const Main = props => {
   );
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid summary-view">
       <Jumbotron>
         <h1>Summary</h1>
         <p>

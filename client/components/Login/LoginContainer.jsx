@@ -7,7 +7,7 @@ import { closeLoginModal } from '../../redux/actionCreators/modal-actions';
 import LoginModal from './LoginModal.jsx';
 
 export const LoginContainer = props => (
-  <LoginModal {...props} />
+  <LoginModal className="login-modal" {...props} />
 );
 
 const mapStateToProps = state => {

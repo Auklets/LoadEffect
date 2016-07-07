@@ -79,6 +79,17 @@ export const getScenarios = () => {
   return sendRequestThenDispatch('/api/scenarios', config, allScenarios, receiveLogin);
 };
 
+export const deleteScenario = id => {
+  const config = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
+      body: `scenarioID=${id}`,
+  };
+  return sendRequestThenDispatch('/api/scenarios', config, allScenarios);
+};
+
 export const runScenario = data => {
   const config = {
     method: 'POST',

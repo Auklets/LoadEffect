@@ -57,6 +57,14 @@ const getScenarios = (req, res) => {
     });
 };
 
+const deleteScenario = (req, res) => {
+  Scenario.where({ id: req.body.scenarioID })
+    .destroy()
+    .then(() => {
+      sendJSON(res, 201, { message: 'Scenario deleted' });
+    });
+};
+
 const rerunScenarioTest = (req, res) => {
   const data = {
     scenarioName: req.body.scenarioName,
@@ -85,4 +93,4 @@ const rerunScenarioTest = (req, res) => {
   createMaster(data);
 };
 
-module.exports = { getScenarios, createScenario, runScenarioTest, rerunScenarioTest };
+module.exports = { getScenarios, createScenario, runScenarioTest, rerunScenarioTest, deleteScenario };
