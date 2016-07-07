@@ -1,4 +1,4 @@
-import { UPDATE_LINE_CHART, UPDATE_CURRENT_ACTION, UPDATE_COMPUTED } from '../actionCreators/results-actions';
+import { UPDATE_ALL_CHART } from '../actionCreators/results-actions';
 
 const initialStateChart = {
   spawnLabel: [1, 2, 3, 4, 5, 6, 7, 8],
@@ -18,29 +18,21 @@ const initialStateChart = {
 
 export const chartReducer = (state = initialStateChart, action) => {
   switch (action.type) {
-    case UPDATE_LINE_CHART:
-      return Object.assign({}, state, {
-        spawnLabel: action.spawnLabel,
-        elapsedTimeSpawn: action.elapsedTimeSpawn,
-      });
-
-    case UPDATE_CURRENT_ACTION:
-      return Object.assign({}, state, {
-        index: action.index,
-        httpVerb: action.httpVerb,
-        statusCode: action.statusCode,
-        elapsedTimeAction: action.elapsedTimeAction,
-        actionTaken: action.actionTaken,
-        path: action.path,
-      });
-
-    case UPDATE_COMPUTED:
+    case UPDATE_ALL_CHART:
       return Object.assign({}, state, {
         averageElapsedTime: action.averageElapsedTime,
         numberErrors: action.numberErrors,
         numberActions: action.numberActions,
         currentSpawns: action.currentSpawns,
         percentComplete: action.percentComplete,
+        index: action.index,
+        httpVerb: action.httpVerb,
+        statusCode: action.statusCode,
+        elapsedTimeAction: action.elapsedTimeAction,
+        actionTaken: action.actionTaken,
+        path: action.path,
+        spawnLabel: action.spawnLabel,
+        elapsedTimeSpawn: action.elapsedTimeSpawn,
       });
 
     default:
