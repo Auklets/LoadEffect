@@ -18,7 +18,7 @@ const VerifySiteModal = props => {
         <form>
           <FormGroup>
             <InputGroup>
-              <FormControl id="site-token" type="text" value={siteToken} className="lead text-center" style={{ color: 'green' }} />
+              <FormControl id="site-token" type="text" value={siteToken} className="lead text-center" style={{ color: 'green', 'font-style': 'italic' }} />
               <InputGroup.Button id="copy-button" data-clipboard-target="#site-token">
                 <Button><i className="fa fa-files-o" aria-hidden="true" /></Button>
               </InputGroup.Button>

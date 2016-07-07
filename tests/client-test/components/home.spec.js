@@ -9,8 +9,12 @@ describe('Home Components', () => {
   describe('<Home />', () => {
     it('should render Home Component', () => {
       const wrapper = shallow(<Home />);
-      expect(wrapper.find('Jumbotron')).to.have.length(1);
-      expect(wrapper.find('h1').text()).to.equal('LoadEffect');
+      expect(wrapper.find('Jumbo')).to.have.length(1);
+      expect(wrapper.find('Benefits')).to.have.length(1);
+      expect(wrapper.find('CarouselPictures')).to.have.length(1);
+      expect(wrapper.find('Developers')).to.have.length(1);
+      expect(wrapper.find('GetStarted')).to.have.length(1);
+      expect(wrapper.find('Footer')).to.have.length(1);
     });
   });
 

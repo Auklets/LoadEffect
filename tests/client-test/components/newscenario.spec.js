@@ -9,7 +9,6 @@ describe('New Scenario Components', () => {
   describe('<NewScenario />', () => {
     it('should render New Scenario Component', () => {
       const wrapper = shallow(<NewScenario />);
-      expect(wrapper.find('Well')).to.have.length(1);
       expect(wrapper.find('FormGroup')).to.have.length(5);
     });
   });

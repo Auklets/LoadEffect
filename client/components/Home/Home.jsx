@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
+import React from 'react';
 import LoginContainer from '../Login/LoginContainer.jsx';
 import SignupContainer from '../Signup/SignupContainer.jsx';
 
@@ -12,16 +11,16 @@ import Footer from './Footer.jsx';
 
 const Home = props => (
   <div>
-    <LoginContainer />
-    <SignupContainer />
     <Jumbo />
     <Benefits />
     <CarouselPictures />
     <Developers />
     <GetStarted {...props} />
     <Footer />
+
+    <LoginContainer />
+    <SignupContainer />
   </div>
 );
-
 
 export default Home;

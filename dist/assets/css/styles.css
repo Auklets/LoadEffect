@@ -2,8 +2,8 @@
 
 body {
   font-family: Quicksand, sans-serif;
-  background-color: #00120b;
-  background-image: url("https://www.transparenttextures.com/patterns/type.png");
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
 }
 
 .ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
@@ -30,12 +30,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  border: 0;
   margin: 0;
+  padding: 0;
 }
 
-.navbar, .navbar-collapse, .nav, nav {
-  background-color: #1a0a00;
-  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+.navbar, .nav, .navbar-header, nav {
+  color: white;
+  opacity: .73
 }
 
 .splash-jumbo h1 {
@@ -87,7 +89,7 @@ body {
 #site-token {
   background-color: #2E3338;
   border: 0;
-  font-size: 1.6em;
+  font-size: 1.4em;
 }
 
 .scenario-documentation {
@@ -160,4 +162,8 @@ body {
   -ms-transform: scale(1.1);
   transform: scale(1.1);
   transition: 0.5s ease;
+}
+
+.summary-view {
+  opacity: .75
 }
