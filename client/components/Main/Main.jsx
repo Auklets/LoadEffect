@@ -16,6 +16,9 @@ const Main = props => {
           <MenuItem onClick={handleRunTest(item)} eventKey="1">
             Run Test
           </MenuItem>
+          <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
+            Delete Test
+          </MenuItem>
         </DropdownButton>
       ) : (
         <DropdownButton bsSize="xsmall" bsStyle="success" title="Verified">
