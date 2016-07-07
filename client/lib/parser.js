@@ -14,7 +14,7 @@ linetype = ifwhile / function / command / comment
 comment "comment"
  = "#" text
 
-ifwhile "if/while" = type:("if" / "while") "(" head:command ")" _ "{" _ data:line _ "}" {
+ifwhile "if/while" = space type:("if" / "while") [ ]? "(" head:command ")" _ "{" _ data:line _ "}" {
   return {type:type, operator:head, params: data}
 }
 
