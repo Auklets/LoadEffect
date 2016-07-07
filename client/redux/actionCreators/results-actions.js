@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import { calculateAverage, percentCompletion, errorCounter } from '../../lib/results-helpers';
 import { storeRecentScenarioInfo } from './scenario-actions';
+import _ from 'underscore';
 
 export const UPDATE_ALL_CHART = 'UPDATE_ALL_CHART';
 
@@ -10,6 +11,7 @@ const socket = io({
 });
 
 let maxRecurse = 0;
+let setScenario = false;
 /* ******* Update Line Chart Data Actions ******* */
 
 export const updateAllChart = (spawnData, actionData, averageElapsedTime, numberActions, currentSpawns, percentComplete, numberErrors) => ({
@@ -42,32 +44,49 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       const { httpVerb, statusCode } = action;
 
 
-      const { averageElapsedTime, numberActions } = scenario;
+      const { averageElapsedTime, numberActions, completion } = scenario;
       const calculated = {
         averageElapsedTime: averageElapsedTime || (Math.round(calculateAverage(elapsedTimeSpawn) * 100) / 100),
         numberActions: numberActions || httpVerb.length,
         currentSpawns: spawnLabel.length,
-        percentComplete: percentCompletion(jobCount, spawnLabel.length),
+        percentComplete: completion ? 100 : percentCompletion(jobCount, spawnLabel.length),
         numberErrors: errorCounter(statusCode),
       };
-      dispatch(updateAllChart(
-        spawn,
-        action,
-        calculated.averageElapsedTime,
-        calculated.numberActions,
-        calculated.currentSpawns,
-        calculated.percentComplete,
-        calculated.numberErrors
-      ));
-      dispatch(storeRecentScenarioInfo(scenario));
 
-      if (!scenario.completion) {
+      // Maybe this doesn't work...? It doesnt lol
+      if (!setScenario) {
+        maxRecurse = 0;
+        setScenario = true;
+        dispatch(storeRecentScenarioInfo(scenario));
+        dispatch(updateAllChart(
+          spawn,
+          action,
+          calculated.averageElapsedTime,
+          calculated.numberActions,
+          calculated.currentSpawns,
+          calculated.percentComplete,
+          calculated.numberErrors
+        ));
+      }
+
+      if (!completion) {
         if (elapsedTimeSpawn.length < jobCount && maxRecurse < 500) {
+          console.log('current Max Recurse', maxRecurse);
           maxRecurse++;
-          dispatch(updateLineChartData(jobCount, scenarioID, calculated));
+          dispatch(updateAllChart(
+            spawn,
+            action,
+            calculated.averageElapsedTime,
+            calculated.numberActions,
+            calculated.currentSpawns,
+            calculated.percentComplete,
+            calculated.numberErrors
+          ));
+          dispatch(updateLineChartData(jobCount, scenarioID));
         } else {
           // Get all computed data and send over
           maxRecurse = 0;
+          // Saving data to database
           socket.emit('saveComplete', { calculated, scenarioID });
         }
       }
