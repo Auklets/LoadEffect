@@ -63,84 +63,87 @@ class NewScenario extends Component {
                 <h1>Create a Scenario</h1>
               </Well>
             </Col>
-            <Form onSubmit={isValidScript ? this.handleClick : this.checkScript}>
-              <Col sm={6}>
-                <FormGroup controlId="formInlineTestName">
-                  <ControlLabel>Scenario Name:</ControlLabel>
-                  <input
-                    className="form-control"
-                    ref="scenarioName"
-                    type="text"
-                    placeholder="Enter a scenario name"
-                    required
-                  />
-                </FormGroup>
-              </Col>
 
-              <Col sm={6}>
-                <FormGroup controlId="formInlineWorkers">
-                  <ControlLabel>Number of Workers:</ControlLabel>
-                  <input
-                    className="form-control"
-                    ref="workers"
-                    type="number"
-                    placeholder="Enter number of workers"
-                    required
-                  />
-                </FormGroup>
-              </Col>
+            <Col sm={12}>
+              <Form onSubmit={isValidScript ? this.handleClick : this.checkScript}>
+                <Col sm={6}>
+                  <FormGroup controlId="formInlineTestName">
+                    <ControlLabel>Scenario Name:</ControlLabel>
+                    <input
+                      className="form-control"
+                      ref="scenarioName"
+                      type="text"
+                      placeholder="Enter a scenario name"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
 
-              <Col sm={6}>
-                <FormGroup controlId="formInlineSpawnsCount">
-                  <ControlLabel>Number of Users to Simulate:</ControlLabel>
-                  <input
-                    className="form-control"
-                    ref="spawnsCount"
-                    type="number"
-                    min="0"
-                    placeholder="Enter number of users to simulate"
-                    required
-                  />
-                </FormGroup>
-              </Col>
+                <Col sm={6}>
+                  <FormGroup controlId="formInlineWorkers">
+                    <ControlLabel>Number of Workers:</ControlLabel>
+                    <input
+                      className="form-control"
+                      ref="workers"
+                      type="number"
+                      placeholder="Enter number of workers"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
 
-              <Col sm={6}>
-                <FormGroup controlId="formInlineTargetURL">
-                  <ControlLabel>Target URL:</ControlLabel>
-                  <input
-                    className="form-control"
-                    ref="targetURL"
-                    type="url"
-                    placeholder="Enter target url e.g. http://yourwebsite.com"
-                    required
-                  />
-                </FormGroup>
-              </Col>
+                <Col sm={6}>
+                  <FormGroup controlId="formInlineSpawnsCount">
+                    <ControlLabel>Number of Users to Simulate:</ControlLabel>
+                    <input
+                      className="form-control"
+                      ref="spawnsCount"
+                      type="number"
+                      min="0"
+                      placeholder="Enter number of users to simulate"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
 
-              <Col sm={12}>
-                <FormGroup controlId="formInlineScript">
-                  <ControlLabel>Script:</ControlLabel>
-                  <textarea
-                    className="form-control"
-                    onChange={resetValidation}
-                    ref="script"
-                    type="text"
-                    rows="10"
-                    placeholder="Enter your script"
-                    required
-                  />
-                </FormGroup>
-              </Col>
-              <Col className="text-center lead" sm={12}>
-                <Button bsSize="large" bStyle="primary" type="submit">
-                  {isValidScript ? 'Submit' : 'Validate Script'}
-                </Button>
-                <ScriptValidationMessage />
-              </Col>
-              {errorMessage &&
-                <p style={{ color: 'red' }}>{errorMessage}</p>
-              }
-            </Form>
+                <Col sm={6}>
+                  <FormGroup controlId="formInlineTargetURL">
+                    <ControlLabel>Target URL:</ControlLabel>
+                    <input
+                      className="form-control"
+                      ref="targetURL"
+                      type="url"
+                      placeholder="Enter target url e.g. http://yourwebsite.com"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
+
+                <Col sm={12}>
+                  <FormGroup controlId="formInlineScript">
+                    <ControlLabel>Script:</ControlLabel>
+                    <textarea
+                      className="form-control"
+                      onChange={resetValidation}
+                      ref="script"
+                      type="text"
+                      rows="10"
+                      placeholder="Enter your script"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
+                <Col className="text-center lead" sm={12}>
+                  <Button bsSize="large" bStyle="primary" type="submit">
+                    {isValidScript ? 'Submit' : 'Validate Script'}
+                  </Button>
+                  <ScriptValidationMessage />
+                </Col>
+                {errorMessage &&
+                  <p style={{ color: 'red' }}>{errorMessage}</p>
+                }
+              </Form>
+            </Col>
           </Grid>
         </Col>
 

@@ -2,7 +2,7 @@
 
 body {
   font-family: Quicksand, sans-serif;
-  background-color: rgba(0, 20, 30, 0.9);
+  /*background-color: rgba(0, 20, 30, 0.9);*/
 }
 
 /****** CHARTS / GRAPHS STYLING ******/
@@ -225,8 +225,6 @@ body {
   align-items: center;
   padding-top: 7px;
   padding-bottom: 20px;
-  background-color: #00120b;
-  background-image: url("https://www.transparenttextures.com/patterns/type.png");
 }
 
 /****** MAIN SUMMARY STYLING ******/
@@ -242,7 +240,7 @@ body {
   font-size: 1.3em;
   font-style: italic;
   font-weight: bolder;
-  color: white;
+  /*color: white;*/
 }
 
 nav {
@@ -250,8 +248,8 @@ nav {
 }
 
 .navbar, .nav, .navbar-header, nav {
-  color: white;
-  opacity: .73
+  /*color: white;*/
+  /*opacity: .73*/
 }
 .commandtext {
   white-space: nowrap;
