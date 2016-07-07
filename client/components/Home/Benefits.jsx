@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
 
 const Benefits = () => (
-  <div className="container-fluid splash-benefits">
+  <div id="services-id" className="container-fluid splash-benefits">
     <Grid className="text-center" fluid>
       <Row className="show-grid">
         <Col sm={12}>
