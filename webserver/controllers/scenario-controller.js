@@ -31,7 +31,6 @@ const createScenario = (req, res) => {
 };
 
 const runScenarioTest = (req, res) => {
-  console.log('run scenario called on server to send data to master');
   const data = {
     masterName: 'm1',
     scenarioName: req.body.scenarioName,
