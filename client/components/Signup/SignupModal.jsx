@@ -140,13 +140,20 @@ class SignupModal extends Component {
                   />
                 </FormGroup>
               </Col>
-              <Col smOffset={5}>
-                <Button bStyle="primary" type="submit">
+            </Row>
+
+            <br />
+
+            <Row className="text-center">
+              <Col sm={12}>
+                <Button bsStyle="primary" type="submit">
                   Sign Up
                 </Button>
               </Col>
             </Row>
+
             <br />
+
             <Row className="text-center">
               <Col sm={12}>
                 {this.setErrorMessage()}

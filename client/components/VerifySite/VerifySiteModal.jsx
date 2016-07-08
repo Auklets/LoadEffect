@@ -20,7 +20,7 @@ const VerifySiteModal = props => {
             <InputGroup>
               <FormControl id="site-token" type="text" value={siteToken} className="lead text-center" style={{ color: 'green', 'font-style': 'italic' }} />
               <InputGroup.Button id="copy-button" data-clipboard-target="#site-token">
-                <Button><i className="fa fa-files-o" aria-hidden="true" /></Button>
+                <Button bsStyle="primary"><i className="fa fa-files-o" aria-hidden="true" /></Button>
               </InputGroup.Button>
             </InputGroup>
           </FormGroup>
@@ -33,7 +33,7 @@ const VerifySiteModal = props => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={hideVerifyModal} bsStyle="default">Close</Button>
+        <Button onClick={hideVerifyModal} bsStyle="primary">Close</Button>
       </Modal.Footer>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button, Table, Jumbotron, Well, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Table, Well, DropdownButton, MenuItem, PageHeader } from 'react-bootstrap';
 
 const Main = props => {
   const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest, removeScenario } = props;
@@ -10,15 +10,19 @@ const Main = props => {
   const handleDeleteTest = id => () => removeScenario(id);
 
   const showButtonStatus = item => {
+    const deleteTestButton = (
+      <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
+        Delete Test
+      </MenuItem>
+    );
+
     if (item.isVerifiedOwner) {
       return !item.completion ? (
         <DropdownButton bsSize="xsmall" bsStyle="success" title="Verified">
           <MenuItem onClick={handleRunTest(item)} eventKey="1">
             Run Test
           </MenuItem>
-          <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
-            Delete Test
-          </MenuItem>
+          {deleteTestButton}
         </DropdownButton>
       ) : (
         <DropdownButton bsSize="xsmall" bsStyle="success" title="Verified">
@@ -28,9 +32,7 @@ const Main = props => {
           <MenuItem onClick={handleRerunTest(item)} eventKey="2">
             Run Test Again
           </MenuItem>
-          <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
-            Delete Test
-          </MenuItem>
+          {deleteTestButton}
         </DropdownButton>
       );
     }
@@ -38,11 +40,9 @@ const Main = props => {
     return (
       <DropdownButton bsSize="xsmall" bsStyle="danger" title="Unverified">
         <MenuItem onClick={handleValidation(item.targetURL, item.id)} eventKey="1">
-          Validate Site
+          Validate Your Site
         </MenuItem>
-        <MenuItem onClick={handleDeleteTest(item.id)} eventKey="1">
-          Delete Test
-        </MenuItem>
+        {deleteTestButton}
       </DropdownButton>
    );
   };
@@ -58,7 +58,6 @@ const Main = props => {
           <th className="text-center">Average Elapsed Time</th>
           <th className="text-center">Target URL</th>
           <th className="text-center">Status</th>
-          <th className="text-center">Run Test Anyway</th>
         </tr>
       </thead>
       <tbody>
@@ -72,7 +71,6 @@ const Main = props => {
             <td className="text-center">{item.averageActionTime}</td>
             <td className="text-center">{item.targetURL}</td>
             <td className="text-center">{showButtonStatus(item)}</td>
-            <td className="text-center"><Button onClick={handleRunTest(item)} bsStyle="primary" bsSize="xsmall">Danger Danger</Button></td>
           </tr>
           )}
         )}
@@ -82,11 +80,10 @@ const Main = props => {
 
   return (
     <div className="container-fluid summary-view">
-      <Jumbotron className="jumbo-table">
-        <Well>
-          {tableInstance}
-        </Well>
-      </Jumbotron>
+      <PageHeader>Scenario Summary</PageHeader>
+      <Well>
+        {tableInstance}
+      </Well>
     </div>
   );
 };

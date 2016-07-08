@@ -70,7 +70,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       }
 
       if (!completion) {
-        if (elapsedTimeSpawn.length < jobCount && maxRecurse < 500) {
+        if (elapsedTimeSpawn.length <= jobCount && maxRecurse < 500) {
           maxRecurse++;
           dispatch(updateAllChart(
             spawn,
