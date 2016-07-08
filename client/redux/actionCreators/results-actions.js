@@ -81,7 +81,6 @@ export const updateLineChartData = (jobCount, scenarioID) =>
             calculated.percentComplete,
             calculated.numberErrors
           ));
-          dispatch(updateLineChartData(jobCount, scenarioID));
         } else {
           // Get all computed data and send over
           maxRecurse = 0;
