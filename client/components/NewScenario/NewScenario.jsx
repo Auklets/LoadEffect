@@ -134,7 +134,7 @@ class NewScenario extends Component {
                   </FormGroup>
                 </Col>
                 <Col className="text-center lead" sm={12}>
-                  <Button bsSize="large" bStyle="primary" type="submit">
+                  <Button bsSize="large" bsStyle="primary" type="submit">
                     {isValidScript ? 'Submit' : 'Validate Script'}
                   </Button>
                   <ScriptValidationMessage />

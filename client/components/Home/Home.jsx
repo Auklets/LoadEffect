@@ -4,7 +4,7 @@ import SignupContainer from '../Signup/SignupContainer.jsx';
 
 import Jumbo from './Jumbo.jsx';
 import Benefits from './Benefits.jsx';
-import CarouselPictures from './CarouselPictures.jsx';
+import { Demo1, Demo2 } from './Demo.jsx';
 import Developers from './Developers.jsx';
 import GetStarted from './GetStarted.jsx';
 import Footer from './Footer.jsx';
@@ -12,8 +12,9 @@ import Footer from './Footer.jsx';
 const Home = props => (
   <div>
     <Jumbo {...props} />
+    <Demo2 />
     <Benefits />
-    <CarouselPictures />
+    <Demo1 />
     <Developers />
     <GetStarted {...props} />
     <Footer />

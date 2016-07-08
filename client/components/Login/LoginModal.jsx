@@ -30,7 +30,6 @@ class LoginModal extends Component {
               <Col sm={12}>
                 <FormGroup controlId="formInlineEmail">
                   <ControlLabel>Email:</ControlLabel>
-                  {' '}
                   <input
                     className="form-control"
                     ref="email"
@@ -45,7 +44,6 @@ class LoginModal extends Component {
               <Col sm={12}>
                 <FormGroup controlId="formInlineEmail">
                   <ControlLabel>Password:</ControlLabel>
-                  {' '}
                   <input
                     className="form-control"
                     ref="password"
@@ -56,14 +54,18 @@ class LoginModal extends Component {
               </Col>
             </Row>
 
+            <br />
+
             <Row className="text-center">
               <Col sm={12}>
-                <Button className="login-button" bStyle="primary" type="submit">
+                <Button className="login-button" bsStyle="primary" type="submit">
                   Login
                 </Button>
               </Col>
             </Row>
+
             <br />
+
             <Row className="text-center">
               <Col sm={12}>
                 {errorMessage &&
