@@ -24,7 +24,6 @@ const getFromActions = (scenarioID) =>
     .fetchAll()
     .then(data => {
       const cleanedData = JSON.parse(JSON.stringify(data));
-      // console.log('action data', cleanedData);
       const dataToSend = { index: [], actionTaken: [], path: [], statusCode: [], elapsedTimeAction: [], httpVerb: [] };
       for (let i = 0; i < cleanedData.length; i++) {
         dataToSend.index.push(i + 1);

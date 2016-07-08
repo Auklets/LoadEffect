@@ -53,7 +53,6 @@ export const updateLineChartData = (jobCount, scenarioID) =>
         numberErrors: errorCounter(statusCode),
       };
 
-      // Maybe this doesn't work...? It doesnt lol
       if (!setScenario) {
         maxRecurse = 0;
         setScenario = true;
@@ -70,7 +69,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       }
 
       if (!completion) {
-        if (elapsedTimeSpawn.length < jobCount && maxRecurse < 500) {
+        if (elapsedTimeSpawn.length <= jobCount && maxRecurse < 50) {
           maxRecurse++;
           dispatch(updateAllChart(
             spawn,
@@ -85,6 +84,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
           // Get all computed data and send over
           maxRecurse = 0;
           // Saving data to database
+          console.log('data to SaveComplete', { calculated, scenarioID });
           socket.emit('saveComplete', { calculated, scenarioID });
         }
       }

@@ -1,60 +1,35 @@
 import React, { PropTypes } from 'react';
-import { Col, Grid, Row, Image, Button } from 'react-bootstrap';
+import { Col, Grid, Row, Image } from 'react-bootstrap';
 
-const GetStarted = (props) => {
-  const { showLogin, showSignup, isAuthenticated } = props;
-
-  return (
-    <div id="get-started-id" className="container-fluid splash-get-started">
-      <Grid className="text-center" fluid>
-        <Row className="show-grid">
-          <Col sm={12}>
-            <h2>Innovative companies are using our service</h2>
+const GetStarted = () => (
+  <div id="get-started-id" className="container-fluid splash-get-started">
+    <Grid className="text-center" fluid>
+      <Row className="show-grid">
+        <Col sm={12}>
+          <h2>Innovative companies using Load Effect</h2>
+        </Col>
+      </Row>
+      <br />
+      <Row className="row-companies">
+        <Col sm={12}>
+          <Col sm={3}>
+            <Image src="/assets/images/hr.png" />
           </Col>
-        </Row>
-        <br />
-        <Row>
-          <Col sm={6}>
-            <Row>
-              <Col sm={6}>
-                <Image src="/assets/images/hr.png" />
-              </Col>
-              <Col sm={6}>
-                <Image src="/assets/images/ms.png" />
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={6}>
-                <Image src="/assets/images/tg.png" />
-              </Col>
-              <Col sm={6}>
-                <Image src="/assets/images/mm.png" />
-              </Col>
-            </Row>
+          <Col sm={3}>
+            <Image src="/assets/images/ms.png" />
           </Col>
-
-          <Col sm={6}>
-            <h3>Get Started</h3>
-            <div>
-              {!isAuthenticated ? (
-                <p>
-                  <Button onClick={showLogin} bsSize="large" bsStyle="info">
-                    Login
-                  </Button>
-                  {' '}
-                  <Button onClick={showSignup} bsSize="large" bsStyle="primary">
-                    Sign Up
-                  </Button>
-                </p>
-              ) : null}
-            </div>
+          <Col sm={3}>
+            <Image src="/assets/images/tg.png" />
           </Col>
+          <Col sm={3}>
+            <Image className="mm-img" src="/assets/images/mm.png" />
+          </Col>
+        </Col>
+      </Row>
+    </Grid>
+  </div>
+);
 
-        </Row>
-      </Grid>
-    </div>
-  );
-};
 
 GetStarted.propTypes = {
   showLogin: PropTypes.func,

@@ -5,12 +5,12 @@ const ScenarioModal = props => {
   const { isScenarioModalOpen, hideScenarioSuccessModal, routeToMain, siteToken, isVerifiedOwner } = props;
   const rerunText = !isVerifiedOwner ? (
     <div>
-      <p>Before you can run the test, please verify that you own the domain by adding the following token to your DNS records:</p>
-      <p><em>{siteToken}</em></p>
-      <p>Choose "TXT" as the record type, "@" as the Host, and insert the token in the value field. It may take a few hours before your hosting provider updates.</p>
+      <p className="lead">Before you can run the test, please verify that you own the domain by adding the following token to your DNS records:</p>
+      <p className="lead"><em>{siteToken}</em></p>
+      <p className="lead">Choose "TXT" as the record type, "@" as the Host, and insert the token in the value field. It may take a few hours before your hosting provider updates.</p>
     </div>
     ) : (
-    <p>Test is now running...</p>
+      <div />
     );
 
   return (
