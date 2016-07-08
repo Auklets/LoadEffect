@@ -47,9 +47,9 @@ const Developers = () => (
             <Image src={auklet.image} />
             <h4>{auklet.name}</h4>
             <ul className="list-inline">
-              <li><a target="_blank" href={`"https://github.com/${auklet.github}"`}><i className="fa fa-github" aria-hidden="true" /></a></li>
-              <li><a target="_blank" href={`"https://linkedin.com/in/${auklet.linkedIn}"`}><i className="fa fa-linkedin-square" aria-hidden="true" /></a></li>
-              <li><a target="_blank" href={`"https://twitter.com/${auklet.twitter}`}><i className="fa fa-twitter" aria-hidden="true" /></a></li>
+              <li><a target="_blank" href={`https://github.com/${auklet.github}`}><i className="fa fa-github" aria-hidden="true" /></a></li>
+              <li><a target="_blank" href={`https://linkedin.com/in/${auklet.linkedIn}`}><i className="fa fa-linkedin-square" aria-hidden="true" /></a></li>
+              <li><a target="_blank" href={`https://twitter.com/${auklet.twitter}`}><i className="fa fa-twitter" aria-hidden="true" /></a></li>
             </ul>
           </Col>
           )

@@ -6,9 +6,9 @@ const Footer = () => (
     <Grid className="text-center" fluid>
       <Row className="show-grid">
         <ul className="list-inline">
-          <li><a target="_blank" href="github.com/Auklets/LoadEffect">Github</a></li>
+          <li><a target="_blank" href="https://github.com/Auklets/LoadEffect">Github</a></li>
           <li>|</li>
-          <li><a target="_blank" href="twitter.com/felix2feng">Twitter</a></li>
+          <li><a target="_blank" href="https://twitter.com/felix2feng">Twitter</a></li>
           <li>|</li>
           <li><a target="_blank" href="http://bit.ly/29lcage">API Documentation</a></li>
         </ul>
