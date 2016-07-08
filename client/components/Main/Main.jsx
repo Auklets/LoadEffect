@@ -63,15 +63,15 @@ const Main = props => {
       <tbody>
         {allScenarios.map((item, i) => {
           return (
-          <tr key={item.id}>
-            <td className="text-center">{i + 1}</td>
-            <td className="text-center">{item.scenarioName}</td>
-            <td className="text-center">{item.spawnsCount}</td>
-            <td className="text-center">{item.workers}</td>
-            <td className="text-center">{item.averageActionTime}</td>
-            <td className="text-center">{item.targetURL}</td>
-            <td className="text-center">{showButtonStatus(item)}</td>
-          </tr>
+            <tr key={item.id}>
+              <td className="text-center">{i + 1}</td>
+              <td className="text-center">{item.scenarioName}</td>
+              <td className="text-center">{item.spawnsCount}</td>
+              <td className="text-center">{item.workers}</td>
+              <td className="text-center">{item.averageElapsedTime ? item.averageElapsedTime : 'Not Available'}</td>
+              <td className="text-center">{item.targetURL}</td>
+              <td className="text-center">{showButtonStatus(item)}</td>
+            </tr>
           )}
         )}
       </tbody>

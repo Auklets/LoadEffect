@@ -3,6 +3,9 @@ export const calculateAverage = (array) => {
   for (let i = 0; i < array.length; i++) {
     sum += array[i];
   }
+  if (array.length === 0) {
+    return 0;
+  }
   return sum / array.length;
 };
 
