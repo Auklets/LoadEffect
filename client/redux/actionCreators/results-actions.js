@@ -33,7 +33,9 @@ export const updateAllChart = (spawnData, actionData, averageElapsedTime, number
 
 export const updateLineChartData = (jobCount, scenarioID) =>
   dispatch => {
-    socket.emit('getResultsData', { currentScenarioID: scenarioID });
+    setTimeout(() => {
+      socket.emit('getResultsData', { currentScenarioID: scenarioID });
+    }, 500);
     console.log('Making an emit to web server');
     socket.on('receiveResultsData', (data) => {
       console.log('Got data from sockets', data);
@@ -69,7 +71,7 @@ export const updateLineChartData = (jobCount, scenarioID) =>
       }
 
       if (!completion) {
-        if (elapsedTimeSpawn.length <= jobCount && maxRecurse < 500) {
+        if (elapsedTimeSpawn.length <= jobCount && maxRecurse < 2500) {
           maxRecurse++;
           dispatch(updateAllChart(
             spawn,
