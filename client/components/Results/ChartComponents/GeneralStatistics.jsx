@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import { panelBackgroundColor, centerItems, centerItemsTop } from '../LiveResultsCSS.jsx';
+import { panelBackgroundColor, centerItems, centerItemsTop } from '../ResultsCSS.jsx';
 import { Panel, Col, Row } from 'react-bootstrap';
 
 const GeneralStatistics = (props) => (
   <Panel bsStyle="primary" style={panelBackgroundColor} header={'General Statistics'}>
     <Col xs={6} md={3}>
-      <Row style={centerItemsTop}>{props.averageElapsedTime}</Row>
+      <Row style={centerItemsTop}>{props.averageElapsedTime} ms</Row>
       <Row style={centerItems}>Average Elapsed Time</Row>
     </Col>
     <Col xs={6} md={3}>
@@ -17,7 +17,7 @@ const GeneralStatistics = (props) => (
       <Row style={centerItems}>Current Users</Row>
     </Col>
     <Col xs={6} md={3}>
-      <Row style={centerItemsTop}>{'TBD'}</Row>
+      <Row style={centerItemsTop}>{props.numberErrors}</Row>
       <Row style={centerItems}># of Errors</Row>
     </Col>
   </Panel>
@@ -27,6 +27,7 @@ GeneralStatistics.propTypes = {
   averageElapsedTime: PropTypes.number.isRequired,
   numberActions: PropTypes.number.isRequired,
   currentSpawns: PropTypes.number.isRequired,
+  numberErrors: PropTypes.number.isRequired,
 };
 
 export default GeneralStatistics;

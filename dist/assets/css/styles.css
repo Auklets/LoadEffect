@@ -1,0 +1,257 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+
+body {
+  font-family: Quicksand, sans-serif;
+  /*background-color: rgba(0, 20, 30, 0.9);*/
+}
+
+/****** CHARTS / GRAPHS STYLING ******/
+
+.chartist-tooltip {
+  position: absolute;
+  display: inline-block;
+  opacity: 0;
+  min-width: 5em;
+  padding: .5em;
+  background: #F4C63D;
+  color: #453D3F;
+  font-family: Oxygen,Helvetica,Arial,sans-serif;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+  -webkit-transition: opacity .2s linear;
+  -moz-transition: opacity .2s linear;
+  -o-transition: opacity .2s linear;
+  transition: opacity .2s linear;
+}
+
+.chartist-tooltip:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top-color: #F4C63D;
+}
+
+.chartist-tooltip.tooltip-show {
+  opacity: 1;
+}
+
+.ct-label {
+  font-size: 1.3rem;
+}
+
+.ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
+  stroke: #f05b4f;
+}
+
+.ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+  stroke: #59922b;
+}
+
+.ct-area.ct-threshold-above {
+  fill: #f05b4f;
+}
+
+.ct-area.ct-threshold-below {
+  fill: #59922b;
+}
+
+
+
+/****** HOME/SPLASH PAGE STYLING ******/
+
+.splash-jumbo {
+  /*background-color: #1a0a00;*/
+  position: relative;
+  background: #000 url("/assets/images/splash.jpg") center center;
+  display: flex;
+  width: auto;
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.splash-text h1 {
+  font-family: Quicksand, sans-serif;
+  font-size: 6em;
+  font-style: italic;
+  font-weight: 900;
+  color: #FFF;
+}
+
+.splash-text p {
+  font-family: Quicksand, sans-serif;
+  font-style: italic;
+  opacity: 1;
+  color: white;
+}
+
+.splash-jumbo-buttons {
+  width: 150px;
+  background: rgba(255,255,200,0.2);
+}
+
+.splash-benefits, .splash-developers, .splash-get-started {
+  margin: 0;
+  border: 0;
+  color: black;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  background: #FFF7FB;
+  opacity: 7;
+}
+
+.splash-developers {
+  background: #CCDBEB;
+}
+
+.fa-line-chart, .fa-users, .fa-file-code-o {
+  font-size: 3.5em;
+  border: solid black;
+  padding: 23px;
+  border-radius: 100%;
+  margin-bottom: 10px;
+}
+
+.get-started {
+  margin: 0;
+  border: 0;
+  display: flex;
+  background: #454344;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.splash-developers img {
+  width: 80%;
+  height: auto;
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.splash-get-started img {
+  width: 90%;
+  height: auto;
+  display: flex;
+  padding: 30px;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a0a00;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+  padding-top: 40px;
+  padding-bottom: 25px;
+}
+
+.hr-blurb {
+  font-size: 1.2em;
+}
+
+.glyphicon-heart {
+  color: pink;
+}
+
+.splash-developers .fa {
+  margin: 10px;
+  color: black;
+  font-size: 2.8em;
+}
+
+.fa-linkedin-square {
+  color: #1D87BE !important;
+}
+
+.fa-twitter {
+  color: #55ACEE !important;
+}
+
+.splash-developers .fa:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 0.5s ease;
+}
+
+
+/****** All MODAL STYLING ******/
+
+#site-token {
+  background-color: #FFFBF5;
+  border: 0;
+  font-size: 1.4em;
+}
+
+.scenario-documentation {
+  overflow: hidden;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  background-color: #FFFBF5;
+  color: black;
+}
+
+.modal-header {
+  color: black;
+}
+
+
+/****** All CREATE SCENARIO STYLING ******/
+
+.scenario-view .well {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7px;
+  padding-bottom: 20px;
+}
+
+/****** MAIN SUMMARY STYLING ******/
+
+.summary-view {
+  opacity: .75
+}
+
+/****** NAVIGATION BAR STYLING ******/
+
+.nav-brand-text {
+  font-family: Quicksand, sans-serif;
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: bolder;
+  /*color: white;*/
+}
+
+nav {
+  background: rgba(250, 255, 250, 0.2) !important;
+}
+
+.navbar, .nav, .navbar-header, nav {
+  /*color: white;*/
+  /*opacity: .73*/
+}
+.commandtext {
+  white-space: nowrap;
+  padding-right: 5px;
+}

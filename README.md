@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/QuattroSquadra/LoadTestingApp.png?label=ready&title=Ready)](https://waffle.io/QuattroSquadra/LoadTestingApp)  [![Build Status](https://travis-ci.org/Auklets/LoadEffect.svg?branch=master)](https://travis-ci.org/Auklets/LoadEffect)
+[![Stories in Ready](https://badge.waffle.io/QuattroSquadra/LoadTestingApp.png?label=ready&title=Ready)](https://waffle.io/QuattroSquadra/LoadTestingApp)  [![Build Status](https://travis-ci.org/Auklets/LoadEffect.svg?branch=master)](https://travis-ci.org/Auklets/LoadEffect) [![Coverage Status](https://coveralls.io/repos/github/Auklets/LoadEffect/badge.svg?branch=master)](https://coveralls.io/github/Auklets/LoadEffect?branch=master)
 # Load Effect
 ---
 
@@ -12,6 +12,7 @@
 1. [Getting Started](#getting-started)
     1. [Prerequisites](#prerequisites)
     1. [Installing Dependencies](#installing-dependencies)
+1. [API Documentation](#api-documentation)
 1. [Core Team](#core-team)
 1. [Contributing](#contributing)
 1. [Licensing](#license)
@@ -46,6 +47,11 @@ Run:
 ```sh
 npm test
 ```
+## API Documentation
+
+1. [File Structure](/documentation/FILE-STRUCTURE.md)
+1. [Architecture Diagram and Flow-Chart](/documentation/ARCHITECTURE-DIAGRAMS.md)
+
 ## Core Team
 
   - __Scrum Master__: [Felix Feng](https://github.com/felix2feng)
@@ -69,4 +75,3 @@ See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines in detail.
 ## License
 
 M.I.T
-

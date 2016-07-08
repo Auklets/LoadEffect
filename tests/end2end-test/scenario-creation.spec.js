@@ -17,40 +17,46 @@ describe('End to End New Scenario Creation', function scenarioTest() {
   before(done => {
     const user = new User({ name: 'Tai Huynh', email: 'tai@hackreactor.com' });
     user.setPassword('taiisthebest');
+    user.generateSiteToken();
     user.save()
-      .then(() => {
-        userId = user.get('id');
-
+      .then(newUser => {
+        userId = newUser.get('id');
         new Scenario({
           scenarioName: 'Scenario Test',
           spawnsCount: 1000,
           workers: 10,
-          averageActionTime: 1000,
+          averageElapsedTime: 1000,
+          numberActions: 5,
+          numberErrors: 0,
           targetURL: 'http://www.anhtaihuynh.com',
           isVerifiedOwner: false,
           script: 'Some kind of script that will run jobs',
           id_user: userId,
-        }).save();
-
-        new Scenario({
-          scenarioName: 'Scenario Test 2',
-          spawnsCount: 2000,
-          workers: 20,
-          averageActionTime: 1500,
-          targetURL: 'http://www.billramsey.com',
-          isVerifiedOwner: false,
-          script: 'Do some stuff',
-          id_user: userId,
-        }).save();
+        }).save()
+          .then(() => {
+            new Scenario({
+              scenarioName: 'Scenario Test 2',
+              spawnsCount: 2000,
+              workers: 20,
+              averageElapsedTime: 1500,
+              numberActions: 5,
+              numberErrors: 0,
+              targetURL: 'http://www.billramsey.com',
+              isVerifiedOwner: false,
+              script: 'Do some stuff',
+              id_user: userId,
+            }).save()
+              .then(() => {
+                request(app)
+                  .post('/api/login')
+                  .send({ email: 'tai@hackreactor.com', password: 'taiisthebest' })
+                  .expect(res => {
+                    fakeLocalStorageToken = res.body.id_token;
+                  })
+                  .end(done);
+              });
+          });
       });
-
-    request(app)
-      .post('/api/login')
-      .send({ email: 'tai@hackreactor.com', password: 'taiisthebest' })
-      .expect(res => {
-        fakeLocalStorageToken = res.body.id_token;
-      })
-      .end(done);
   });
 
   after(done => {

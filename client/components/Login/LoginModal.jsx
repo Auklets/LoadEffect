@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, FormGroup, ControlLabel, Col, Button, Modal } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, Col, Button, Modal, Row } from 'react-bootstrap';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -21,43 +21,57 @@ class LoginModal extends Component {
     return (
       <Modal show={isLoginOpen} onHide={hideLogin} closeButton>
         <Modal.Header>
-          <Modal.Title>Login To Your Account</Modal.Title>
+          <Modal.Title className="text-center">Login To Your Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={this.handleClick}>
-            <Col sm={12}>
-              <FormGroup controlId="formInlineEmail">
-                <ControlLabel>Email:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                />
-              </FormGroup>
-            </Col>
 
-            <Col sm={12}>
-              <FormGroup controlId="formInlineEmail">
-                <ControlLabel>Password:</ControlLabel>
-                {' '}
-                <input
-                  className="form-control"
-                  ref="password"
-                  type="password"
-                  placeholder="Enter your password"
-                />
-              </FormGroup>
-            </Col>
-            <Col smOffset={5}>
-              <Button bStyle="primary" type="submit">
-                Login
-              </Button>
-            </Col>
-            {errorMessage &&
-              <p style={{ color: 'red' }}>{errorMessage}</p>
-            }
+            <Row>
+              <Col sm={12}>
+                <FormGroup controlId="formInlineEmail">
+                  <ControlLabel>Email:</ControlLabel>
+                  {' '}
+                  <input
+                    className="form-control"
+                    ref="email"
+                    type="email"
+                    placeholder="Enter your email address"
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col sm={12}>
+                <FormGroup controlId="formInlineEmail">
+                  <ControlLabel>Password:</ControlLabel>
+                  {' '}
+                  <input
+                    className="form-control"
+                    ref="password"
+                    type="password"
+                    placeholder="Enter your password"
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+
+            <Row className="text-center">
+              <Col sm={12}>
+                <Button className="login-button" bStyle="primary" type="submit">
+                  Login
+                </Button>
+              </Col>
+            </Row>
+            <br />
+            <Row className="text-center">
+              <Col sm={12}>
+                {errorMessage &&
+                  <p style={{ color: 'red' }}>{errorMessage}</p>
+                }
+              </Col>
+            </Row>
+
           </Form>
         </Modal.Body>
       </Modal>

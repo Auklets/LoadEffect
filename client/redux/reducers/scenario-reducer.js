@@ -1,14 +1,16 @@
-import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_INFO } from '../actionCreators/scenario-actions';
+import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_INFO, CHANGE_CURRENT_ID } from '../actionCreators/scenario-actions';
 
 const initialState = {
   allScenarios: [],
   currentScenarioID: 0,
-  currentSpawnsCount: 10,
+  currentSpawnsCount: 0,
   currentWorkers: 0,
-  currentTargetURL: 'LOADING...',
-  currentScenarioName: 'LOADING...',
+  currentTargetURL: '',
+  currentScenarioName: '',
   isValidScript: false,
   attemptedCheck: false,
+  completion: false,
+  isVerifiedOwner: false,
 };
 
 export const scenarioReducer = (state = initialState, action) => {
@@ -16,19 +18,24 @@ export const scenarioReducer = (state = initialState, action) => {
     case GET_SCENARIOS:
       return Object.assign({}, state, {
         allScenarios: action.scenario,
-        siteToken: action.siteToken,
       });
 
     case VALID_SCRIPT:
       return Object.assign({}, state, {
         isValidScript: action.isValidScript,
         attemptedCheck: true,
+        scriptMessage: action.scriptMessage,
       });
 
     case RESET_ATTEMPT_CHECK:
       return Object.assign({}, state, {
         isValidScript: false,
         attemptedCheck: false,
+      });
+
+    case CHANGE_CURRENT_ID:
+      return Object.assign({}, state, {
+        currentScenarioID: action.currentScenarioID,
       });
 
     case CURRENT_SCENARIO_INFO:
@@ -38,6 +45,9 @@ export const scenarioReducer = (state = initialState, action) => {
         currentWorkers: action.currentWorkers,
         currentTargetURL: action.currentTargetURL,
         currentScenarioName: action.currentScenarioName,
+        currentScript: action.currentScript,
+        isVerifiedOwner: action.isVerifiedOwner,
+        completion: action.completion,
       });
 
     default:

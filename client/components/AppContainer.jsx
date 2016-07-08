@@ -14,11 +14,15 @@ export const AppContainer = (props) => {
 
   return (
     <div>
-      <NavigationContainer
-        isAuthenticated={isAuthenticated}
-        errorMessage={errorMessage}
-        dispatch={dispatch}
-      />
+     {
+      isAuthenticated ?
+        <NavigationContainer
+          isAuthenticated={isAuthenticated}
+          errorMessage={errorMessage}
+          dispatch={dispatch}
+        />
+        : null
+     }
       <main>
         {props.children}
       </main>

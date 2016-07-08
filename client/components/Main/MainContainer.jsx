@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Main from './Main.jsx';
-import { closeVerifyModal, openVerifyModal } from '../../redux/actionCreators/modal-actions';
+import { history } from '../../redux/store';
+import { deleteScenario, getScenarios, runScenario, changeCurrentScenarioId, checkForValidUrl, rerunScenario } from '../../redux/actionCreators/scenario-actions';
 
 export const MainContainer = (props) => (
   <div>
@@ -10,26 +11,39 @@ export const MainContainer = (props) => (
 );
 
 const mapStateToProps = state => {
-  const { scenario, auth } = state;
+  const { scenario } = state;
   const { allScenarios } = scenario;
-  const { siteToken, isAuthenticated } = auth;
 
   return {
     allScenarios,
-    siteToken,
-    isAuthenticated,
     state,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  hideVerifyModal() {
-    dispatch(closeVerifyModal());
+  showResultsPage(id) {
+    dispatch(changeCurrentScenarioId(id));
+    history.push('/results');
   },
 
-  showVerifyModal() {
-    dispatch(openVerifyModal());
+  validateUrl(url, scenarioID) {
+    dispatch(checkForValidUrl(url, scenarioID));
   },
+
+  runVerifiedScenario(creds) {
+    dispatch(runScenario(creds));
+    history.push('/results');
+  },
+
+  rerunScenarioTest(creds) {
+    dispatch(rerunScenario(creds));
+  },
+
+  removeScenario(id) {
+    dispatch(deleteScenario(id));
+    dispatch(getScenarios());
+  },
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

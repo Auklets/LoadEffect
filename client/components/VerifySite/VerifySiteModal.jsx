@@ -1,37 +1,35 @@
 import React, { PropTypes } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
+import Clipboard from 'clipboard';
+new Clipboard('#copy-button');
 
 const VerifySiteModal = props => {
-  const { isVerifyModalOpen, hideVerifyModal, siteToken, allScenarios, validateUrl } = props;
-  const unverifiedSites = allScenarios.filter(site => !site.isVerifiedOwner);
+  const { isVerifyModalOpen, hideVerifyModal, siteToken } = props;
 
   return (
     <Modal show={isVerifyModalOpen} onHide={hideVerifyModal} closeButton>
       <Modal.Header>
         <Modal.Title className="text-center">
-          <h2>Verify Your Websites</h2>
+          Your Validation Token
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <h3>Unique Token: </h3>
-        <p className="lead">{siteToken}</p>
+        <form>
+          <FormGroup>
+            <InputGroup>
+              <FormControl id="site-token" type="text" value={siteToken} className="lead text-center" style={{ color: 'green', 'font-style': 'italic' }} />
+              <InputGroup.Button id="copy-button" data-clipboard-target="#site-token">
+                <Button><i className="fa fa-files-o" aria-hidden="true" /></Button>
+              </InputGroup.Button>
+            </InputGroup>
+          </FormGroup>
+        </form>
         <hr />
-        <h3 className="text-center">Websites requiring verification:</h3>
-        {
-          unverifiedSites.map((site, i) => {
-            console.log('site is -->', site);
-            const handleUrlClick = () => validateUrl(site.targetURL, site.id);
-            return (
-              <div>
-                <Button onClick={handleUrlClick} bsStyle="info">Validate</Button> {' '}
-                <span key={i}>{site.targetURL}{' '}</span>
-              </div>
-            );
-          })
-        }
-        <hr />
-        <p>To verify, create a new DNS TXT record, using '@" as Host and the provided token as the value.</p>
+        <p>Use this token to help us verify that you own the domains submitted for testing.</p>
+        <p>Add this token inside your DNS settings as a new DNS TXT record.</p>
+        <p>The token should go in "value" field. Set "@" as the Host/Name.</p>
+        <p>Once saved, depending on your provider, it may take up to 1-2 hours to update accordingly, at which point you will be able to check for validation.</p>
       </Modal.Body>
 
       <Modal.Footer>
@@ -42,13 +40,8 @@ const VerifySiteModal = props => {
 };
 
 VerifySiteModal.propTypes = {
-  allScenarios: PropTypes.array,
-  errorMessage: PropTypes.string,
   siteToken: PropTypes.string,
   hideVerifyModal: PropTypes.func,
-  validateUrl: PropTypes.func,
-  getScenarioData: PropTypes.func,
-  routeToLiveResults: PropTypes.func,
   isVerifyModalOpen: PropTypes.bool,
 };
 

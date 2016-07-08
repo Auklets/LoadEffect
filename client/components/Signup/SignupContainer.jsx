@@ -7,18 +7,17 @@ import { closeSignupModal } from '../../redux/actionCreators/modal-actions';
 import SignupModal from './SignupModal.jsx';
 
 export const SignupContainer = props => (
-  <SignupModal {...props} />
+  <SignupModal className="signup-modal" {...props} />
 );
 
 const mapStateToProps = state => {
   const { auth, modal } = state;
-  const { isAuthenticated, errorMessage } = auth;
+  const { isAuthenticated } = auth;
   const { isSignupOpen } = modal;
 
   return {
     isSignupOpen,
     isAuthenticated,
-    errorMessage,
   };
 };
 

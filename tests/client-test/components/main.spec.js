@@ -14,7 +14,7 @@ const setup = () => {
 
 describe('Main Components', () => {
   describe('<MainModal />', () => {
-    it('should render Main Form', () => {
+    it('should render Summary Form', () => {
       const wrapper = setup();
       expect(wrapper.find('Table')).to.have.length(1);
     });

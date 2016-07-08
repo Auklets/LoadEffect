@@ -7,18 +7,16 @@ import { closeLoginModal } from '../../redux/actionCreators/modal-actions';
 import LoginModal from './LoginModal.jsx';
 
 export const LoginContainer = props => (
-  <LoginModal {...props} />
+  <LoginModal className="login-modal" {...props} />
 );
 
 const mapStateToProps = state => {
   const { auth, modal } = state;
-  const { isAuthenticated, errorMessage } = auth;
-  const { isLoginOpen, isSignupOpen } = modal;
+  const { errorMessage } = auth;
+  const { isLoginOpen } = modal;
 
   return {
     isLoginOpen,
-    isSignupOpen,
-    isAuthenticated,
     errorMessage,
   };
 };

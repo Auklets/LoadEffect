@@ -1,66 +1,72 @@
 import { receiveLogin } from './login-actions';
 import { showScenarioModal } from './modal-actions';
+import { sendRequestThenDispatch } from '../../lib/utils.js';
+import { parseTest } from '../../lib/parser.js';
 
 export const GET_SCENARIOS = 'GET_SCENARIOS';
 export const VALID_SCRIPT = 'VALID_SCRIPT';
 export const RESET_ATTEMPT_CHECK = 'RESET_ATTEMPT_CHECK';
 export const CURRENT_SCENARIO_INFO = 'CURRENT_SCENARIO_INFO';
-const parser = require('../../middleware/parser.js');
+export const CHANGE_CURRENT_ID = 'CHANGE_CURRENT_ID';
 
 /* ******* Script Validation Actions ******* */
+
 export const validScript = () => ({
   type: VALID_SCRIPT,
   isValidScript: true,
 });
 
-export const invalidScript = () => ({
+export const invalidScript = (scriptMessage) => ({
   type: VALID_SCRIPT,
   isValidScript: false,
+  scriptMessage,
 });
 
 export const resetCheck = () => ({
   type: RESET_ATTEMPT_CHECK,
 });
 
-
 export const resetAttempt = () => dispatch => dispatch(resetCheck());
 
 export const checkValidScript = script => {
-  // script is going to be a string. Below, isValidScript should be a boolean
-
-  const parseObject = parser.parseTest(script);
-
+  const parseObject = parseTest(script);
   const isValidScript = parseObject.success;
-
-  if (!isValidScript) {
-    alert('At line: ' + parseObject.line + ' and column: ' + parseObject.column + ' ' + parseObject.error);
-  }
+  const errorDescription = !isValidScript ? `${parseObject.message}` : '';
 
   return dispatch => {
     if (isValidScript) {
       dispatch(validScript());
     } else {
-      dispatch(invalidScript());
+      dispatch(invalidScript(errorDescription));
     }
   };
 };
 
+/* ******** Scenario Get / Create Actions  ******** */
 
-/* ******** Scenario Get and Create Actions  ******** */
 export const allScenarios = res => ({
   type: GET_SCENARIOS,
   scenario: JSON.parse(res.scenarios),
 });
 
-const storeRecentScenarioInfo = (scenarioID, spawnsCount, workerCount, targetURL, scenarioName) => ({
+export const storeRecentScenarioInfo = res => ({
   type: CURRENT_SCENARIO_INFO,
-  currentScenarioID: scenarioID,
-  currentSpawnsCount: spawnsCount,
-  currentWorkers: workerCount,
-  currentTargetURL: targetURL,
-  currentScenarioName: scenarioName,
+  currentScenarioID: res.scenarioID || res.id,
+  currentSpawnsCount: res.spawnsCount,
+  currentWorkers: res.workers,
+  currentTargetURL: res.targetURL,
+  currentScenarioName: res.scenarioName,
+  currentScript: res.script,
+  isVerifiedOwner: res.isVerifiedOwner,
+  completion: res.completion,
 });
 
+export const changeCurrentScenarioId = id => ({
+  type: CHANGE_CURRENT_ID,
+  currentScenarioID: id,
+});
+
+/* *********** Scenario API Calls *********** */
 
 export const getScenarios = () => {
   const config = {
@@ -70,18 +76,40 @@ export const getScenarios = () => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}`,
     },
   };
+  return sendRequestThenDispatch('/api/scenarios', config, allScenarios, receiveLogin);
+};
 
-  return dispatch =>
-    fetch('/api/scenarios', config)
-      .then(response => response.json()
-        .then(res => {
-          // Store all scenarios associated with user to state
-          dispatch(allScenarios(res));
-          // Store users site token, so page refreshes will still send it back
-          dispatch(receiveLogin(res));
-        })
-      )
-      .catch(err => console.log('Error: ', err));
+export const deleteScenario = id => {
+  const config = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
+      body: `scenarioID=${id}`,
+  };
+  return sendRequestThenDispatch('/api/scenarios', config, allScenarios);
+};
+
+export const runScenario = data => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
+      body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
+  };
+  return sendRequestThenDispatch('/api/run-scenario', config, storeRecentScenarioInfo);
+};
+
+export const rerunScenario = data => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Bearer ${localStorage.getItem('id_token')}` },
+      body: `scenarioID=${data.id}&scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
+  };
+  return sendRequestThenDispatch('/api/rerun-scenario', config, showScenarioModal, storeRecentScenarioInfo);
 };
 
 export const createScenario = data => {
@@ -92,22 +120,11 @@ export const createScenario = data => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `scenarioName=${data.scenarioName}&spawnsCount=${data.spawnsCount}&targetURL=${data.targetURL}&script=${data.script}&workers=${data.workers}`,
   };
-
-  return dispatch =>
-    fetch('/api/scenarios', config)
-      .then(response => response.json()
-        .then(res => {
-          console.log('Response from the post request', res);
-          dispatch(resetCheck());
-          dispatch(showScenarioModal());
-          dispatch(storeRecentScenarioInfo(res.scenarioID, res.spawnsCount, res.workers, res.targetURL, res.scenarioName));
-        })
-      )
-      .catch(err => console.log('Error: ', err));
+  return sendRequestThenDispatch('/api/scenarios', config, resetCheck, showScenarioModal, storeRecentScenarioInfo);
 };
 
-
 /* ******** Website Url Validation Actions  ******** */
+
 export const checkForValidUrl = (url, scenarioID) => {
   const config = {
     method: 'POST',
@@ -116,14 +133,5 @@ export const checkForValidUrl = (url, scenarioID) => {
       Authorization: `Bearer ${localStorage.getItem('id_token')}` },
       body: `url=${url}&scenarioID=${scenarioID}`,
   };
-
-  return dispatch =>
-    fetch('/api/validate-website', config)
-      .then(response => response.json()
-        .then(res => {
-          console.log('Response from the post request', res);
-          dispatch(getScenarios());
-        })
-      )
-      .catch(err => console.log('Error: ', err));
+  return sendRequestThenDispatch('/api/validate-website', config, getScenarios);
 };

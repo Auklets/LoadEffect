@@ -9,14 +9,15 @@ describe('User Model Schema', () => {
   before(done => {
     user1 = new User({ name: 'Bill Haug', email: 'Jack@hackreactor.com' });
     user1.setPassword('taiisthebest');
-    user1.save();
-
-    user2 = new User({ name: 'Felix Ramsey', email: 'Chris@hackreactor.com' });
-    user2.password = user2.setPassword('taiisthebest');
-    user2.generateSiteToken();
-    user2.save();
-
-    done();
+    user1.generateSiteToken();
+    user1.save()
+      .then(() => {
+        user2 = new User({ name: 'Felix Ramsey', email: 'Chris@hackreactor.com' });
+        user2.setPassword('taiisthebest');
+        user2.generateSiteToken();
+        user2.save()
+          .then(() => done());
+      });
   });
 
   after(done => {
@@ -82,6 +83,42 @@ describe('User Model Schema', () => {
               const token1 = user1.generateJwt();
               const token2 = user2.generateJwt();
               expect(token1).to.not.equal(token2);
+              done();
+            });
+        });
+    });
+  });
+
+  describe('Generating and Getting Site Tokens:', () => {
+    it('should be a method on user schema', done => {
+      User.where('name', 'Felix Ramsey')
+        .fetch()
+        .then(user => {
+          expect(user.generateSiteToken).to.be.a('function');
+          expect(user.getSiteToken).to.be.a('function');
+          done();
+        });
+    });
+
+    it('should have a site token on existing user', done => {
+      User.where('name', 'Bill Haug')
+        .fetch()
+        .then(user => {
+          const token = user.getSiteToken();
+          expect(token).to.be.a('string');
+          expect(token).to.have.length.above(10);
+          done();
+        });
+    });
+
+    it('should have unique site token specific to a user', done => {
+      User.where('name', 'Felix Ramsey')
+        .fetch()
+        .then(user1 => {
+          User.where('name', 'Bill Haug')
+            .fetch()
+            .then(user2 => {
+              expect(user1.getSiteToken()).to.not.equal(user2.getSiteToken());
               done();
             });
         });

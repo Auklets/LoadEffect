@@ -1,25 +1,20 @@
 // React/Redux/Router/Bootstrap
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 // Modal/Popup Components
-import LoginContainer from '../Login/LoginContainer.jsx';
-import SignupContainer from '../Signup/SignupContainer.jsx';
+import VerifySiteContainer from '../VerifySite/VerifySiteContainer.jsx';
+import ScenarioModalContainer from '../Scenario/ScenarioModalContainer.jsx';
 
 const Navigation = props => {
-  const { showLogin, showSignup, handleClick, isAuthenticated } = props;
+  const { handleClick, allScenarios, showVerifyModal } = props;
 
   const LoggedIn = (
     <Nav pullRight>
-      <li>
-        <Link to="/live-results">[TEST - Live Results]</Link>
-      </li>
+      <NavItem onClick={showVerifyModal} to="">Your Token</NavItem>
       <li>
         <Link to="/new-scenario">Create New Scenario</Link>
-      </li>
-      <li>
-        <Link to="/results-detail">[TEST - Results Detail]</Link>
       </li>
       <li>
         <Link to="/main">Main</Link>
@@ -27,43 +22,31 @@ const Navigation = props => {
       <li>
         <Link onClick={handleClick} to="/">Logout</Link>
       </li>
-    </Nav>
-  );
-
-  const NotLoggedIn = (
-    <Nav pullRight>
-      <li>
-        <Link to="/" onClick={showLogin}>Login</Link>
-      </li>
-      <li>
-        <Link to="/" onClick={showSignup}>Signup</Link>
-      </li>
-      <LoginContainer />
-      <SignupContainer />
+      <VerifySiteContainer allScenarios={allScenarios} />
+      <ScenarioModalContainer />
     </Nav>
   );
 
   return (
-    <Navbar inverse>
+    <Navbar fluid>
       <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">LoadEffect</Link>
+          <Link to="/"><span className="nav-brand-text">Load Effect</span></Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {isAuthenticated ? LoggedIn : NotLoggedIn}
+        {LoggedIn}
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
 Navigation.propTypes = {
-  showLogin: PropTypes.func,
-  showSignup: PropTypes.func,
+  showVerifyModal: PropTypes.func,
   showNewScenario: PropTypes.func,
   handleClick: PropTypes.func,
-  isAuthenticated: PropTypes.bool.isRequired,
+  allScenarios: PropTypes.array,
 };
 
 export default Navigation;

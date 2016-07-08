@@ -1,68 +1,102 @@
 import React, { PropTypes } from 'react';
-import { Button, Table, Jumbotron, Well } from 'react-bootstrap';
-import VerifySiteContainer from '../VerifySite/VerifySiteContainer.jsx';
+import { Button, Table, Jumbotron, Well, DropdownButton, MenuItem } from 'react-bootstrap';
 
-const Main = (props) => {
-  const { showVerifyModal, allScenarios } = props;
+const Main = props => {
+  const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest, removeScenario } = props;
+  const handleViewResults = item => () => showResultsPage(item.id);
+  const handleValidation = (url, id) => () => validateUrl(url, id);
+  const handleRunTest = creds => () => runVerifiedScenario(creds);
+  const handleRerunTest = creds => () => rerunScenarioTest(creds);
+  const handleDeleteTest = id => () => removeScenario(id);
+
+  const showButtonStatus = item => {
+    if (item.isVerifiedOwner) {
+      return !item.completion ? (
+        <DropdownButton bsSize="xsmall" bsStyle="success" title="Verified">
+          <MenuItem onClick={handleRunTest(item)} eventKey="1">
+            Run Test
+          </MenuItem>
+          <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
+            Delete Test
+          </MenuItem>
+        </DropdownButton>
+      ) : (
+        <DropdownButton bsSize="xsmall" bsStyle="success" title="Verified">
+          <MenuItem onClick={handleViewResults(item)} eventKey="1">
+            View Results
+          </MenuItem>
+          <MenuItem onClick={handleRerunTest(item)} eventKey="2">
+            Run Test Again
+          </MenuItem>
+          <MenuItem onClick={handleDeleteTest(item.id)} eventKey="2">
+            Delete Test
+          </MenuItem>
+        </DropdownButton>
+      );
+    }
+
+    return (
+      <DropdownButton bsSize="xsmall" bsStyle="danger" title="Unverified">
+        <MenuItem onClick={handleValidation(item.targetURL, item.id)} eventKey="1">
+          Validate Site
+        </MenuItem>
+        <MenuItem onClick={handleDeleteTest(item.id)} eventKey="1">
+          Delete Test
+        </MenuItem>
+      </DropdownButton>
+   );
+  };
 
   const tableInstance = (
-    <Table responsive striped hover bordered>
+    <Table striped hover bordered className="summary-table">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Scenario Name</th>
-          <th>Spawn Count</th>
-          <th># of Workers</th>
-          <th>Average Action Time</th>
-          <th>Target URL</th>
-          <th>Website Validation</th>
+          <th className="text-center">#</th>
+          <th className="text-center">Scenario Name</th>
+          <th className="text-center">Spawn Count</th>
+          <th className="text-center"># of Workers</th>
+          <th className="text-center">Average Elapsed Time</th>
+          <th className="text-center">Target URL</th>
+          <th className="text-center">Status</th>
+          <th className="text-center">Run Test Anyway</th>
         </tr>
       </thead>
       <tbody>
         {allScenarios.map((item, i) => {
           return (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>{item.scenarioName}</td>
-              <td>{item.spawnsCount}</td>
-              <td>{item.workers}</td>
-              <td>{item.averageActionTime}</td>
-              <td>{item.targetURL}</td>
-              <td>
-                {!!item.isVerifiedOwner ?
-                  (<span style={{ color: 'green' }}>Verified</span>) :
-                  (<span style={{ color: 'red' }}>Unverified</span>)
-                }
-              </td>
-            </tr>
-            );
-        })}
-        <VerifySiteContainer allScenarios={allScenarios} />
+          <tr key={item.id}>
+            <td className="text-center">{i + 1}</td>
+            <td className="text-center">{item.scenarioName}</td>
+            <td className="text-center">{item.spawnsCount}</td>
+            <td className="text-center">{item.workers}</td>
+            <td className="text-center">{item.averageActionTime}</td>
+            <td className="text-center">{item.targetURL}</td>
+            <td className="text-center">{showButtonStatus(item)}</td>
+            <td className="text-center"><Button onClick={handleRunTest(item)} bsStyle="primary" bsSize="xsmall">Danger Danger</Button></td>
+          </tr>
+          )}
+        )}
       </tbody>
     </Table>
   );
 
   return (
-    <Jumbotron>
-      <h1>Summary</h1>
-      <p>
-        This is going to be the main page, the protected route that the user should
-        be able to get to after successfully logging in.
-        See below for summary of scenarios that have been ran in the past.
-
-      </p>
-      <Button onClick={showVerifyModal} bsSize="xlarge" bsStyle="danger">Show Website Token</Button>
-      <hr />
-      <Well>
-        {tableInstance}
-      </Well>
-    </Jumbotron>
+    <div className="container-fluid summary-view">
+      <Jumbotron className="jumbo-table">
+        <Well>
+          {tableInstance}
+        </Well>
+      </Jumbotron>
+    </div>
   );
 };
 
 Main.propTypes = {
   allScenarios: PropTypes.array,
-  showVerifyModal: PropTypes.func,
+  validateUrl: PropTypes.func,
+  rerunScenarioTest: PropTypes.func,
+  runVerifiedScenario: PropTypes.func,
+  showResultsPage: PropTypes.func,
 };
 
 export default Main;

@@ -14,12 +14,14 @@ describe('Redux Scenario Actions', () => {
     });
 
     it('should set state isValidScript to false on invalidScript()', () => {
+      const fakeMessage = 'error at line whatever';
       const expectedAction = {
         type: action.VALID_SCRIPT,
         isValidScript: false,
+        scriptMessage: 'error at line whatever',
       };
 
-      expect(action.invalidScript()).to.deep.equal(expectedAction);
+      expect(action.invalidScript(fakeMessage)).to.deep.equal(expectedAction);
     });
 
     it('should send action type RESET_ATTEMPT_CHECK on resetCheck()', () => {
