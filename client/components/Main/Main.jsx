@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Table, Jumbotron, Well, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Table, Well, DropdownButton, MenuItem, PageHeader } from 'react-bootstrap';
 
 const Main = props => {
   const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest, removeScenario } = props;
@@ -80,11 +80,10 @@ const Main = props => {
 
   return (
     <div className="container-fluid summary-view">
-      <Jumbotron className="jumbo-table">
-        <Well>
-          {tableInstance}
-        </Well>
-      </Jumbotron>
+      <PageHeader>Scenario Summary</PageHeader>
+      <Well>
+        {tableInstance}
+      </Well>
     </div>
   );
 };

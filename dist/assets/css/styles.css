@@ -2,7 +2,7 @@
 
 body {
   font-family: Quicksand, sans-serif;
-  /*background-color: rgba(0, 20, 30, 0.9);*/
+  background-color: #FFFBF5;
 }
 
 /****** CHARTS / GRAPHS STYLING ******/
@@ -113,8 +113,16 @@ body {
   opacity: 7;
 }
 
-.splash-demo1, .splash-demo2 {
-  background: black;
+.splash-demo1 {
+  background: #445878;
+}
+
+.splash-demo2 {
+  background: #31353D;
+}
+
+.splash-benefits {
+  background: #EEEFF7;
 }
 
 .splash-demo1 p, .splash-demo1 h1, .splash-demo2 p, .splash-demo2 h1 {
@@ -132,6 +140,17 @@ body {
   align-items: center;
   justify-content: center;
   width: auto;
+}
+
+.splash-demo1 div, .splash-demo1 img, .splash-demo2 img {
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.test-img img {
+  margin: 0 auto;
 }
 
 .splash-benefits p {
@@ -187,10 +206,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a0a00;
+  background-color: #31353D;
   background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
-  padding-top: 40px;
-  padding-bottom: 25px;
+  padding-top: 30px;
+  padding-bottom: 15px;
+  color: white;
 }
 
 .hr-blurb {
@@ -258,13 +278,15 @@ body {
   align-items: center;
   padding-top: 7px;
   padding-bottom: 20px;
+  background-color: #EEEFF7 !important;
+}
+
+.panel-heading {
+  background-color: #EEEFF7 !important;
 }
 
 /****** MAIN SUMMARY STYLING ******/
 
-.summary-view {
-  opacity: .75
-}
 
 /****** NAVIGATION BAR STYLING ******/
 
@@ -277,7 +299,7 @@ body {
 }
 
 nav {
-  background: rgba(250, 255, 250, 0.2) !important;
+  background: #EEEFF7 !important;
 }
 
 .navbar, .nav, .navbar-header, nav {
@@ -287,4 +309,40 @@ nav {
 .commandtext {
   white-space: nowrap;
   padding-right: 5px;
+}
+
+.mm-img {
+  height: auto!important;
+  width: 150px !important;
+}
+
+.row-companies div {
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.summary-view .well {
+  padding-top: 40px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: #445878;
+}
+
+.summary-view .page-header {
+  padding-left: 10px;
+  border-radius: 10px;
+  font-size: 5em !important;
+}
+
+.summary-table {
+  background-color: #EEEFF7;
+}
+
+thead tr {
+  background-color: #A8D6F2 !important;
+  font-size: 1.1em;
+  font-weight: bolder !important;
 }

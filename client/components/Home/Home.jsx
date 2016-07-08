@@ -12,11 +12,11 @@ import Footer from './Footer.jsx';
 const Home = props => (
   <div>
     <Jumbo {...props} />
-    <Demo2 />
     <Benefits />
     <Demo1 />
+    <Demo2 />
     <Developers />
-    <GetStarted {...props} />
+    <GetStarted />
     <Footer />
 
     <LoginContainer />
