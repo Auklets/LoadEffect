@@ -91,6 +91,7 @@ export const deleteScenario = id => {
 };
 
 export const runScenario = data => {
+  console.log('run scenario action called on client');
   const config = {
     method: 'POST',
     headers: {
