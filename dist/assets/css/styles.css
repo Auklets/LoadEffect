@@ -25,6 +25,9 @@ body {
   -o-transition: opacity .2s linear;
   transition: opacity .2s linear;
 }
+.panel .panel-heading {
+  color: #31353D;
+}
 
 .chartist-tooltip:before {
   content: "";
