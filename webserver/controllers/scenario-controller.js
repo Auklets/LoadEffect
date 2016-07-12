@@ -1,7 +1,9 @@
 const Scenario = require('../models/ScenariosModel');
 const utils = require('../lib/utils');
+const dockerController = require('./docker-controller');
 
 const sendJSON = utils.sendJSON;
+const createMaster = dockerController.spoolUpMaster;
 
 const createScenario = (req, res) => {
   const data = {
@@ -32,7 +34,6 @@ const createScenario = (req, res) => {
 
 const runScenarioTest = (req, res) => {
   const data = {
-    masterName: 'm1',
     scenarioName: req.body.scenarioName,
     scenarioID: req.body.scenarioID,
     spawnsCount: req.body.spawnsCount,
@@ -44,7 +45,7 @@ const runScenarioTest = (req, res) => {
     completion: false,
   };
   sendJSON(res, 201, data);
-  utils.sendDataToMaster(data);
+  createMaster(data);
 };
 
 const getScenarios = (req, res) => {
@@ -66,7 +67,6 @@ const deleteScenario = (req, res) => {
 
 const rerunScenarioTest = (req, res) => {
   const data = {
-    masterName: 'm1',
     scenarioName: req.body.scenarioName,
     spawnsCount: +req.body.spawnsCount,
     workers: +req.body.workers,
@@ -90,7 +90,7 @@ const rerunScenarioTest = (req, res) => {
     })
     .catch(err => sendJSON(res, 400, err));
 
-    utils.sendDataToMaster(data);
+  createMaster(data);
 };
 
 module.exports = { getScenarios, createScenario, runScenarioTest, rerunScenarioTest, deleteScenario };
