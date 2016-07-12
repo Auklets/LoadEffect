@@ -1,7 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/QuattroSquadra/LoadTestingApp.png?label=ready&title=Ready)](https://waffle.io/QuattroSquadra/LoadTestingApp)  [![Build Status](https://travis-ci.org/Auklets/LoadEffect.svg?branch=master)](https://travis-ci.org/Auklets/LoadEffect) [![Coverage Status](https://coveralls.io/repos/github/Auklets/LoadEffect/badge.svg?branch=master)](https://coveralls.io/github/Auklets/LoadEffect?branch=master)
-<p align="center">
 # Load Effect
-</p>
 ---
 ![image](https://cloud.githubusercontent.com/assets/10008938/16785083/fb3cc528-4840-11e6-8bcf-0a6e57f06323.png)
 
