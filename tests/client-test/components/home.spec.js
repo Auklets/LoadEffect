@@ -11,7 +11,8 @@ describe('Home Components', () => {
       const wrapper = shallow(<Home />);
       expect(wrapper.find('Jumbo')).to.have.length(1);
       expect(wrapper.find('Benefits')).to.have.length(1);
-      expect(wrapper.find('CarouselPictures')).to.have.length(1);
+      expect(wrapper.find('Demo1')).to.have.length(1);
+      expect(wrapper.find('Demo2')).to.have.length(1);
       expect(wrapper.find('Developers')).to.have.length(1);
       expect(wrapper.find('GetStarted')).to.have.length(1);
       expect(wrapper.find('Footer')).to.have.length(1);
