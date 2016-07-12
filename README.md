@@ -1,6 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/QuattroSquadra/LoadTestingApp.png?label=ready&title=Ready)](https://waffle.io/QuattroSquadra/LoadTestingApp)  [![Build Status](https://travis-ci.org/Auklets/LoadEffect.svg?branch=master)](https://travis-ci.org/Auklets/LoadEffect) [![Coverage Status](https://coveralls.io/repos/github/Auklets/LoadEffect/badge.svg?branch=master)](https://coveralls.io/github/Auklets/LoadEffect?branch=master)
 # Load Effect
 ---
+![image](https://cloud.githubusercontent.com/assets/10008938/16785083/fb3cc528-4840-11e6-8bcf-0a6e57f06323.png)
 
 ## Description
 > Load Effect is a load testing API that allows you to write your own script using the API-provided scripting language to simulate real user interactions up to scale.
@@ -21,11 +22,8 @@
 
 
 ## Screenshots
-<p align="center">
-  <img src="">
-  <img src="">
-  <img src="">
-</p>
+![image](https://cloud.githubusercontent.com/assets/10008938/16785095/12ce6aac-4841-11e6-80f5-9f74be469158.png)
+![image](https://cloud.githubusercontent.com/assets/10008938/16785327/4bea9a62-4842-11e6-9f26-156bfd5a415b.png)
 
 ## Getting Started
 

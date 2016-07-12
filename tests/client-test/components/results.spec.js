@@ -41,8 +41,8 @@ describe('Results Components', () => {
   describe('<Results {...props} />', () => {
     it('should render Test Summary Component', () => {
       const wrapper = shallow(<Results {...props} />);
-'      expect(wrapper.find(TestSummary)).to.have.length(1);
-    '    });
+      expect(wrapper.find('TestSummary')).to.have.length(1);
+    });
 
     it('should render General Statistics Component', () => {
       const wrapper = shallow(<Results {...props} />);
@@ -73,20 +73,20 @@ describe('Results Components', () => {
   });
 });
 
-describe('Create Bar Chart Data', () => {
-  it('should calculate the average of the numbers', () => {
-    const testData1 = ['a', 'a', 'a'];
-    const testData2 = [1, 2, 3];
+// describe('Create Bar Chart Data', () => {
+//   it('should calculate the average of the numbers', () => {
+//     const testData1 = ['a', 'a', 'a'];
+//     const testData2 = [1, 2, 3];
 
-    const result = createBarChartData(testData1, testData2);
-    // expect(result.series[0][0]).to.equal(2);
-  });
+//     const result = createBarChartData(testData1, testData2);
+//     // expect(result.series[0][0]).to.equal(2);
+//   });
 
-  it('should return the correct number of unique x axis items', () => {
+//   it('should return the correct number of unique x axis items', () => {
 
-  });
+//   });
 
-  it('should return the correct number of unique x axis items and averages', () => {
+//   it('should return the correct number of unique x axis items and averages', () => {
 
-  });
-});
+//   });
+// });
