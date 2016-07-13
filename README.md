@@ -79,6 +79,7 @@ npm test
 
 1. [File Structure](/documentation/FILE-STRUCTURE.md)
 1. [Architecture Diagram and Flow-Chart](/documentation/ARCHITECTURE-DIAGRAMS.md)
+1. [LoadEffect Overview Presentation](https://docs.google.com/presentation/d/1FYygaxJOOlUx61Xl1JGpWn2k684BjZoxiTSG3lEw_PA/edit?usp=sharing)
 
 ## Deployment
 
