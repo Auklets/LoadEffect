@@ -1,7 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/QuattroSquadra/LoadTestingApp.png?label=ready&title=Ready)](https://waffle.io/QuattroSquadra/LoadTestingApp)  [![Build Status](https://travis-ci.org/Auklets/LoadEffect.svg?branch=master)](https://travis-ci.org/Auklets/LoadEffect) [![Coverage Status](https://coveralls.io/repos/github/Auklets/LoadEffect/badge.svg?branch=master)](https://coveralls.io/github/Auklets/LoadEffect?branch=master)
 # Load Effect
 ---
-![image](https://cloud.githubusercontent.com/assets/10008938/16785083/fb3cc528-4840-11e6-8bcf-0a6e57f06323.png)
+![image](https://cloud.githubusercontent.com/assets/10008938/16785419/d8669496-4842-11e6-8e66-faa7f9162e5b.png)
 
 ## Description
 > Load Effect is a load testing API that allows you to write your own script using the API-provided scripting language to simulate real user interactions up to scale.
@@ -9,21 +9,47 @@
 ## Table of Contents
 
 1. [Usage](#usage)
-1. [Screenshots](#screenshots)
 1. [Getting Started](#getting-started)
     1. [Prerequisites](#prerequisites)
     1. [Installing Dependencies](#installing-dependencies)
 1. [API Documentation](#api-documentation)
+1. [Deployment](#deployment)
+    1. [Server creation](#server-creation)
+        1. [AWS](#AWS)
+        2. [Digital Ocean](#digital-ocean)
+    1. [Shell connection](#shell-connection)
+    1. [Environment setup](#environment-setup)
+        1. [Environment variables](#environment-variables)
+        1. [Certificates](#certificates)
+    1. [Pull images](#pull-images)
+    1. [Run Containers](#run-containers)
+        1. [MySQL Database](#mysql-database)
+        2. [Web Application](#web-application)
+    1. [Monitor Containers](#monitor-containers)
+1. [Worker-Master-interaction](#worker-master-interaction)
+    1. [A](#A)
+    2. [B](#B)
+    3. [C](#C)
 1. [Core Team](#core-team)
 1. [Contributing](#contributing)
 1. [Licensing](#license)
 
 ## Usage
 
+1. Signup:
+![image](https://cloud.githubusercontent.com/assets/10008938/16785401/bb511980-4842-11e6-955c-34952d19d33a.png)
 
-## Screenshots
+2. Create Scenario:
 ![image](https://cloud.githubusercontent.com/assets/10008938/16785095/12ce6aac-4841-11e6-80f5-9f74be469158.png)
+
+3. Scenarios Overview:
 ![image](https://cloud.githubusercontent.com/assets/10008938/16785327/4bea9a62-4842-11e6-9f26-156bfd5a415b.png)
+
+4. Verify website ownership with validation token:
+![image](https://cloud.githubusercontent.com/assets/10008938/16788024/fc56f8c4-4855-11e6-94bc-987e40f65bd2.png)
+
+5. Run Scenario:
+![image](https://cloud.githubusercontent.com/assets/10008938/16786320/b7ddd396-4848-11e6-883f-b12dbdea6835.gif)
 
 ## Getting Started
 
@@ -49,6 +75,10 @@ npm test
 
 1. [File Structure](/documentation/FILE-STRUCTURE.md)
 1. [Architecture Diagram and Flow-Chart](/documentation/ARCHITECTURE-DIAGRAMS.md)
+
+## Deployment
+
+[DeploymentDocs README](https://github.com/Auklets/DeploymentDocs/README.md)
 
 ## Core Team
 
