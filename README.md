@@ -85,6 +85,8 @@ npm test
 
 [DeploymentDocs README](https://github.com/Auklets/DeploymentDocs/README.md)
 
+## Master-Worker Server Interaction
+
 ## Core Team
 
   - __Scrum Master__: [Felix Feng](https://github.com/felix2feng)
