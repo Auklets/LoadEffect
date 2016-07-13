@@ -4,7 +4,11 @@
 ![image](https://cloud.githubusercontent.com/assets/10008938/16785419/d8669496-4842-11e6-8e66-faa7f9162e5b.png)
 
 ## Description
-> Load Effect is a load testing API that allows you to write your own script using the API-provided scripting language to simulate real user interactions up to scale.
+> Load Effect is a load testing API that allows you to write your own script using the API-provided scripting language to simulate real user interactions up to scale. 
+
+> Load Effect features script validation, domain validation through DNS TXT records, real-time analytics,
+
+> This application was built using React, Redux, Chartist.js, Node.js, express.js, sockets.io, MySQL, Zombie.js, docker, AWS, Digital Ocean, Travis CI, and Mocha/Chai.
 
 ## Table of Contents
 
