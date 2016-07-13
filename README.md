@@ -4,7 +4,7 @@
 ![image](https://cloud.githubusercontent.com/assets/10008938/16785419/d8669496-4842-11e6-8e66-faa7f9162e5b.png)
 
 ## Description
-Load Effect is a load testing API that allows you to write your own script using the API-provided scripting language to simulate real user interactions up to scale.
+Load Effect is a load testing API that allow you to write a custom script using the API-provided scripting language to simulate real user interactions up to scale.
 
 Load Effect features script validation, domain validation through DNS TXT records, real-time analytics,
 
@@ -34,6 +34,9 @@ This application was built using React, Redux, Chartist.js, Node.js, express.js,
     1. [A](#A)
     2. [B](#B)
     3. [C](#C)
+1. [Website Validation](#website-validation)
+  1. [DNS Instructions](#dns-instructions)
+  1. [How it works](#how-the-dns-verification-works)
 1. [Core Team](#core-team)
 1. [Contributing](#contributing)
 1. [Licensing](#license)
@@ -89,6 +92,7 @@ npm test
 
 ## Website Validation
 
+#### DNS Instructions
 In order to prevent using the API to perform DDOS attacks, you'll need to verify domain ownership through the use of DNS Text Records.
 
 
@@ -111,23 +115,27 @@ If the validation was successful, the button will turn green and you'll be able 
 
 ![image](https://cloud.githubusercontent.com/assets/15970451/16816850/d4b4d1e8-48f4-11e6-93a9-dff6ba553d32.png)
 
-### How The DNS Verification Works
+#### How The DNS Verification Works
 
-Node has the DNS module built-in, which has a number of helpful API's that can perform this lookup on the backend.
+Node has a DNS module built in, which has a number of helpful API's that can perform this lookup on the backend.
 
-Here's an example usage:
+Example usage:
 
 ```javascript
 const dns = require('dns');
+const app = require('express')();
 
 const validateWebsite = (request, response) => {
   dns.resolveTxt('anhtaihuynh.com', (err, results) => {
     if (err) {
+      response.send(err);
       throw err;
     }
     response.send(results); // Results is a 2D array of the DNS Text record values for the input url
   });
 }
+
+app.get('/api/validate-site', validateWebsite);
 
 ```
 
