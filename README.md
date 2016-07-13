@@ -13,7 +13,7 @@
     1. [Prerequisites](#prerequisites)
     1. [Installing Dependencies](#installing-dependencies)
 1. [API Documentation](#api-documentation)
-1. [Deployment](#deployment)
+1. [Deployment Documentation](#deployment-documentation)
     1. [Server creation](#server-creation)
         1. [AWS](#AWS)
         2. [Digital Ocean](#digital-ocean)
@@ -76,7 +76,7 @@ npm test
 1. [File Structure](/documentation/FILE-STRUCTURE.md)
 1. [Architecture Diagram and Flow-Chart](/documentation/ARCHITECTURE-DIAGRAMS.md)
 
-## Deployment
+## Deployment Documentation
 
 [DeploymentDocs README](https://github.com/Auklets/DeploymentDocs/README.md)
 
