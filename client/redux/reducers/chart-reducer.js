@@ -9,11 +9,11 @@ const initialStateChart = {
   path: [],
   statusCode: [],
   elapsedTimeAction: [],
-  averageElapsedTime: 0,
+  averageElapsedTime: 786,
   numberErrors: 0,
-  numberActions: 0,
-  currentSpawns: 0,
-  percentComplete: 0,
+  numberActions: 1000,
+  currentSpawns: 7600,
+  percentComplete: 100,
 };
 
 export const chartReducer = (state = initialStateChart, action) => {

@@ -2,6 +2,7 @@ export const TOGGLE_SCENARIO_MODAL = 'TOGGLE_SCENARIO_MODAL';
 export const TOGGLE_VERIFY_MODAL = 'TOGGLE_VERIFY_MODAL';
 export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 export const TOGGLE_SIGNUP_MODAL = 'TOGGLE_SIGNUP_MODAL';
+export const TOGGLE_DEMO_MODAL = 'TOGGLE_DEMO_MODAL';
 
 /* ******* Login Modal Actions ******* */
 
@@ -82,3 +83,24 @@ export const openScenarioModal = () => dispatch => {
 export const closeScenarioModal = () => dispatch => {
   dispatch(hideScenarioModal());
 };
+
+/* ******** Demo Modal Actions  ******** */
+
+export const showDemoModal = () => ({
+  type: TOGGLE_DEMO_MODAL,
+  isDemoModalOpen: true,
+});
+
+export const hideDemoModal = () => ({
+  type: TOGGLE_DEMO_MODAL,
+  isDemoModalOpen: false,
+});
+
+export const openDemoModal = () => dispatch => {
+  dispatch(showDemoModal());
+};
+
+export const closeDemoModal = () => dispatch => {
+  dispatch(hideDemoModal());
+};
+

@@ -6,6 +6,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 // Modal/Popup Components
 import VerifySiteContainer from '../VerifySite/VerifySiteContainer.jsx';
 import ScenarioModalContainer from '../Scenario/ScenarioModalContainer.jsx';
+import DemoOnlyContainer from '../DemoOnly/DemoOnlyContainer.jsx';
 
 const Navigation = props => {
   const { handleClick, allScenarios, showVerifyModal } = props;
@@ -24,6 +25,7 @@ const Navigation = props => {
       </li>
       <VerifySiteContainer allScenarios={allScenarios} />
       <ScenarioModalContainer />
+      <DemoOnlyContainer />
     </Nav>
   );
 
