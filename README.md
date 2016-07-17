@@ -31,8 +31,8 @@ This application was built using React, Redux, Chartist.js, Node.js, express.js,
         2. [Web Application](#web-application)
     1. [Monitor Containers](#monitor-containers)
 1. [Master-Worker-Documentation](#worker-master-documentation)
-    1. [Master](#master)
-    2. [Worker](#worker)
+    1. [Master](#master-documentation)
+    2. [Worker](#worker-documentation)
 1. [Website Validation](#website-validation)
   1. [DNS Instructions](#dns-instructions)
   1. [How it works](#how-the-dns-verification-works)
@@ -85,15 +85,15 @@ npm test
 
 ## Deployment Documentation
 
-[DeploymentDocs README](https://github.com/Auklets/DeploymentDocs/README.md)
+[DeploymentDocs README](https://github.com/Auklets/DeploymentDocs)
 
 ## Master-Worker Documentation
 
 #### Master documentation
-[Master README](https://github.com/Auklets/LoadMaster/README.md)
+[Master README](https://github.com/Auklets/LoadMaster)
 
 #### Worker documentation
-[Worker README](https://github.com/Auklets/LoadWorker/README.md)
+[Worker README](https://github.com/Auklets/LoadWorker)
 
 ## Website Validation
 
