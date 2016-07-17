@@ -30,7 +30,7 @@ This application was built using React, Redux, Chartist.js, Node.js, express.js,
         1. [MySQL Database](#mysql-database)
         2. [Web Application](#web-application)
     1. [Monitor Containers](#monitor-containers)
-1. [Master-Worker-Documentation](#worker-master-documentation)
+1. [Master-Worker-Documentation](#master-worker-documentation)
     1. [Master](#master-documentation)
     2. [Worker](#worker-documentation)
 1. [Website Validation](#website-validation)
