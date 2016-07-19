@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Main from './Main.jsx';
 import { history } from '../../redux/store';
 import { deleteScenario, getScenarios, runScenario, changeCurrentScenarioId, checkForValidUrl, rerunScenario } from '../../redux/actionCreators/scenario-actions';
+import { openDemoModal } from '../../redux/actionCreators/modal-actions';
 
 export const MainContainer = (props) => (
   <div>
@@ -42,6 +43,10 @@ const mapDispatchToProps = dispatch => ({
   removeScenario(id) {
     dispatch(deleteScenario(id));
     dispatch(getScenarios());
+  },
+
+  showDemoModal() {
+    dispatch(openDemoModal());
   },
 
 });

@@ -64,14 +64,14 @@ const Results = props => {
           />
         </Row>
       </Grid>
-      <Modal show={!loaderToggle}>
+      {/*<Modal show={!loaderToggle}>
         <Modal.Header>
           <Modal.Title>We are spinning up our robots!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Your test results are coming soon
         </Modal.Body>
-      </Modal>
+      </Modal>*/}
     </div>
   );
 };

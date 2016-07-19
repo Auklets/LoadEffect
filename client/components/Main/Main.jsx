@@ -2,12 +2,49 @@ import React, { PropTypes } from 'react';
 import { Table, Well, DropdownButton, MenuItem, PageHeader } from 'react-bootstrap';
 
 const Main = props => {
-  const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest, removeScenario } = props;
+  const { allScenarios, showResultsPage, validateUrl, runVerifiedScenario, rerunScenarioTest, removeScenario, showDemoModal } = props;
   const handleViewResults = item => () => showResultsPage(item.id);
   const handleValidation = (url, id) => () => validateUrl(url, id);
   const handleRunTest = creds => () => runVerifiedScenario(creds);
   const handleRerunTest = creds => () => rerunScenarioTest(creds);
   const handleDeleteTest = id => () => removeScenario(id);
+
+  if (!allScenarios.length) {
+    const sampleData = {
+      scenarioName: 'Fake Test',
+      spawnsCount: 1000,
+      workers: 5,
+      targetURL: 'anhtaihuynh.com',
+      id: 5,
+      averageElapsedTime: 783,
+      isVerifiedOwner: 1,
+      completion: 0,
+    };
+
+    const sampleData2 = {
+      scenarioName: 'Another Fake Test',
+      spawnsCount: 800,
+      workers: 10,
+      targetURL: 'christianhaug.com',
+      id: 3,
+      averageElapsedTime: 685,
+      isVerifiedOwner: 0,
+      completion: 1,
+    };
+
+    const sampleData3 = {
+      scenarioName: 'Real Test',
+      spawnsCount: 7600,
+      workers: 20,
+      targetURL: 'felixfeng.com',
+      id: 2,
+      averageElapsedTime: 977,
+      isVerifiedOwner: 1,
+      completion: 1,
+    };
+
+    allScenarios.push(sampleData, sampleData2, sampleData3);
+  }
 
   const showButtonStatus = item => {
     const deleteTestButton = (
@@ -19,7 +56,7 @@ const Main = props => {
     if (item.isVerifiedOwner) {
       return !item.completion ? (
         <DropdownButton bsSize="xsmall" bsStyle="success" title="Verified">
-          <MenuItem onClick={handleRunTest(item)} eventKey="1">
+          <MenuItem onClick={showDemoModal} eventKey="1">
             Run Test
           </MenuItem>
           {deleteTestButton}
@@ -29,7 +66,7 @@ const Main = props => {
           <MenuItem onClick={handleViewResults(item)} eventKey="1">
             View Results
           </MenuItem>
-          <MenuItem onClick={handleRerunTest(item)} eventKey="2">
+          <MenuItem onClick={showDemoModal} eventKey="2">
             Run Test Again
           </MenuItem>
           {deleteTestButton}
@@ -90,6 +127,8 @@ const Main = props => {
 
 Main.propTypes = {
   allScenarios: PropTypes.array,
+  removeScenario: PropTypes.func,
+  showDemoModal: PropTypes.func,
   validateUrl: PropTypes.func,
   rerunScenarioTest: PropTypes.func,
   runVerifiedScenario: PropTypes.func,

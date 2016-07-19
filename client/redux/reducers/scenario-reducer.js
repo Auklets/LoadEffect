@@ -2,11 +2,11 @@ import { GET_SCENARIOS, VALID_SCRIPT, RESET_ATTEMPT_CHECK, CURRENT_SCENARIO_INFO
 
 const initialState = {
   allScenarios: [],
-  currentScenarioID: 0,
-  currentSpawnsCount: 0,
-  currentWorkers: 0,
-  currentTargetURL: '',
-  currentScenarioName: '',
+  currentScenarioID: 2,
+  currentSpawnsCount: 7600,
+  currentWorkers: 20,
+  currentTargetURL: 'felixfeng.com',
+  currentScenarioName: 'Real Test',
   isValidScript: false,
   attemptedCheck: false,
   completion: false,
