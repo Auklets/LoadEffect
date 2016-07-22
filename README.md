@@ -167,7 +167,7 @@ app.get('/api/validate-site', validateWebsite);
 1. Fix any errors or issues raised by the reviewer and push the fixes as a single new commit
 1. Repeat until the pull request is merged.
 
-See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines in detail.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines in detail.
 
 ## License
 
